@@ -6,4 +6,11 @@ describe 'Usuário visita tela inicial' do
 
     expect(page).to have_content 'PaLevá'
   end
+
+  it 'e vê o botão Entrar' do
+    visit root_path
+
+    expect(page).to have_content 'PaLevá'
+    expect(page).to have_link 'Entrar'
+  end
 end

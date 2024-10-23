@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      user: Usuário
+    attributes:
+      user:
+        name: 'Nome'
+        surname: 'Sobrenome'
+        social_number: 'CPF'
