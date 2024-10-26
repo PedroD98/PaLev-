@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_23_114804) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_26_123842) do
+  create_table "operating_hours", force: :cascade do |t|
+    t.integer "day_of_week"
+    t.time "open_time"
+    t.time "close_time"
+    t.boolean "closed", default: false
+    t.integer "restaurant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_operating_hours_on_restaurant_id"
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string "legal_name"
+    t.string "restaurant_name"
+    t.string "registration_number"
+    t.string "address"
+    t.string "phone_number"
+    t.string "code"
+    t.integer "operation_status", default: 0
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email"
+    t.index ["user_id"], name: "index_restaurants_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -20,10 +46,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_114804) do
     t.string "name"
     t.string "surname"
     t.string "social_number"
-    t.boolean "registrated_restaurant", default: false
+    t.boolean "registered_restaurant", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "operating_hours", "restaurants"
+  add_foreign_key "restaurants", "users"
 end

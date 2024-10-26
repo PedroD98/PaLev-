@@ -1,0 +1,26 @@
+<h2>Horário de funcionamento:</h2>
+
+<%= form_with url: restaurant_operating_hours_path(@restaurant.id) do |f| %>
+  <div>
+    <span style="padding-left: 100px;">Abertura</span>
+    <span style="padding-left: 40px;">Fechamento</span>
+  </div>
+  <% OperatingHour.day_of_weeks.keys.each_with_index do |day, index| %>
+    <div id="<%= "#{I18n.t day}" %>">
+      <%= f.label "operating_hours_#{index}_day_of_week", I18n.t(day) %>
+      <%= f.hidden_field "operating_hours[#{index}][day_of_week]", value: day %>
+      <%= f.time_field "operating_hours[#{index}][open_time]" %>
+      <%= f.time_field "operating_hours[#{index}][close_time]" %>
+      <%= f.check_box "operating_hours[#{index}][closed]" %>
+      <%= f.label "operating_hours_#{index}_closed", 'Fechado' %>
+    </div>
+  <% end %>
+
+  <br />
+
+  <div>
+    <%= f.submit 'Registrar', class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>
+  </div>
+<% end %>
+
+<%= link_to 'Cancelar cadastro', restaurant_operating_hour_path(@restaurant.id, @restaurant.id) %>

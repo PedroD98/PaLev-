@@ -1,0 +1,16 @@
+pt-BR:
+  closed: 'Fechado'
+  opened: 'Aberto'
+  activerecord:
+    models: 
+      restaurant: Restaurante
+    attributes:
+      restaurant:
+        legal_name: 'Razão Social'
+        restaurant_name: 'Nome Fantasia'
+        registration_number: 'CNPJ'
+        address: 'Endereço'
+        phone_number: 'Telefone'
+        email: 'E-mail'
+        user_id: 'Dono do Restaurante'
+        user: 'Dono do Restaurante'

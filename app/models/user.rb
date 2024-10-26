@@ -4,12 +4,18 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_one :restaurant
+
   validates :name, :surname, :social_number, presence: true
+  validates :social_number, uniqueness: true
   validate  :validate_social_number
 
   def description
     "#{name} - #{email}"
   end
+  
+  private
+  
 
   def validate_social_number
     unless CPF.valid?(self.social_number)

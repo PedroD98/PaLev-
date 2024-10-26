@@ -11,6 +11,6 @@ describe 'Usuário visita tela inicial' do
     visit root_path
 
     expect(page).to have_content 'PaLevá'
-    expect(page).to have_link 'Entrar'
+    expect(page).to have_link 'Gerenciar Restaurante'
   end
 end

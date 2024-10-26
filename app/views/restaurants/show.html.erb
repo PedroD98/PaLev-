@@ -1,0 +1,21 @@
+
+
+<h1><%= @restaurant.restaurant_name %></h1>
+<div>
+    <h4>Status: <%= I18n.t @restaurant.operation_status %></h4>
+</div>
+<div>
+    <strong>Razão Social:</strong><%= @restaurant.legal_name %>
+    <br />
+    <strong>Código:</strong><%= @restaurant.code %>
+    <br />
+    <strong>CNPJ:</strong><%= @restaurant.registration_number %>
+    <br />
+    <strong>Endereço:</strong><%= @restaurant.address %>
+    <br />
+    <strong>Telefone:</strong><%= @restaurant.phone_number %>
+    <br />
+    <strong>E-mail:</strong><%= @restaurant.email %>
+</div>
+
+<%= link_to 'Horário de Funcionamento', restaurant_operating_hour_path(@restaurant) %>

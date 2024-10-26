@@ -1,0 +1,36 @@
+<h2>Horário de funcionamento:</h2>
+
+<% if current_user.restaurant.operating_hours.empty? %>
+  <div>
+    <h4>Seu horário de funcionamento ainda não foi cadastrado.</h4> 
+    <%= link_to 'Clique aqui', new_restaurant_operating_hour_path %> para fazer o cadastro.
+  </div>
+
+<% else %>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Dia da semana</th>
+          <th>Horário de abertura</th>
+          <th>Horário	de fechamento</th>
+          <th>Situação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% current_user.restaurant.operating_hours.each do |day_hours|%>
+          <tr>
+            <td> <%= I18n.t day_hours.day_of_week %> </td>
+            <td> <%= day_hours.open_time.strftime("%H:%M") unless day_hours.closed? %>  </td>
+            <td> <%= day_hours.close_time.strftime("%H:%M") unless day_hours.closed? %> </td>
+            <td> <%= I18n.t day_hours.closed %> </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <h4><%= link_to 'Detelhes do Restaurante', current_user.restaurant %></h4>
+  </div>
+<% end %>

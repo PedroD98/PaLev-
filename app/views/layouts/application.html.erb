@@ -19,22 +19,24 @@
   </head>
 
   <body class="prose px-9">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    
     <div>
       <h1><%= link_to 'PaLevá', root_path %></h1>
     </div>
 
     <nav>
       <% if user_signed_in? %>
-        <%= current_user.description %> |
-        <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200'  %>
-      <% else %>
-        <%= link_to 'Entrar', new_user_session_path %>
+        Usuário: <%= current_user.name %>
+        <br />
+        <% if current_user.registered_restaurant %>
+          <%= link_to 'Meu restaurante', current_user.restaurant %> |
+          Meu perfil
+        <% end %>
+        <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>
       <% end %>
     </nav>
     <div>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
       <%= yield %>
     </div>
   </body>

@@ -1,0 +1,51 @@
+
+
+<%= form_with model: @restaurant do |f| %>
+
+  <% if @restaurant.errors.any? %>
+    <div>
+      <h2>Seu restaurante não pôde ser cadastrado:</h2>
+      <ul>
+        <% @restaurant.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h2>Dados do Restaurante:</h2>
+  
+  <div>
+    <%= f.label :legal_name %>
+    <%= f.text_field :legal_name %>
+  </div>
+
+  <div>
+    <%= f.label :restaurant_name %>
+    <%= f.text_field :restaurant_name %>
+  </div>
+
+  <div>
+    <%= f.label :registration_number %>
+    <%= f.text_field :registration_number %>
+  </div>
+
+  <div>
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :phone_number %>
+    <%= f.number_field :phone_number %>
+  </div>
+
+  <div>
+    <%= f.submit 'Registrar Restaurante', class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>
+  </div>
+<% end %>
