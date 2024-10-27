@@ -10,10 +10,13 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   root to: "home#index"
+  resources :users, only: [:show]
   resources :restaurants, only: [:new, :create, :edit, :update, :show] do
     resources :operating_hours, only: [:new, :create, :edit, :update, :show]
   end
-  resources :items, only: [:index, :show]
+  resources :items, only: [:index] do
+    get 'search', on: :collection
+  end
   resources :dishes 
   resources :beverages
  

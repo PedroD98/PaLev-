@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      item: Item
+      item:
+        one: Item
+        other: Itens
       beverage: Bebida
       dish: Prato
     attributes:

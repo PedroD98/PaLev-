@@ -19,7 +19,7 @@ class RestaurantsController < ApplicationController
       current_user.update(registered_restaurant: true)
       redirect_to @restaurant, notice: 'Restaurante registrado com sucesso.'
     else
-      flash.now[:notice] = 'Falha ao registrar restaurante.'
+      flash.now[:alert] = 'Falha ao registrar restaurante.'
       render 'new', status: :unprocessable_entity
     end
   end
@@ -36,7 +36,7 @@ class RestaurantsController < ApplicationController
 
   def validate_current_user
     if @restaurant.user != current_user
-      redirect_to current_user.restaurant, notice: 'Você não tem acesso à esse restaurante.'
+      redirect_to current_user.restaurant, alert: 'Você não tem acesso à esse restaurante.'
     end
   end
 

@@ -10,8 +10,8 @@ class User < ApplicationRecord
   validates :social_number, uniqueness: true
   validate  :validate_social_number
 
-  def description
-    "#{name} - #{email}"
+  def full_name
+    "#{self.name} #{self.surname}"
   end
   
   private
@@ -22,4 +22,6 @@ class User < ApplicationRecord
       self.errors.add :social_number, 'inválido.'
     end
   end
+
+ 
 end

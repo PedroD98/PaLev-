@@ -1,0 +1,45 @@
+<h2>Resultados da busca por: <%= @search_input %></h2>
+
+<div>
+  <% if @searched_items.any? %>
+    <div>
+      <%= @searched_items.count %> <%= Item.model_name.human(count: @searched_items.count).downcase%> <%= t :found, count: @searched_items.count%>
+    </div>
+
+    <div>
+      <hr class="border-gray-500">
+      <% @searched_items.each do |item| %>
+        <div class="flex">
+          <div class="flex-shrink-0 mr-4">
+            <%= image_tag(item.image, style: "width: 100px; height: 100px;") if item.image.attached? %>
+          </div>
+
+          <div>
+              <p><%= link_to item.name, item %></p>
+              <p><%= item.description %></p>
+              <p><%= link_to "Editar #{item.name}", item.type == 'Dish' ? edit_dish_path(item) : edit_beverage_path(item) %></p>
+            </dl>
+          </div>
+
+          
+        </div>
+        <hr class="border-gray-500">
+      <% end %>
+    </div>
+
+  <% else %>
+    <div>
+        <strong>Nenhum item foi encontrado.</strong>
+    </div>
+  <% end %>
+</div>
+
+<br />
+<div>
+  <% if @items.empty? %>
+    <div>
+      <p>Parace que o seu menu está vazio.</p>
+      Registre seu primeiro <%= link_to 'prato', new_dish_path %> ou <%= link_to 'bebida', new_beverage_path %>.
+    </div>
+  <% end %>
+</div>

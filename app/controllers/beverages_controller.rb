@@ -17,7 +17,7 @@ class BeveragesController < ApplicationController
       @restaurant.items << @beverage
       redirect_to beverage_path(@beverage), notice: 'Bebida registrada com sucesso!'
     else
-      flash.now[:notice] = 'Falha ao registrar bebida.'
+      flash.now[:alert] = 'Falha ao registrar bebida.'
       render 'new', status: :unprocessable_entity
     end
   end
@@ -28,7 +28,7 @@ class BeveragesController < ApplicationController
     if @beverage.update(beverage_params)
       redirect_to @beverage, notice: 'Bebida editada com sucesso!'
     else
-      flash.now[:notice] = 'Falha ao editar bebida.'
+      flash.now[:alert] = 'Falha ao editar bebida.'
       render 'edit'
     end
   end

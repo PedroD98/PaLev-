@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def user_has_registered_restaurant?
     if !current_user.registered_restaurant
-      redirect_to new_restaurant_path, notice: 'Antes de seguir em frente, precisamos que você cadastre seu restaurante.'
+      redirect_to new_restaurant_path, alert: 'Antes de seguir em frente, precisamos que você cadastre seu restaurante.'
     end
   end
 

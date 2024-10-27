@@ -94,4 +94,21 @@ describe 'Usuário registra horário de funcionamento' do
 
     expect(page).to have_content 'Status: Aberto'
   end
+
+  it 'e só pode criá-lo uma vez' do
+    user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
+                        email: 'pedro@email.com', password: 'passwordpass')
+    restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
+                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+    user.update(registered_restaurant: true)
+    op = OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
+                               close_time: Time.zone.parse('11:59 PM'), closed: false, restaurant: restaurant)
+
+    login_as user
+    visit new_restaurant_operating_hour_path restaurant
+
+    expect(current_path).to eq restaurant_operating_hour_path(restaurant, op)
+    expect(page).to have_content 'Seu Horário de funcionamento já foi cadastrado'
+  end
 end

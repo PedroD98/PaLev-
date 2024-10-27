@@ -17,7 +17,7 @@ class DishesController < ApplicationController
       @restaurant.items << @dish
       redirect_to dish_path(@dish), notice: 'Prato registrado com sucesso!'
     else
-      flash.now[:notice] = 'Falha ao registrar prato.'
+      flash.now[:alert] = 'Falha ao registrar prato.'
       render 'new', status: :unprocessable_entity
     end
   end
@@ -30,7 +30,7 @@ class DishesController < ApplicationController
     if @dish.update(dish_params)
       redirect_to @dish, notice: 'Prato editado com sucesso!'
     else
-      flash.now[:notice] = 'Falha ao editar prato.'
+      flash.now[:alert] = 'Falha ao editar prato.'
       render 'edit'
     end
     

@@ -7,7 +7,7 @@ class OperatingHoursController < ApplicationController
   def new
     if @restaurant.operating_hours.any?
       redirect_to restaurant_operating_hour_path(@restaurant, @restaurant.operating_hours.first.id), 
-      notice: 'Seu Horário de funcionamento já foi cadastrado'
+      alert: 'Seu Horário de funcionamento já foi cadastrado'
     end
     @operating_hours = Array.new(7) { OperatingHour.new }
   end

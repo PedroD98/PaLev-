@@ -25,19 +25,26 @@
 
     <nav>
       <% if user_signed_in? %>
-        Usuário: <%= current_user.name %>
+        <span class="flex items-center" >
+          Usuário: <%= current_user.name %>
+          <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'bg-red-100 px-4 py-2 ml-4 rounded hover:bg-red-200' %>
+        </span>
         <br />
         <% if current_user.registered_restaurant %>
           <%= link_to 'Meu restaurante', current_user.restaurant %> |
           <%= link_to 'Menu do restaurante', items_path %> |
-          Meu perfil
+          <%= link_to 'Meu perfil', user_path(current_user)  %>
+          <%= form_with url: search_items_path, method: :get do |f| %>
+            <%= f.label :query, 'Buscar no menu'%>
+            <%= f.text_field :query%>
+            <%= f.submit 'Buscar', class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200'%>
+          <% end %>
         <% end %>
-        <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>
       <% end %>
     </nav>
     <div>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <p class="notice" style="color: LimeGreen;"><%= notice %></p>
+      <p class="alert" style="color: red;"><%= alert %></p>
       <%= yield %>
     </div>
   </body>

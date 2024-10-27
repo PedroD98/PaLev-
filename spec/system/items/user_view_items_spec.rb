@@ -15,19 +15,19 @@ describe 'Usuário acessa sua conta' do
                        registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                        phone_number: '2128245790', address: 'Av Mario, 30', user: other_user)
 
-    dish = Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
+    Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
                         description: 'Coxinha de frango', calories: 274)
-    Dish.create!(restaurant_id: other_restaurant.id, name: 'Coxinha', 
-                        description: 'Coxinha de frango', calories: 274)
+    other_dish = Dish.create!(restaurant_id: other_restaurant.id, name: 'Coxinha', 
+                              description: 'Coxinha de frango', calories: 274)
     user.update(registered_restaurant: true)
-    other_user.update(registered_restaurant: true)
 
 
 
-    login_as other_user
-    visit dish_path(dish.id)
+    login_as user
+    visit dish_path(other_dish.id)
 
     expect(current_path).to eq items_path
+    expect(page).to have_content 'Você não pode acessar esse prato'
   end
 
   it 'e tenta visualizar uma bebida de outro restaurante' do
@@ -43,18 +43,18 @@ describe 'Usuário acessa sua conta' do
                        registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                        phone_number: '2128245790', address: 'Av Mario, 30', user: other_user)
 
-    beverage = Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
-                            description: 'Coquinha quente', calories: 139)
-    Beverage.create!(restaurant_id: other_restaurant.id, name: 'Pepsi lata',
-                     description: 'Pepsi gelada', calories: 128)
+    Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
+                     description: 'Coquinha quente', calories: 139)
+    other_beverage = Beverage.create!(restaurant_id: other_restaurant.id, name: 'Pepsi lata',
+                                      description: 'Pepsi gelada', calories: 128)
     user.update(registered_restaurant: true)
-    other_user.update(registered_restaurant: true)
 
 
 
-    login_as other_user
-    visit beverage_path(beverage.id)
+    login_as user
+    visit beverage_path(other_beverage.id)
 
+    expect(page).to have_content 'Você não pode acessar essa bebida'
     expect(current_path).to eq items_path
   end
 end
