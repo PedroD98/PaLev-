@@ -1,0 +1,30 @@
+<h2>Detalhes da bebida:</h2>
+
+<div>
+  <h2><%= @beverage.name %></h2>
+  <p><strong>Descrição:</strong> <%= @beverage.description %></p>
+  <p><strong>Contém álcool:</strong> <%= @beverage.alcoholic ? 'Sim' : 'Não' %></p>
+  <% if @beverage.calories %>
+   <strong>Calorias:</strong> <%= @beverage.calories %> kcal
+  <% end %>
+</div>
+
+<br />
+
+<div>
+    <%= link_to 'Editar bebida', edit_beverage_path %>
+</div>
+
+<br />
+
+<div>
+    <%= link_to 'Voltar para o menu', items_path%>
+</div>
+
+<br />
+
+<div>
+    <%= button_to 'Excluir prato', @beverage, method: :delete,
+        class: 'bg-red-200 px-4 py-2 rounded hover:bg-red-500',
+        data: { turbo_confirm: 'Tem certeza de que deseja excluir este prato?'} %>
+</div>

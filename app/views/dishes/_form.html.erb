@@ -1,0 +1,36 @@
+<%= form_with model: @dish do |f| %>
+  <% if @dish.errors.any? %>
+    <div>
+      <h2>Seu prato não pôde ser cadastrado:</h2>
+      <ul>
+        <% @dish.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div id="name_field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div id="description_field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div id="calories_field">
+    <%= f.label :calories %>
+    <%= f.number_field :calories %>
+  </div>
+
+  <div>
+    <%= f.label :image, 'Foto do prato' %>
+    <%= f.file_field :image %>
+  </div>
+
+  <div>
+    <%= f.submit 'Enviar', class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>
+  </div>
+<% end %>

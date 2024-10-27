@@ -1,0 +1,43 @@
+<h1>Menu do restaurante:</h1>
+
+<span style="padding: 30px;">
+  <%= link_to 'Registre um prato', new_dish_path %>
+</span>
+
+<span style="padding: 30px;">
+    <%= link_to 'Registre uma bebida', new_beverage_path %>
+</span>
+
+
+
+<% if @restaurant.items.empty? %>
+  <div>
+    <h3>Seu restaurante ainda não possui nenhum item.</h3>
+  </div>
+  
+<% else %>
+  <div>
+    <br />
+    <dl>
+      <dt><strong>Pratos:</strong></dt>
+      <dd>
+        <% @restaurant.items.each do |item|%>
+          <% if item.type == 'Dish' %>
+            <%= link_to item.name, item %>
+            <br />
+          <% end %>
+        <% end %>
+      </dd>
+      <dt><strong>Bebidas:</strong></dt>
+      <dd>
+        <% @restaurant.items.each do |item|%>
+          <% if item.type == 'Beverage' %>
+            <%= link_to item.name, item %>
+            <br />
+          <% end %>
+        <% end %>
+      </dd>
+    </dl>
+    <br />
+  </div>
+<% end %>

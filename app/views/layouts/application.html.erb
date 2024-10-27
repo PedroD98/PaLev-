@@ -29,6 +29,7 @@
         <br />
         <% if current_user.registered_restaurant %>
           <%= link_to 'Meu restaurante', current_user.restaurant %> |
+          <%= link_to 'Menu do restaurante', items_path %> |
           Meu perfil
         <% end %>
         <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>

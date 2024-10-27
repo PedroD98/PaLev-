@@ -6,8 +6,6 @@ pt-BR:
   thursday: 'Quinta-feira'
   friday: 'Sexta-feira'
   saturday: "Sábado"
-  true: 'Fechado'
-  false: 'Aberto'
   activerecord:
     models: 
       operatin_hour: Horário de Funcionamento

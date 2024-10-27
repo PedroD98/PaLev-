@@ -1,0 +1,39 @@
+<h2>Detalhes do prato:</h2>
+
+<div>
+  <h1><%= @dish.name %></h1>
+  
+
+  <% if @dish.image.attached? %>
+    <div class="image-container">
+      <%= link_to image_tag(@dish.image, style: "width: 400px; height: 300px"), @dish.image, target: '_blank' %>
+      
+    </div>
+  <% end %>
+ 
+  
+  <p><strong>Descrição:</strong> <%= @dish.description %></p>
+  <% if @dish.calories %>
+   <strong>Calorias:</strong> <%= @dish.calories %> kcal
+  <% end %>
+</div>
+
+<br />
+
+<div>
+    <%= link_to 'Editar prato', edit_dish_path %>
+</div>
+
+<br />
+
+<div>
+    <%= link_to 'Voltar para o menu', items_path%>
+</div>
+
+<br />
+
+<div>
+    <%= button_to 'Excluir prato', @dish, method: :delete,
+        class: 'bg-red-200 px-4 py-2 rounded hover:bg-red-500',
+        data: { turbo_confirm: 'Tem certeza de que deseja excluir este prato?'} %>
+</div>

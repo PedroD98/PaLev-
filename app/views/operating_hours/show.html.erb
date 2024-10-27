@@ -23,7 +23,7 @@
             <td> <%= I18n.t day_hours.day_of_week %> </td>
             <td> <%= day_hours.open_time.strftime("%H:%M") unless day_hours.closed? %>  </td>
             <td> <%= day_hours.close_time.strftime("%H:%M") unless day_hours.closed? %> </td>
-            <td> <%= I18n.t day_hours.closed %> </td>
+            <td> <%= day_hours.closed ? 'Fechado' : 'Aberto' %> </td>
           </tr>
         <% end %>
       </tbody>

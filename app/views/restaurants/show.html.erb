@@ -1,8 +1,6 @@
-
-
 <h1><%= @restaurant.restaurant_name %></h1>
 <div>
-    <h4>Status: <%= I18n.t @restaurant.operation_status %></h4>
+    <h4>Status: <%= @restaurant.operation_status == 'closed' ? 'Fechado' : 'Aberto' %></h4>
 </div>
 <div>
     <strong>Razão Social:</strong><%= @restaurant.legal_name %>
@@ -18,4 +16,7 @@
     <strong>E-mail:</strong><%= @restaurant.email %>
 </div>
 
-<%= link_to 'Horário de Funcionamento', restaurant_operating_hour_path(@restaurant) %>
+<br />
+<div>
+  <%= link_to 'Horário de Funcionamento', restaurant_operating_hour_path(@restaurant) %>
+</div>
