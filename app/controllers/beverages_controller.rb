@@ -14,7 +14,6 @@ class BeveragesController < ApplicationController
     @beverage.restaurant = @restaurant
 
     if @beverage.save
-      @restaurant.items << @beverage
       redirect_to beverage_path(@beverage), notice: 'Bebida registrada com sucesso!'
     else
       flash.now[:alert] = 'Falha ao registrar bebida.'

@@ -11,13 +11,18 @@ Rails.application.routes.draw do
 
   root to: "home#index"
   resources :users, only: [:show]
+
   resources :restaurants, only: [:new, :create, :edit, :update, :show] do
     resources :operating_hours, only: [:new, :create, :edit, :update, :show]
   end
+
   resources :items, only: [:index] do
     get 'search', on: :collection
+    post 'activated', on: :member
+    post 'deactivated', on: :member
   end
-  resources :dishes 
+  
+  resources :dishes
   resources :beverages
  
 end

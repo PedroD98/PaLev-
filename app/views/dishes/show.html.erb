@@ -6,13 +6,24 @@
   <% if @dish.image.attached? %>
     <div class="image-container">
       <%= link_to image_tag(@dish.image, style: "width: 400px; height: 300px"), @dish.image, target: '_blank' %>
-      
     </div>
   <% end %>
- 
-  <p><strong>Descrição:</strong> <%= @dish.description %></p>
-  <% if @dish.calories %>
-   <strong>Calorias:</strong> <%= @dish.calories %> kcal
+  
+  <div>
+    <p><strong>Descrição:</strong> <%= @dish.description %></p>
+    <% if @dish.calories %>
+    <strong>Calorias:</strong> <%= @dish.calories %> kcal
+    <% end %>
+    <p><strong>Status: </strong> <%= t @dish.status %></p>
+  </div>
+  
+</div>
+
+<div>
+  <% if @dish.activated? %>
+    <p><%= button_to 'Desativar item', deactivated_item_path(@dish.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
+  <% else %>
+    <p><%= button_to 'Ativar item', activated_item_path(@dish.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
   <% end %>
 </div>
 

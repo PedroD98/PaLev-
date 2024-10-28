@@ -1,7 +1,7 @@
 class OperatingHoursController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
-  before_action :set_restaurant_and_operating_hours
+  before_action :set_restaurant
   before_action :validate_current_user, only: [:show]
 
   def new
@@ -31,7 +31,7 @@ class OperatingHoursController < ApplicationController
 
   private
 
-  def set_restaurant_and_operating_hours
+  def set_restaurant
     @restaurant = current_user.restaurant
   end
 

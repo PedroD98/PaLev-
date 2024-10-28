@@ -1,4 +1,6 @@
 pt-BR:
+  activated: 'Ativo'
+  deactivated: 'Desativado'
   activerecord:
     models:
       item:

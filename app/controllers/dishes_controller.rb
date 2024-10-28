@@ -14,7 +14,6 @@ class DishesController < ApplicationController
     @dish.restaurant = @restaurant
 
     if @dish.save
-      @restaurant.items << @dish
       redirect_to dish_path(@dish), notice: 'Prato registrado com sucesso!'
     else
       flash.now[:alert] = 'Falha ao registrar prato.'
