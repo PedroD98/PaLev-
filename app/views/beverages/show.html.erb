@@ -10,10 +10,21 @@
     </div>
   <% end %>
 
-  <p><strong>Descrição:</strong> <%= @beverage.description %></p>
-  <p><strong>Contém álcool:</strong> <%= @beverage.alcoholic ? 'Sim' : 'Não' %></p>
-  <% if @beverage.calories %>
-   <strong>Calorias:</strong> <%= @beverage.calories %> kcal
+  <div>
+    <p><strong>Descrição:</strong> <%= @beverage.description %></p>
+    <p><strong>Contém álcool:</strong> <%= @beverage.alcoholic ? 'Sim' : 'Não' %></p>
+    <% if @beverage.calories %>
+    <strong>Calorias:</strong> <%= @beverage.calories %> kcal
+    <% end %>
+    <p><strong>Status: </strong> <%= t @beverage.status %></p>
+  </div>
+</div>
+
+<div>
+  <% if @beverage.activated? %>
+    <p><%= button_to 'Desativar item', deactivated_item_path(@beverage.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
+  <% else %>
+    <p><%= button_to 'Ativar item', activated_item_path(@beverage.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
   <% end %>
 </div>
 
