@@ -5,8 +5,8 @@ describe 'Usuário cadastra uma bebida' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user
@@ -27,8 +27,8 @@ describe 'Usuário cadastra uma bebida' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user
@@ -41,7 +41,7 @@ describe 'Usuário cadastra uma bebida' do
     click_on 'Enviar'
 
     expect(page).to have_content 'Bebida registrada com sucesso!'
-    expect(page).to have_content 'Detalhes da bebida:'
+    expect(page).to have_content 'Detalhes do item:'
     expect(page).to have_content 'Coca lata'
     expect(page).to have_content 'Coquinha gelada.'
     expect(page).to have_content 'Calorias: 139 kcal'
@@ -53,8 +53,8 @@ describe 'Usuário cadastra uma bebida' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user
@@ -68,7 +68,7 @@ describe 'Usuário cadastra uma bebida' do
     click_on 'Enviar'
 
     expect(page).to have_content 'Bebida registrada com sucesso!'
-    expect(page).to have_content 'Detalhes da bebida:'
+    expect(page).to have_content 'Detalhes do item:'
     expect(page).to have_content 'Coca lata'
     expect(page).to have_content 'Coquinha gelada.'
     expect(page).to have_content 'Calorias: 139 kcal'
@@ -80,8 +80,8 @@ describe 'Usuário cadastra uma bebida' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user

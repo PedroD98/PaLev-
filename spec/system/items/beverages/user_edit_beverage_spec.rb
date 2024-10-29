@@ -5,17 +5,17 @@ describe 'Usuário edita uma bebida' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
     Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
-                 description: 'Coquinha gelada', calories: 139)
+                     description: 'Coquinha gelada', calories: 139)
 
     login_as user
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coca lata'
-    click_on 'Editar bebida'
+    click_on 'Editar item'
 
     expect(page).to have_content 'Editar bebida'
     expect(page).to have_field 'Nome', with: 'Coca lata'
@@ -30,24 +30,24 @@ describe 'Usuário edita uma bebida' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
     Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
-                 description: 'Coquinha gelada', calories: 139)
+                     description: 'Coquinha gelada', calories: 139)
 
     login_as user
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coca lata'
-    click_on 'Editar bebida'
+    click_on 'Editar item'
     fill_in 'Nome', with: 'Cerveja'
     fill_in 'Descrição', with: 'Cerveja gelada'
     fill_in 'Calorias', with: 470
     click_on 'Enviar'
 
     expect(page).to have_content 'Bebida editada com sucesso!'
-    expect(page).to have_content 'Detalhes da bebida:'
+    expect(page).to have_content 'Detalhes do item:'
     expect(page).to have_content 'Cerveja'
     expect(page).to have_content 'Cerveja gelada'
     expect(page).to have_content 'Calorias: 470 kcal'
@@ -58,17 +58,17 @@ describe 'Usuário edita uma bebida' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
     Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
-                 description: 'Coquinha gelada', calories: 139)
+                     description: 'Coquinha gelada', calories: 139)
 
     login_as user
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coca lata'
-    click_on 'Editar bebida'
+    click_on 'Editar item'
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: 'Cerveja gelada'
     fill_in 'Calorias', with: 470
@@ -85,8 +85,8 @@ describe 'Usuário edita uma bebida' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
     Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
                      description: 'Coquinha gelada', calories: 139)
@@ -95,10 +95,10 @@ describe 'Usuário edita uma bebida' do
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coca lata'
-    click_on 'Editar bebida'
+    click_on 'Editar item'
     click_on 'Cancelar edição'
 
-    expect(page).to have_content 'Detalhes da bebida:'
+    expect(page).to have_content 'Detalhes do item:'
     expect(page).to have_content 'Coca lata'
     expect(page).to have_content 'Coquinha gelada'
     expect(page).to have_content 'Calorias: 139 kcal'

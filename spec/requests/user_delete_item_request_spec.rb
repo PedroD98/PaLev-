@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário acessa um item de outra pessoa' do
-  it 'e tenta editar um prato' do
+  it 'e tenta excluir um prato' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     other_user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
@@ -16,13 +16,13 @@ describe 'Usuário acessa um item de outra pessoa' do
 
 
     login_as other_user
-    patch(dish_path(dish.id), params: { dish: {name: 'Croquete'} })
+    delete(dish_path(dish.id))
 
     expect(response).to redirect_to items_path
-    expect(dish.name).to eq 'Coxinha'
+    expect(Dish.exists?(dish.id)).to eq true
   end
 
-  it 'e tenta editar uma bebida' do
+  it 'e tenta excluir uma bebida' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     other_user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
@@ -37,9 +37,9 @@ describe 'Usuário acessa um item de outra pessoa' do
 
 
     login_as other_user
-    patch(beverage_path(beverage.id), params: { beverage: {name: 'Pepsi lata'} })
+    delete(beverage_path(beverage.id))
 
     expect(response).to redirect_to items_path
-    expect(beverage.name).to eq 'Coca lata'
+    expect(Beverage.exists?(beverage.id)).to eq true
   end
 end

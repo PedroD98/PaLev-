@@ -23,7 +23,7 @@
       <dd>
         <% @restaurant.items.each do |item|%>
           <% if item.type == 'Dish' %>
-            <%= link_to item.name, item %>
+            <%= link_to item.name, item_path(item) %>
             <br />
           <% end %>
         <% end %>
@@ -32,7 +32,7 @@
       <dd>
         <% @restaurant.items.each do |item|%>
           <% if item.type == 'Beverage' %>
-            <%= link_to item.name, item %>
+            <%= link_to item.name, item_path(item) %>
             <br />
           <% end %>
         <% end %>

@@ -9,11 +9,11 @@ describe 'Usuário acessa sua conta' do
                               email: 'kariny@gmail.com', password: 'passwordpass')
 
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     other_restaurant = Restaurant.create!(legal_name: 'Rede Pizza King Alimentos', restaurant_name: 'Pizza King',
-                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
-                       phone_number: '2128245790', address: 'Av Mario, 30', user: other_user)
+                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                    phone_number: '2128245790', address: 'Av Mario, 30', user: other_user)
 
     Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
                         description: 'Coxinha de frango', calories: 274)
@@ -24,10 +24,10 @@ describe 'Usuário acessa sua conta' do
 
 
     login_as user
-    visit dish_path(other_dish.id)
+    visit item_path(other_dish.id)
 
     expect(current_path).to eq items_path
-    expect(page).to have_content 'Você não pode acessar esse prato'
+    expect(page).to have_content 'Você não pode acessar esse item'
   end
 
   it 'e tenta visualizar uma bebida de outro restaurante' do
@@ -37,11 +37,11 @@ describe 'Usuário acessa sua conta' do
                               email: 'kariny@gmail.com', password: 'passwordpass')
 
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     other_restaurant = Restaurant.create!(legal_name: 'Rede Pizza King Alimentos', restaurant_name: 'Pizza King',
-                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
-                       phone_number: '2128245790', address: 'Av Mario, 30', user: other_user)
+                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                    phone_number: '2128245790', address: 'Av Mario, 30', user: other_user)
 
     Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
                      description: 'Coquinha quente', calories: 139)
@@ -52,9 +52,9 @@ describe 'Usuário acessa sua conta' do
 
 
     login_as user
-    visit beverage_path(other_beverage.id)
+    visit item_path(other_beverage.id)
 
-    expect(page).to have_content 'Você não pode acessar essa bebida'
+    expect(page).to have_content 'Você não pode acessar esse item'
     expect(current_path).to eq items_path
   end
 end

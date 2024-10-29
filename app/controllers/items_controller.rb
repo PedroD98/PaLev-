@@ -2,8 +2,10 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
   before_action :set_restaurant_and_items, only: [:index, :search]
-  before_action :set_item, only: [:deactivated, :activated]
+  before_action :set_item_and_validate_current_user, only: [:show, :deactivated, :activated]
   def index; end
+
+  def show; end
 
   def search
     @search_input = params[:query]
@@ -13,12 +15,12 @@ class ItemsController < ApplicationController
 
   def activated
     @item.activated!
-    redirect_to @item, notice: 'O item foi ativado.'
+    redirect_to item_path(@item), notice: 'O item foi ativado.'
   end
   
   def deactivated
     @item.deactivated!
-    redirect_to @item, notice: 'O item foi desativado.'
+    redirect_to item_path(@item), notice: 'O item foi desativado.'
   end
 
   private
@@ -28,7 +30,11 @@ class ItemsController < ApplicationController
     @items = @restaurant.items
   end
 
-  def set_item
+  
+  def set_item_and_validate_current_user
     @item = Item.find(params[:id])
+    unless @item.restaurant == current_user.restaurant
+      redirect_to items_path, alert: 'Você não pode acessar esse item'
+    end
   end
 end

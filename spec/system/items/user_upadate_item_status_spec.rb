@@ -16,7 +16,7 @@ describe 'Usuário edita o status do item' do
     click_on 'Brownie'
     click_on 'Desativar item'
 
-    expect(current_path).to eq dish_path dish
+    expect(current_path).to eq item_path(dish)
     expect(page).to have_content 'Status: Desativado'
     expect(page).to have_content 'O item foi desativado.'
     expect(page).to have_button 'Ativar item'
@@ -38,7 +38,7 @@ describe 'Usuário edita o status do item' do
     click_on 'Laramora'
     click_on 'Ativar item'
 
-    expect(current_path).to eq beverage_path beverage
+    expect(current_path).to eq item_path(beverage)
     expect(page).to have_content 'Status: Ativo'
     expect(page).to have_content 'O item foi ativado.'
     expect(page).to have_button 'Desativar item'

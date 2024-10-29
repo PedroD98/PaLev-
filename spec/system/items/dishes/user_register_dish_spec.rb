@@ -5,8 +5,8 @@ describe 'Usuário cadastra um prato' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user
@@ -26,8 +26,8 @@ describe 'Usuário cadastra um prato' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user
@@ -40,7 +40,7 @@ describe 'Usuário cadastra um prato' do
     click_on 'Enviar'
 
     expect(page).to have_content 'Prato registrado com sucesso!'
-    expect(page).to have_content 'Detalhes do prato:'
+    expect(page).to have_content 'Detalhes do item:'
     expect(page).to have_content 'Coxinha'
     expect(page).to have_content 'Coxinha de frango com massa feita no dia.'
     expect(page).to have_content 'Calorias: 274 kcal'
@@ -51,8 +51,8 @@ describe 'Usuário cadastra um prato' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user

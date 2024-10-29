@@ -1,0 +1,54 @@
+<h2>Detalhes do item:</h2>
+
+<div>
+  <h1><%= @item.name %></h1>
+
+  <% if @item.image.attached? %>
+    <div class="image-container">
+      <%= link_to image_tag(@item.image, style: "width: 400px; height: 300px"), @item.image, target: '_blank' %>
+    </div>
+  <% end %>
+  
+  <div>
+    <p><strong>Descrição:</strong> <%= @item.description %></p>
+
+    <% if @item.type == 'Beverage' %>
+      <p><strong>Contém álcool:</strong> <%= @item.alcoholic ? 'Sim' : 'Não' %></p>
+    <% end %>
+
+    <% if @item.calories %>
+      <strong>Calorias:</strong> <%= @item.calories %> kcal
+    <% end %>
+
+    <p><strong>Status: </strong> <%= t @item.status %></p>
+  </div>
+  
+</div>
+
+<div>
+  <% if @item.activated? %>
+    <p><%= button_to 'Desativar item', deactivated_item_path(@item.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
+  <% else %>
+    <p><%= button_to 'Ativar item', activated_item_path(@item.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
+  <% end %>
+</div>
+
+<br />
+
+<div>
+    <%= link_to 'Editar item', @item.type == 'Dish' ? edit_dish_path : edit_beverage_path %>
+</div>
+
+<br />
+
+<div>
+    <%= link_to 'Voltar para o menu', items_path%>
+</div>
+
+<br />
+
+<div>
+    <%= button_to 'Excluir item', @item, method: :delete,
+        class: 'bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700',
+        data: { turbo_confirm: 'Tem certeza de que deseja excluir este item?'} %>
+</div>

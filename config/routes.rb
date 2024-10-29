@@ -16,13 +16,13 @@ Rails.application.routes.draw do
     resources :operating_hours, only: [:new, :create, :edit, :update, :show]
   end
 
-  resources :items, only: [:index] do
+  resources :items, only: [:index, :show] do
     get 'search', on: :collection
     post 'activated', on: :member
     post 'deactivated', on: :member
   end
   
-  resources :dishes
-  resources :beverages
+  resources :dishes, only: [:new, :create, :edit, :update, :destroy]
+  resources :beverages, only: [:new, :create, :edit, :update, :destroy]
  
 end

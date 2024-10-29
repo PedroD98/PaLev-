@@ -5,8 +5,8 @@ describe 'Usuário edita um prato' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
     Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
                  description: 'Coxinha de frango', calories: 274)
@@ -15,7 +15,7 @@ describe 'Usuário edita um prato' do
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coxinha'
-    click_on 'Editar prato'
+    click_on 'Editar item'
 
     expect(page).to have_content 'Editar prato'
     expect(page).to have_field 'Nome', with: 'Coxinha'
@@ -29,8 +29,8 @@ describe 'Usuário edita um prato' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
     Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
                  description: 'Coxinha de frango', calories: 274)
@@ -39,14 +39,14 @@ describe 'Usuário edita um prato' do
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coxinha'
-    click_on 'Editar prato'
+    click_on 'Editar item'
     fill_in 'Nome', with: 'Croquete'
     fill_in 'Descrição', with: 'Croquete de carne'
     fill_in 'Calorias', with: 330
     click_on 'Enviar'
 
     expect(page).to have_content 'Prato editado com sucesso!'
-    expect(page).to have_content 'Detalhes do prato:'
+    expect(page).to have_content 'Detalhes do item:'
     expect(page).to have_content 'Croquete'
     expect(page).to have_content 'Croquete de carne'
     expect(page).to have_content 'Calorias: 330 kcal'
@@ -57,8 +57,8 @@ describe 'Usuário edita um prato' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
     Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
                  description: 'Coxinha de frango', calories: 274)
@@ -67,7 +67,7 @@ describe 'Usuário edita um prato' do
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coxinha'
-    click_on 'Editar prato'
+    click_on 'Editar item'
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: 'Croquete de carne'
     fill_in 'Calorias', with: 330
@@ -84,8 +84,8 @@ describe 'Usuário edita um prato' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
     Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
                  description: 'Coxinha de frango', calories: 274)
@@ -94,10 +94,10 @@ describe 'Usuário edita um prato' do
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coxinha'
-    click_on 'Editar prato'
+    click_on 'Editar item'
     click_on 'Cancelar edição'
 
-    expect(page).to have_content 'Detalhes do prato:'
+    expect(page).to have_content 'Detalhes do item:'
     expect(page).to have_content 'Coxinha'
     expect(page).to have_content 'Coxinha de frango'
     expect(page).to have_content 'Calorias: 274 kcal'
