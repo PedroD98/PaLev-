@@ -1,0 +1,34 @@
+<h1>Cadastro de porção de <%= @item.name %></h1>
+
+<%= form_with model: [@item, @portion], url: item_portions_path(@item) do |f| %>
+
+  <% if @portion.errors.any? %>
+    <div>
+      <h2>Sua porção não pôde ser cadastrada:</h2>
+      <ul>
+        <% @portion.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div>
+    <%= f.label :price %>
+    <%= f.number_field :price, step: 0.01, placeholder: '00.00' %>
+  </div>
+
+  <div>
+    <br />
+    <%= f.submit 'Enviar', class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to 'Cancelar cadastro', item_path(@item) %>
+</div>

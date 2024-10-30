@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+     portion: 
+      one: Porção
+      other: Porções
+    attributes:
+      portion:
+        description: Descrição
+        price: Preço

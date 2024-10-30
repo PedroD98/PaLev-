@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get 'search', on: :collection
     post 'activated', on: :member
     post 'deactivated', on: :member
+    resources :portions, only: [:show, :new, :create, :edit, :update, :destroy]
   end
   
   resources :dishes, only: [:new, :create, :edit, :update, :destroy]
