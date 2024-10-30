@@ -2,7 +2,7 @@ class TagsController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
   before_action :set_restaurant
-  before_action :set_tag_and_validate_user, only: [:edit, :update]
+  before_action :set_tag_and_validate_user, only: [:edit, :update, :destroy]
 
   def index
     @tags = @restaurant.tags
@@ -20,20 +20,25 @@ class TagsController < ApplicationController
 
     else
       flash.now[:alert] = 'Falha ao registrar marcador.'
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 
-  def edit
-    
-  end
+  def edit; end
 
   def update
+    if @tag.update(tag_params)
+      redirect_to tags_path, notice: 'Marcador editado com sucesso!'
     
+    else
+      flash.now[:alert] = 'Falha ao editar marcador.'
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
-    
+    @tag.destroy
+    redirect_to tags_path, notice: 'Marcador removido com sucesso!'
   end
 
 

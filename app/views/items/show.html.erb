@@ -38,6 +38,14 @@
     <%= link_to 'Editar item', @item.type == 'Dish' ? edit_dish_path : edit_beverage_path %>
 </div>
 
+<br />
+
+<div>
+    <%= button_to 'Excluir item', @item, method: :delete,
+        class: 'bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700',
+        data: { turbo_confirm: 'Tem certeza de que deseja excluir este item?'} %>
+</div>
+
 <h2>Porções:</h2>
 
 <div>
@@ -62,12 +70,4 @@
 <div>
     <br />
     <%= link_to 'Voltar para o menu', items_path %>
-</div>
-
-<br />
-
-<div>
-    <%= button_to 'Excluir item', @item, method: :delete,
-        class: 'bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700',
-        data: { turbo_confirm: 'Tem certeza de que deseja excluir este item?'} %>
 </div>

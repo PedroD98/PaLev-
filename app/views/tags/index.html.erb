@@ -13,7 +13,13 @@
     <div>
       <% @tags.each do |tag| %>
         <div>
-          <p><%= tag.name %></p>
+          <p>
+            <%= tag.name %> - 
+            <%= link_to 'Editar marcador', edit_tag_path(tag) %> -
+            <%= button_to 'Excluir marcador', tag, method: :delete,
+                class: 'bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700',
+                data: { turbo_confirm: 'Tem certeza que deseja excluir esse marcador' }%>
+          </p>
         </div>
       <% end %>
 
