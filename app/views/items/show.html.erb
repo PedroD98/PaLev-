@@ -46,7 +46,7 @@
       <dl>
         <dt><%= portion.description %></dt>
         <dd><%= number_to_currency(portion.price) %></dd>
-        <dd><%= link_to 'Editar preço', edit_item_portion_path(@item)%></dd>
+        <dd><%= link_to 'Editar preço', edit_item_portion_path(@item, portion)%></dd>
       </dl>
     <% end %>
   <% end %>
