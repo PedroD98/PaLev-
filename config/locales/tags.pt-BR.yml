@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      tag:
+        one: Marcador
+        other: Marcadores
+    attributes:
+      tag:
+        name: Nome

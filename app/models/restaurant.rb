@@ -2,6 +2,7 @@ class Restaurant < ApplicationRecord
   belongs_to :user
   has_many :operating_hours, dependent: :destroy
   has_many :items, dependent: :destroy
+  has_many :tags, dependent: :destroy
   accepts_nested_attributes_for :operating_hours
   enum :operation_status, {closed: 0, opened: 1}
   before_validation :generate_random_code

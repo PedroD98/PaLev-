@@ -33,7 +33,8 @@
         <% if current_user.registered_restaurant %>
           <%= link_to 'Meu restaurante', current_user.restaurant %> |
           <%= link_to 'Menu do restaurante', items_path %> |
-          <%= link_to 'Meu perfil', user_path(current_user)  %>
+          <%= link_to 'Gerenciar marcadores', tags_path %> |
+          <%= link_to 'Meu perfil', user_path(current_user) %>
           <%= form_with url: search_items_path, method: :get do |f| %>
             <%= f.label :query, 'Buscar no menu'%>
             <%= f.text_field :query%>

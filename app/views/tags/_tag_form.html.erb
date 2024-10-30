@@ -1,0 +1,22 @@
+<%= form_with model: @tag do |f| %>
+  <% if @tag.errors.any? %>
+    <div>
+      <h2>Marcador não pôde ser cadastrado:</h2>
+      <ul>
+        <% @tag.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div id="tag_name">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div>
+    <%= f.submit 'Enviar' %>
+  </div>
+
+<% end %>

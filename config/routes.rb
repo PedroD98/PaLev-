@@ -27,5 +27,5 @@ Rails.application.routes.draw do
   
   resources :dishes, only: [:new, :create, :edit, :update, :destroy]
   resources :beverages, only: [:new, :create, :edit, :update, :destroy]
- 
+  resources :tags
 end

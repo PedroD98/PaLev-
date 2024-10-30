@@ -1,0 +1,25 @@
+<div>
+  <h1>Marcadores:</h1>
+</div>
+
+<div>
+  <% if @tags.empty? %>
+    <div>
+      <p><strong>Você ainda não registrou nenhum marcador para os seus pratos.</strong></p>
+      <span><%= link_to 'Clique aqui', new_tag_path %> para registrar seu primeiro marcador!</span>
+    </div>
+    
+  <% else %>
+    <div>
+      <% @tags.each do |tag| %>
+        <div>
+          <p><%= tag.name %></p>
+        </div>
+      <% end %>
+
+      <div>
+        <%= link_to 'Novo marcador', new_tag_path %>
+      </div>
+    </div>
+  <% end %>
+</div>

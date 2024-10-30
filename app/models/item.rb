@@ -4,16 +4,6 @@ class Item < ApplicationRecord
   belongs_to :restaurant
   has_many :portions, dependent: :destroy
   enum :status, { deactivated: 0, activated: 1 }
-  before_validation :validate_item_name
   validates :name, :description, :type, presence: true
-
-
-  private
-
-  def validate_item_name
-    item = Item.find_by(restaurant_id: self.restaurant.id, name: self.name)
-    if item && item.id != self.id
-      self.errors.add :name, 'já existe no seu menu.'
-    end
-  end
+  validates :name, uniqueness: { scope: :restaurant }
 end
