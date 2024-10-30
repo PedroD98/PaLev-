@@ -1,5 +1,6 @@
 class Portion < ApplicationRecord
   belongs_to :item
+  has_many :price_histories
   validates :description, :price, presence: true
   before_validation :validate_portion_description
   before_validation :validate_price

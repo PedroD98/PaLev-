@@ -1,0 +1,29 @@
+<div>
+  <h1>Histórico de preços:</h1>
+  <h2><%= @item.name %> - <%= @portion.description %></h2>
+</div>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Data de entrada</th>
+        <th>Preço</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @price_histories.each do |ph| %>
+        <tr>
+          <td><%= ph.created_at.strftime('%d/%m/%Y') %></td>
+          <td><%= number_to_currency(ph.price)%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <p><%= link_to "Voltar para #{@item.name}", item_path(@item) %></p>
+  <p><%= link_to 'Voltar para o menu', items_path %></p>
+</div>

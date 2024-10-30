@@ -47,8 +47,12 @@
         <dt><%= portion.description %></dt>
         <dd><%= number_to_currency(portion.price) %></dd>
         <dd><%= link_to 'Editar preço', edit_item_portion_path(@item, portion)%></dd>
+        <dd><%= link_to 'Histórico de preços', item_portion_price_histories_path(@item, portion) %></dd>
       </dl>
     <% end %>
+
+  <% else %>
+    <strong>Nenhuma porção cadastrada para <%= @item.name %>.</strong>
   <% end %>
 </div>
 <div>
