@@ -18,7 +18,7 @@ describe 'Usuário edita o preço de uma porção' do
     click_on 'Editar preço'
 
     expect(current_path).to eq edit_item_portion_path(dish, portion)
-    expect(page).to have_content 'Editar preço de Croquete - 10 unid.'
+    expect(page).to have_content 'Editar preço de Croquete: 10 unid.'
     expect(page).not_to have_field 'Descrição'
     expect(page).to have_field 'Preço', with: 58.90
     expect(page).to have_button 'Enviar'
@@ -43,7 +43,7 @@ describe 'Usuário edita o preço de uma porção' do
     click_on 'Enviar'
 
     expect(current_path).to eq item_path(dish)
-    expect(page).not_to have_content 'Editar preço de Croquete - 10 unid.'
+    expect(page).not_to have_content 'Editar preço de Croquete: 10 unid.'
     expect(page).to have_content 'Preço editado com sucesso!'
     expect(page).to have_content '10 unid.'
     expect(page).to have_content 'R$ 45,50'

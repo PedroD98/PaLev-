@@ -10,6 +10,8 @@ pt-BR:
       dish: Prato
     attributes:
       item:
+        tag_ids: 'Marcadores'
+        new_tags: 'Novo marcador'
         type: 'Tipo'
         name: 'Nome'
         description: 'Descrição'

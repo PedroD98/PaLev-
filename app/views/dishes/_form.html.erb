@@ -1,5 +1,5 @@
 <%= form_with model: @dish do |f| %>
-  <% if @dish.errors.any? %>
+  <% if @dish.errors.any? || @new_tag_errors %>
     <div>
       <h2>Seu prato não pôde ser cadastrado:</h2>
       <ul>
@@ -7,6 +7,13 @@
           <li><%= message %></li>
         <% end %>
       </ul>
+      <% if @new_tag_errors.any? %>
+        <ul>
+          <% @new_tag_errors.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
   <% end %>
 
@@ -25,7 +32,31 @@
     <%= f.number_field :calories %>
   </div>
 
-  <div>
+  <% if @restaurant.tags.any? %>
+    <div id="tags_field" class="flex flex-wrap mt-2 mb-2">
+      <%= f.label :tag_ids, class: 'mr-2' %>
+      <%= f.collection_check_boxes :tag_ids, @tags, :id, :name do |b| %>
+        <div class="mr-2 ml-4"> 
+          <%= b.check_box(class: 'mr-1') %>
+          <%= b.label(class: 'inline') %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <div data-controller="tags">
+    <div id="new_tags_fields" data-tags-target="newTags">
+      <div class="new_tag_field">
+        <%= f.label :tag_ids, 'Novo marcador' %>
+        <%= f.text_field :tag_ids, name: 'dish[tag_ids][]', value: '', placeholder: "Ex: Vegano" %>
+      </div>
+    </div>
+    <div class="mt-2 mb-2">
+      <button type="button" data-action="click->tags#addTag" class="bg-gray-100 px-4 py-2 rounded hover:bg-gray-200">Adicionar mais um marcador</button>
+    </div>
+  </div>
+
+  <div class="mt-2 mb-2">
     <%= f.label :image, 'Foto do prato' %>
     <%= f.file_field :image %>
   </div>

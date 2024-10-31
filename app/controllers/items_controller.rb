@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
-  before_action :set_restaurant_and_items, only: [:index, :search]
+  before_action :set_restaurant_items_and_tags, only: [:index, :search]
   before_action :set_item_and_validate_current_user, only: [:show, :deactivated, :activated]
   def index; end
 
@@ -25,9 +25,10 @@ class ItemsController < ApplicationController
 
   private
 
-  def set_restaurant_and_items
+  def set_restaurant_items_and_tags
     @restaurant = current_user.restaurant
     @items = @restaurant.items
+    @tags = @restaurant.tags
   end
 
   

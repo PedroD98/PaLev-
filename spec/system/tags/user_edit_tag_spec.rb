@@ -13,7 +13,7 @@ describe 'Usuário edita marcadores' do
     login_as user
     visit root_path
     click_on 'Gerenciar marcadores'
-    click_on 'Editar marcador'
+    click_on 'Editar'
 
     expect(page).to have_content 'Editar marcador: Sem glúten'
     expect(page).to have_field 'Nome',with: 'Sem glúten'
@@ -33,7 +33,7 @@ describe 'Usuário edita marcadores' do
      login_as user
      visit root_path
      click_on 'Gerenciar marcadores'
-     click_on 'Editar marcador'
+     click_on 'Editar'
      fill_in 'Nome', with: 'Apimentado'
      click_on 'Enviar'
  

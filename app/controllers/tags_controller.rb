@@ -27,7 +27,7 @@ class TagsController < ApplicationController
   def edit; end
 
   def update
-    if @tag.update(tag_params)
+    if @tag.update(tag_params) && @tag.saved_change_to_name
       redirect_to tags_path, notice: 'Marcador editado com sucesso!'
     
     else

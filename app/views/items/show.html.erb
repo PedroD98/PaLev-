@@ -10,17 +10,31 @@
   <% end %>
   
   <div>
-    <p><strong>Descrição:</strong> <%= @item.description %></p>
+    <div>
+      <p><strong>Descrição:</strong> <%= @item.description %></p>
+    </div>
+    <div>
+      <% if @item.tags.any? %>
+        <p><strong>Características:</strong>
+          <%= @item.tags.map(&:name).join(', ')%>
+        </p>
+      <% end %>
+    </div>
+    <div>
+      <% if @item.type == 'Beverage' %>
+        <p><strong>Contém álcool:</strong> <%= @item.alcoholic ? 'Sim' : 'Não' %></p>
+      <% end %>
+    </div>
 
-    <% if @item.type == 'Beverage' %>
-      <p><strong>Contém álcool:</strong> <%= @item.alcoholic ? 'Sim' : 'Não' %></p>
-    <% end %>
+    <div>
+      <% if @item.calories %>
+        <strong>Calorias:</strong> <%= @item.calories %> kcal
+      <% end %>
+    </div>
 
-    <% if @item.calories %>
-      <strong>Calorias:</strong> <%= @item.calories %> kcal
-    <% end %>
-
-    <p><strong>Status: </strong> <%= t @item.status %></p>
+    <div>
+      <p><strong>Status: </strong> <%= t @item.status %></p>
+    </div>
   </div>
   
 </div>
@@ -47,6 +61,9 @@
 </div>
 
 <h2>Porções:</h2>
+<div>
+  <p><%= link_to 'Adicionar porção', new_item_portion_path(@item)%> </p>
+</div>
 
 <div>
   <% if @item.portions.any? %>
@@ -62,9 +79,6 @@
   <% else %>
     <strong>Nenhuma porção cadastrada para <%= @item.name %>.</strong>
   <% end %>
-</div>
-<div>
-  <p><%= link_to 'Adicionar porção', new_item_portion_path(@item)%> </p>
 </div>
 
 <div>

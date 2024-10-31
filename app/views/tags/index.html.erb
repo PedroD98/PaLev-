@@ -11,21 +11,21 @@
     
   <% else %>
     <div>
-      <% @tags.each do |tag| %>
-        <div>
-          <p>
-            <%= tag.name %> - 
-            <%= link_to 'Editar marcador', edit_tag_path(tag) %> -
-            <%= button_to 'Excluir marcador', tag, method: :delete,
-                class: 'bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700',
-                data: { turbo_confirm: 'Tem certeza que deseja excluir esse marcador' }%>
-          </p>
-        </div>
-      <% end %>
-
       <div>
         <%= link_to 'Novo marcador', new_tag_path %>
+        <br />
       </div>
+      
+      <% @tags.each do |tag| %>
+        <div class="flex items-center space-x-4 py-2 border-b">
+          <span><%= tag.name %></span>
+          <%= link_to 'Editar', edit_tag_path(tag) %>
+          <%= button_to 'Excluir', tag, method: :delete,
+              class: 'bg-red-500 text-white px-1 py-1 rounded hover:bg-red-700',
+              data: { turbo_confirm: 'Tem certeza que deseja excluir esse marcador' }%>
+          <br />
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>

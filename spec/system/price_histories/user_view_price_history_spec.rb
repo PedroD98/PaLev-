@@ -44,7 +44,7 @@ describe 'Usuário cria uma porção' do
 
     
     expect(page).to have_content 'Histórico de preços:'
-    expect(page).to have_content 'Croquete - 10 unid.'
+    expect(page).to have_content 'Croquete: 10 unid.'
     expect(page).to have_content 'Data de entrada'
     expect(page).to have_content 'Preço'
     expect(page).to have_content I18n.l(Date.today)

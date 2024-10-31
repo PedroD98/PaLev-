@@ -35,7 +35,6 @@ class PortionsController < ApplicationController
     end
   end
 
-
   private
 
   def set_item_and_validate_current_user

@@ -1,4 +1,4 @@
-<h1>Editar preço de <%= @item.name %> - <%= @portion.description %></h1>
+<h1>Editar preço de <%= @item.name %>: <%= @portion.description %></h1>
 
 <%= form_with model: [@item, @portion], url: item_portion_path(@item) do |f| %>
   <% if @portion.errors.any? %>

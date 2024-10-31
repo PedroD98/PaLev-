@@ -9,6 +9,9 @@ describe 'Usuário acessa um item de outra pessoa' do
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
                                     registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                     phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+    Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                       phone_number: '2127670444', address: 'Av Luigi, 30', user: other_user)
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
                         description: 'Coxinha de frango', calories: 274)
     user.update(registered_restaurant: true)

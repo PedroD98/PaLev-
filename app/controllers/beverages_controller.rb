@@ -32,6 +32,7 @@ class BeveragesController < ApplicationController
   end
 
   def destroy
+    @beverage.portions.destroy_all
     @beverage.destroy
     redirect_to items_path, notice: 'Bebida removida com sucesso!'
   end
