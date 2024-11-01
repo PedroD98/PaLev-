@@ -1,16 +1,48 @@
 <h1>Menu do restaurante:</h1>
 
-<span style="padding: 30px;">
-  <%= link_to 'Registre um prato', new_dish_path %>
-</span>
+<div class="mb-5">
+  <span style="padding: 30px;">
+    <%= link_to 'Registre um prato', new_dish_path %>
+  </span>
 
-<span style="padding: 30px;">
+  <span style="padding: 30px;">
     <%= link_to 'Registre uma bebida', new_beverage_path %>
-</span>
+  </span>
+</div>
 
+<% if @tags.any? %>
+  <%= form_with url: filter_items_path, method: :get do |f| %>
+    <div id="tags_field" class="flex flex-wrap mt-5 border">
+      <%= f.label :tag_filter_ids, 'Filtrar por:', class: 'mr-2' %>
+      <%= f.collection_check_boxes :tag_filter_ids, @tags, :id, :name do |b| %>
+        <div class="mr-2 ml-4"> 
+          <%= b.check_box(class: 'mr-1') %>
+          <%= b.label(class: 'inline') %>
+        </div>
+      <% end %>
+      <%= f.submit 'Aplicar', class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>
+    </div>
+  <% end %>
 
+<% else %>
+  <div>
+    <p>
+      <%= link_to 'Registre um marcador', new_tag_path %>
+      para usar filtros.
+    </p>
+  </div>
+<% end %>
 
-<% if @restaurant.items.empty? %>
+<% if @filtered_tags && @filtered_tags.any? %>
+  <div>
+    <p>
+      <strong>Filtrados aplicados: </strong>
+      <%= @filtered_tags.join(', ') %>
+    </p>
+  </div>
+<% end %>
+
+<% if @items.empty? %>
   <div>
     <h3>Seu restaurante ainda não possui nenhum item.</h3>
   </div>
@@ -21,7 +53,7 @@
     <dl>
       <dt><strong>Pratos:</strong></dt>
       <dd>
-        <% @restaurant.items.each do |item|%>
+        <% @items.each do |item|%>
           <% if item.type == 'Dish' %>
             <%= link_to item.name, item_path(item) %>
             <br />
@@ -30,7 +62,7 @@
       </dd>
       <dt><strong>Bebidas:</strong></dt>
       <dd>
-        <% @restaurant.items.each do |item|%>
+        <% @items.each do |item|%>
           <% if item.type == 'Beverage' %>
             <%= link_to item.name, item_path(item) %>
             <br />

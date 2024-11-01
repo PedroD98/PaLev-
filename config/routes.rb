@@ -18,13 +18,14 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show] do
     get 'search', on: :collection
+    get 'filter', on: :collection
     post 'activated', on: :member
     post 'deactivated', on: :member
     resources :portions, only: [:show, :new, :create, :edit, :update, :destroy] do
       resources :price_histories, only: [:index]
     end
   end
-  
+
   resources :dishes, only: [:new, :create, :edit, :update, :destroy]
   resources :beverages, only: [:new, :create, :edit, :update, :destroy]
   resources :tags

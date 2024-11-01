@@ -1,0 +1,58 @@
+<h1>Menu do restaurante:</h1>
+
+<div class="mb-5">
+  <span style="padding: 30px;">
+    <%= link_to 'Registre um prato', new_dish_path %>
+  </span>
+
+  <span style="padding: 30px;">
+    <%= link_to 'Registre uma bebida', new_beverage_path %>
+  </span>
+</div>
+
+
+<%= form_with url: filter_items_path, method: :get do |f| %>
+  <div id="filter_tags_field" class="flex flex-wrap mt-5 border">
+    <%= f.label :tag_filter_ids, 'Filtrar por:', class: 'mr-2' %>
+    <%= f.collection_check_boxes :tag_filter_ids, @tags, :id, :name do |b| %>
+    <div class="mr-2 ml-4"> 
+        <%= b.check_box(class: 'mr-1') %>
+        <%= b.label(class: 'inline') %>
+    </div>
+    <% end %>
+    <%= f.submit 'Aplicar', class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>
+  </div>
+<% end %>
+
+
+
+<br />
+
+<div>
+  <dl>
+    <dt>
+        <span class="mr-1">Pratos filtrados por:</span>
+        <%= @filters.map(&:name).join(', ') %>
+    </dt>
+
+    <% if @items.empty? %>
+      <div>
+        <h3>Nenhum prato encontrado.</h3>
+      </div>
+    <% else %>
+      <dd>
+        <% @items.each do |item|%>
+          <%= link_to item.name, item_path(item) %> - 
+          <%= item.tags.map(&:name).join(', ')%>
+          <br />
+        <% end %>
+      </dd>
+    <% end %>
+  </dl>
+</div>
+
+<br />
+
+<div>
+  <%= link_to 'Voltar para o menu', items_path %>
+</div>
