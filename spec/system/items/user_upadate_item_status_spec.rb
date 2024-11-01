@@ -14,13 +14,13 @@ describe 'Usuário edita o status do item' do
     visit root_path
     click_on 'Menu do restaurante'
     click_on 'Brownie'
-    click_on 'Desativar item'
+    click_on 'Desativar'
 
     expect(current_path).to eq item_path(dish)
     expect(page).to have_content 'Status: Desativado'
     expect(page).to have_content 'O item foi desativado.'
-    expect(page).to have_button 'Ativar item'
-    expect(page).not_to have_button 'Desativar item'
+    expect(page).to have_button 'Ativar'
+    expect(page).not_to have_button 'Desativar'
   end
 
   it 'e ativa o item' do
@@ -36,12 +36,12 @@ describe 'Usuário edita o status do item' do
     visit root_path
     click_on 'Menu do restaurante'
     click_on 'Laramora'
-    click_on 'Ativar item'
+    click_on 'Ativar'
 
     expect(current_path).to eq item_path(beverage)
     expect(page).to have_content 'Status: Ativo'
     expect(page).to have_content 'O item foi ativado.'
-    expect(page).to have_button 'Desativar item'
-    expect(page).not_to have_button 'Ativar item'
+    expect(page).to have_button 'Desativar'
+    expect(page).not_to have_button 'Ativar'
   end
 end

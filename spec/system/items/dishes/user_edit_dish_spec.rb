@@ -15,7 +15,7 @@ describe 'Usuário edita um prato' do
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coxinha'
-    click_on 'Editar item'
+    click_on 'Editar'
 
     expect(page).to have_content 'Editar prato'
     expect(page).to have_field 'Nome', with: 'Coxinha'
@@ -39,7 +39,7 @@ describe 'Usuário edita um prato' do
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coxinha'
-    click_on 'Editar item'
+    click_on 'Editar'
     fill_in 'Nome', with: 'Croquete'
     fill_in 'Descrição', with: 'Croquete de carne'
     fill_in 'Calorias', with: 330
@@ -67,7 +67,7 @@ describe 'Usuário edita um prato' do
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coxinha'
-    click_on 'Editar item'
+    click_on 'Editar'
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: 'Croquete de carne'
     fill_in 'Calorias', with: 330
@@ -94,7 +94,7 @@ describe 'Usuário edita um prato' do
     visit restaurant_path restaurant
     click_on 'Menu do restaurante'
     click_on 'Coxinha'
-    click_on 'Editar item'
+    click_on 'Editar'
     click_on 'Cancelar edição'
 
     expect(page).to have_content 'Detalhes do item:'

@@ -39,25 +39,28 @@
   
 </div>
 
-<div>
-  <% if @item.activated? %>
-    <p><%= button_to 'Desativar item', deactivated_item_path(@item.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
-  <% else %>
-    <p><%= button_to 'Ativar item', activated_item_path(@item.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
-  <% end %>
-</div>
+<div class="flex items-center space-x-4 py-2">
+  <div>
+    <%= link_to 'Editar', @item.type == 'Dish' ? edit_dish_path : edit_beverage_path %>
+  </div>
 
-<div>
-    <br />
-    <%= link_to 'Editar item', @item.type == 'Dish' ? edit_dish_path : edit_beverage_path %>
-</div>
+  <div>
+    <% if @item.activated? %>
+      <p><%= button_to 'Desativar', deactivated_item_path(@item.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
+    <% else %>
+      <p><%= button_to 'Ativar', activated_item_path(@item.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
+    <% end %>
+  </div>
 
-<br />
-
-<div>
-    <%= button_to 'Excluir item', @item, method: :delete,
+  <div>
+    <%= button_to 'Excluir', @item, method: :delete,
         class: 'bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700',
         data: { turbo_confirm: 'Tem certeza de que deseja excluir este item?'} %>
+  </div>
+</div>
+
+<div id="item_price_history">
+  <%= link_to 'Histórico de preços do item', item_price_history_path(@item)%>
 </div>
 
 <h2>Porções:</h2>
@@ -65,14 +68,14 @@
   <p><%= link_to 'Adicionar porção', new_item_portion_path(@item)%> </p>
 </div>
 
-<div>
+<div id="portions">
   <% if @item.portions.any? %>
     <% @item.portions.each do |portion| %>
       <dl>
         <dt><%= portion.description %></dt>
         <dd><%= number_to_currency(portion.price) %></dd>
         <dd><%= link_to 'Editar preço', edit_item_portion_path(@item, portion)%></dd>
-        <dd><%= link_to 'Histórico de preços', item_portion_price_histories_path(@item, portion) %></dd>
+        <dd><%= link_to 'Histórico de preços', item_portion_price_history_path(@item, portion) %></dd>
       </dl>
     <% end %>
 

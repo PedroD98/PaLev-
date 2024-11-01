@@ -1,9 +1,8 @@
 <div>
-  <h1>Histórico de preços do restaurante:</h1>
+  <h1>Histórico de preços do item: <%= @item.name %></h1>
 </div>
 
-
-<% if @price_histories.any? %>
+<% if @price_histories.any?%>
   <div>
     <table>
       <thead>
@@ -17,14 +16,11 @@
       <tbody>
         <% @price_histories.each do |ph| %>
           <% item = @restaurant.items.find_by(id: ph.item_id) %>
+          <% portion = item.portions.find_by(id: ph.portion_id) if item %>
           <tr>
             <td><%= ph.description%></td>
             <td><%= number_to_currency(ph.price)%></td>
             <td><%= ph.insertion_date.strftime('%d/%m/%Y') %></td>
-            <% if item %>
-              <% portion = item.portions.find_by(id: ph.portion_id) %>
-              <td><%= link_to 'Tabela do item', item_price_history_path(item) %></td>
-            <% end %>
             <td><%= link_to 'Tabela da porção', item_portion_price_history_path(item, portion) if portion %></td>
           </tr>
         <% end %>
@@ -33,15 +29,17 @@
   </div>
 <% else %>
   <div>
-    <h2>Seu histórico de preços está vazio.</h2>
+    <h2>Histórico de preços vazio.</h2>
     <div>
-      <span class="mr-2"><%= link_to 'Registre um item e uma porção', items_path %></span>
+      <span class="mr-2"><%= link_to 'Registre uma porção', new_item_portion_path(@item) %></span>
             para criar a tabela.
     </div>
   </div>
 <% end %>
 
+<br />
 <div>
-  <p><%= link_to "Voltar para restaurante", @restaurant %></p>
+  <p><%= link_to "Voltar para #{@item.name}", item_path(@item) %></p>
   <p><%= link_to 'Ir para o menu', items_path %></p>
+  <p><%= link_to 'Histórico completo do restaurante', restaurant_price_history_path(@restaurant) %></p>
 </div>

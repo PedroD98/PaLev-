@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :restaurants, only: [:new, :create, :edit, :update, :show] do
     resources :operating_hours, only: [:new, :create, :edit, :update, :show]
+    get 'price_history', to: 'price_histories#index'
   end
 
   resources :items, only: [:index, :show] do
@@ -21,8 +22,9 @@ Rails.application.routes.draw do
     get 'filter', on: :collection
     post 'activated', on: :member
     post 'deactivated', on: :member
+    get 'price_history', to: 'price_histories#show'
     resources :portions, only: [:show, :new, :create, :edit, :update, :destroy] do
-      resources :price_histories, only: [:index]
+      get 'price_history', to: 'price_histories#details'
     end
   end
 

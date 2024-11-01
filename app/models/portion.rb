@@ -1,6 +1,6 @@
 class Portion < ApplicationRecord
   belongs_to :item
-  has_many :price_histories, dependent: :destroy
+  has_many :price_histories
   validates :description, :price, presence: true
   validates :description, uniqueness: { scope: :item }
   before_validation :validate_price
