@@ -13,7 +13,7 @@ describe 'Usuário cria uma porção' do
 
     login_as user
     visit root_path
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
     click_on 'Croquete'
     click_on 'Adicionar porção'
     fill_in 'Descrição', with: '10 unid.'

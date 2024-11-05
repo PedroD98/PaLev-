@@ -13,7 +13,7 @@ describe 'Usuário edita uma bebida' do
 
     login_as user
     visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
     click_on 'Coca lata'
     click_on 'Editar'
 
@@ -33,13 +33,11 @@ describe 'Usuário edita uma bebida' do
                                     registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                     phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
-    Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
-                     description: 'Coquinha gelada', calories: 139)
+    beverage = Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
+                                description: 'Coquinha gelada', calories: 139)
 
     login_as user
-    visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
-    click_on 'Coca lata'
+    visit item_path beverage
     click_on 'Editar'
     fill_in 'Nome', with: 'Cerveja'
     fill_in 'Descrição', with: 'Cerveja gelada'
@@ -61,13 +59,11 @@ describe 'Usuário edita uma bebida' do
                                     registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                     phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
-    Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
-                     description: 'Coquinha gelada', calories: 139)
+    beverage = Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
+                                description: 'Coquinha gelada', calories: 139)
 
     login_as user
-    visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
-    click_on 'Coca lata'
+    visit item_path beverage
     click_on 'Editar'
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: 'Cerveja gelada'
@@ -88,13 +84,11 @@ describe 'Usuário edita uma bebida' do
                                     registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                     phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
-    Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
-                     description: 'Coquinha gelada', calories: 139)
+    beverage = Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
+                                description: 'Coquinha gelada', calories: 139)
 
     login_as user
-    visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
-    click_on 'Coca lata'
+    visit item_path beverage
     click_on 'Editar'
     click_on 'Cancelar edição'
 

@@ -12,7 +12,7 @@ describe 'Usuário edita o status do item' do
 
     login_as user
     visit root_path
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
     click_on 'Brownie'
     click_on 'Desativar'
 
@@ -34,7 +34,7 @@ describe 'Usuário edita o status do item' do
 
     login_as user
     visit root_path
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
     click_on 'Laramora'
     click_on 'Ativar'
 

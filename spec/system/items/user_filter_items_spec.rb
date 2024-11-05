@@ -13,7 +13,7 @@ describe 'Usuário acessa lista de items' do
 
     login_as user
     visit root_path
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
 
     expect(page).to have_content 'Filtrar por:'
     expect(page).to have_field 'Apimentado'

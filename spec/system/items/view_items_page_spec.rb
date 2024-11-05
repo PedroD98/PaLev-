@@ -11,10 +11,10 @@ describe 'Usuário faz login' do
 
     login_as user
     visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
 
     expect(current_path).to eq items_path
-    expect(page).to have_content 'Menu do restaurante:'
+    expect(page).to have_content 'Itens do restaurante:'
     expect(page).to have_content 'Seu restaurante ainda não possui nenhum item.'
     expect(page).to have_link 'Registre um prato'
     expect(page).to have_link 'Registre uma bebida'

@@ -13,7 +13,7 @@ describe 'Usuário registra prato' do
 
     login_as user
     visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
     click_on 'Registre um prato'
     fill_in 'Nome', with: 'Feijão mexicano'
     fill_in 'Descrição', with: 'Caldo de feijão saboroso'

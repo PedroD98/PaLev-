@@ -13,7 +13,7 @@ describe 'Usuário exclui' do
 
     login_as user
     visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
     click_on 'Coxinha'
     click_on 'Excluir'
 

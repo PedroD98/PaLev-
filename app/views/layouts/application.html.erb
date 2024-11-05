@@ -32,7 +32,7 @@
         <br />
         <% if current_user.registered_restaurant %>
           <%= link_to 'Meu restaurante', current_user.restaurant %> |
-          <%= link_to 'Menu do restaurante', items_path %> |
+          <%= link_to 'Lista de itens', items_path %> |
           <%= link_to 'Gerenciar marcadores', tags_path %> |
           <%= link_to 'Meu perfil', user_path(current_user) %>
           <%= form_with url: search_items_path, method: :get do |f| %>

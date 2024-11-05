@@ -11,7 +11,7 @@ describe 'Usuário cadastra uma bebida' do
 
     login_as user
     visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
     click_on 'Registre uma bebida'
 
     expect(current_path).to eq new_beverage_path
@@ -26,15 +26,13 @@ describe 'Usuário cadastra uma bebida' do
   it 'e adiciona um bebida ao restaurante' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
-    restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+    Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
+                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user
-    visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
-    click_on 'Registre uma bebida'
+    visit new_beverage_path
     fill_in 'Nome da bebida', with: 'Coca lata'
     fill_in 'Descrição', with: 'Coquinha gelada.'
     fill_in 'Calorias', with: 139
@@ -52,15 +50,13 @@ describe 'Usuário cadastra uma bebida' do
   it 'e adiciona um bebida alcoólica ao restaurante' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
-    restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+    Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
+                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user
-    visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
-    click_on 'Registre uma bebida'
+    visit new_beverage_path
     fill_in 'Nome da bebida', with: 'Coca lata'
     fill_in 'Descrição', with: 'Coquinha gelada.'
     fill_in 'Calorias', with: 139
@@ -79,15 +75,13 @@ describe 'Usuário cadastra uma bebida' do
   it 'e preenche os campos obrigatórios' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
-    restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
-                                    registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
-                                    phone_number: '2128270790', address: 'Av Mario, 30', user: user)
+    Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
+                       registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
+                       phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user
-    visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
-    click_on 'Registre uma bebida'
+    visit new_beverage_path
     fill_in 'Nome da bebida', with: ''
     fill_in 'Descrição', with: ''
     fill_in 'Calorias', with: 274

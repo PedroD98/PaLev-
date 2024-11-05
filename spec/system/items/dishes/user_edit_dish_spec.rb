@@ -13,7 +13,7 @@ describe 'Usuário edita um prato' do
 
     login_as user
     visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
     click_on 'Coxinha'
     click_on 'Editar'
 
@@ -32,13 +32,11 @@ describe 'Usuário edita um prato' do
                                     registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                     phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
-    Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
-                 description: 'Coxinha de frango', calories: 274)
+    dish = Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
+                        description: 'Coxinha de frango', calories: 274)
 
     login_as user
-    visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
-    click_on 'Coxinha'
+    visit item_path dish
     click_on 'Editar'
     fill_in 'Nome', with: 'Croquete'
     fill_in 'Descrição', with: 'Croquete de carne'
@@ -60,13 +58,11 @@ describe 'Usuário edita um prato' do
                                     registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                     phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
-    Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
-                 description: 'Coxinha de frango', calories: 274)
+    dish = Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
+                        description: 'Coxinha de frango', calories: 274)
 
     login_as user
-    visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
-    click_on 'Coxinha'
+    visit item_path dish
     click_on 'Editar'
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: 'Croquete de carne'
@@ -87,13 +83,11 @@ describe 'Usuário edita um prato' do
                                     registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                     phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
-    Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
-                 description: 'Coxinha de frango', calories: 274)
+    dish = Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
+                        description: 'Coxinha de frango', calories: 274)
 
     login_as user
-    visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
-    click_on 'Coxinha'
+    visit item_path dish
     click_on 'Editar'
     click_on 'Cancelar edição'
 

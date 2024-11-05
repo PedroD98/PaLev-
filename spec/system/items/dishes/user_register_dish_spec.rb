@@ -11,7 +11,7 @@ describe 'Usuário cadastra um prato' do
 
     login_as user
     visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
     click_on 'Registre um prato'
 
     expect(current_path).to eq new_dish_path
@@ -25,15 +25,13 @@ describe 'Usuário cadastra um prato' do
   it 'e adiciona um prato ao restaurante' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
-    restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
+    Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
                                     registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                     phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user
-    visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
-    click_on 'Registre um prato'
+    visit new_dish_path
     fill_in 'Nome do prato', with: 'Coxinha'
     fill_in 'Descrição', with: 'Coxinha de frango com massa feita no dia.'
     fill_in 'Calorias', with: 274
@@ -50,15 +48,13 @@ describe 'Usuário cadastra um prato' do
   it 'e preenche os campos obrigatórios' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
-    restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
+    Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
                                     registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                     phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
 
     login_as user
-    visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
-    click_on 'Registre um prato'
+    visit new_dish_path
     fill_in 'Nome do prato', with: ''
     fill_in 'Descrição', with: ''
     fill_in 'Calorias', with: 274

@@ -14,7 +14,7 @@ describe 'Usuário registra prato' do
 
     login_as user
     visit restaurant_path restaurant
-    click_on 'Menu do restaurante'
+    click_on 'Lista de itens'
     click_on 'Registre um prato'
 
     expect(current_path).to eq new_dish_path
