@@ -4,6 +4,7 @@ class Restaurant < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :price_histories, dependent: :destroy
   has_many :tags, dependent: :destroy
+  has_many :menus, dependent: :destroy
   accepts_nested_attributes_for :operating_hours
   enum :operation_status, {closed: 0, opened: 1}
   before_validation :generate_random_code
@@ -31,13 +32,14 @@ class Restaurant < ApplicationRecord
   private 
   
   def within_opening_hours
-    return false unless self.operating_hours.any?
-
-    current_time = Time.zone.now.strftime('%H:%M')
-    open_time = self.operating_hours.find_by(day_of_week: Date.current.wday).open_time.strftime('%H:%M')
-    close_time = self.operating_hours.find_by(day_of_week: Date.current.wday).close_time.strftime('%H:%M')
-
-    return true if current_time >= open_time && current_time < close_time
+    if self.operating_hours.empty? || self.operating_hours.find_by(day_of_week: Date.current.wday).closed?
+      return false
+    else  
+      current_time = Time.zone.now.strftime('%H:%M')
+      open_time = self.operating_hours.find_by(day_of_week: Date.current.wday).open_time.strftime('%H:%M')
+      close_time = self.operating_hours.find_by(day_of_week: Date.current.wday).close_time.strftime('%H:%M')  
+      return true if current_time >= open_time && current_time < close_time
+    end
   end
 
   def generate_random_code

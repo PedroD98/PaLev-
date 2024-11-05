@@ -32,6 +32,7 @@
         <br />
         <% if current_user.registered_restaurant %>
           <%= link_to 'Meu restaurante', current_user.restaurant %> |
+          <%= link_to 'Cardápios', restaurant_menus_path(current_user.restaurant) %> |
           <%= link_to 'Lista de itens', items_path %> |
           <%= link_to 'Gerenciar marcadores', tags_path %> |
           <%= link_to 'Meu perfil', user_path(current_user) %>

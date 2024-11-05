@@ -1,0 +1,28 @@
+<div>
+  <h1>Novo cardápio:</h1>
+</div>
+
+<%= form_with model: @menu, url: restaurant_menus_path(@restaurant) do |f| %>
+
+  <% if @menu.errors.any? %>
+    <div>
+      <h2>Seu cardápio não pôde ser cadastrado:</h2>
+      <ul>
+        <% @menu.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div id="menu_name_field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div id="menu_submit" class="mt-5 mb-5">
+    <%=f.submit 'Enviar', class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>
+  </div>
+
+
+<% end %>

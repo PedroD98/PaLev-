@@ -1,0 +1,22 @@
+<div>
+  <h1>Cardápios:</h1>
+</div>
+
+<div>
+  <% if @menus.any? %>
+    <% @menus.each do |menu| %>
+      <span class="mt-3 mb-3">
+        <%= link_to menu.name, restaurant_menu_path(@restaurant, menu)%>
+      </span>
+    <% end %>
+
+  <% else %>
+    <div>
+      <h3>Nenhum cardápio registrado.</h3>
+    </div>
+  <% end %>
+</div>
+
+<div>
+  <%= link_to 'Novo cardápio', new_restaurant_menu_path(@restaurant) %>
+</div>

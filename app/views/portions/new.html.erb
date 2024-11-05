@@ -1,6 +1,6 @@
 <h1>Cadastro de porção de <%= @item.name %></h1>
 
-<%= form_with model: [@item, @portion], url: item_portions_path(@item) do |f| %>
+<%= form_with model: @portion, url: item_portions_path(@item) do |f| %>
 
   <% if @portion.errors.any? %>
     <div>
