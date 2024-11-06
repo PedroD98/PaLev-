@@ -1,0 +1,22 @@
+<% article = item_type == 'Pratos' ? 'um' : 'uma' %>
+
+<div data-menu-items-target="<%= container_target %>" class="mb-2">
+  <%= f.label :items, "#{item_type.singularize}:" %>
+  <%= f.collection_select :item_ids, items, :id, :name, 
+      { include_blank: "Escolha #{article} #{item_type.singularize.downcase}" }, { name: 'menu[item_ids][]' } %>
+</div>
+
+<template data-menu-items-target="<%= template_target %>">
+  <div class="field mt-2 mb-2">
+    <select name="menu[item_ids][]" class="form-control">
+      <option value="">Escolha <%= "#{article}" %> <%= item_type.singularize.downcase %></option>
+      <% items.each do |item| %>
+        <option value="<%= item.id %>"><%= item.name %></option>
+      <% end %>
+    </select>
+  </div>
+</template>
+
+<button type='button' data-action='click->menu-items#<%= button_action %>' class='bg-gray-100 px-4 py-2 rounded hover:bg-gray-200'>
+    Inserir mais <%= article %> <%= item_type.singularize.downcase %>
+</button>

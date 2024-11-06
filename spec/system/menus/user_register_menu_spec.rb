@@ -52,7 +52,9 @@ describe 'Usuário registra cardápio' do
 
     expect(current_path).to eq restaurant_menu_path(restaurant, menu)
     expect(page).to have_content 'Cardápio cadastrado com sucesso!'
-    expect(page).to have_content 'Detalhes do cardápio: Café da manhã'
+    expect(page).to have_content 'Cardápio: Café da manhã'
+    expect(page).to have_content 'Esse cardápio não possui nenhum item cadastrado.'
+    expect(page).to have_content 'Não há items para adicionar ao cardápio.'
     expect(page).to have_link 'Lista de cardápios'
   end
 end

@@ -5,7 +5,9 @@ class Item < ApplicationRecord
   has_many :price_histories
   has_many :portions, dependent: :destroy
   has_many :dish_tags, dependent: :destroy
+  has_many :menu_items, dependent: :destroy
   has_many :tags, through: :dish_tags
+  has_many :menus, through: :menu_items
   enum :status, { deactivated: 0, activated: 1 }
   validates :name, :description, :type, presence: true
   validates :name, uniqueness: { scope: :restaurant }

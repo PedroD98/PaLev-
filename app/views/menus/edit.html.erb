@@ -1,0 +1,36 @@
+<div>
+  <h1>
+    Adicionar items ao cardápio:
+    <span><%= @menu.name %></span>
+  </h1>
+</div>
+
+<%= form_with model: @menu, url: restaurant_menu_path(@restaurant, @menu), data: { controller: 'menu-items' } do |f| %>
+
+  <% if @dishes.empty? && @beverages.empty? %>
+    <p><strong>Não há items para adicionar ao cardápio</strong></p>
+  <% end %>
+  
+  <div class="mb-3">
+    <%= render 'item_select', f: f, menu: @menu, items: @dishes, item_type: 'Pratos', container_target: 'dishesContainer',
+        template_target: 'dishTemplate', button_action: 'addDish' if @dishes.any? 
+    %>
+  </div>
+
+  <br />
+
+  <div class="mt-3 mb-5">
+    <%= render 'item_select', f: f, menu: @menu, items: @beverages, item_type: 'Bebidas', container_target: 'beveragesContainer',
+        template_target: 'beverageTemplate', button_action: 'addBeverage' if @beverages.any? %>
+  </div>
+
+  <div>
+    <br />
+    <%= f.submit 'Adicionar', class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>
+  </div>
+
+  <div class="mt-5">
+    <%= link_to 'Cancelar', restaurant_menu_path(@restaurant, @menu)%>
+  </div>
+
+<% end %>

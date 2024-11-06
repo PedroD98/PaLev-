@@ -1,0 +1,68 @@
+<% dishes = @menu.items.where(type: 'Dish') %>
+<% beverages = @menu.items.where(type: 'Beverage') %>
+
+
+<div class="flex space-x-4">
+  <% if dishes.any? %>
+    <div class="w-1/2 border-2 pl-10">
+      <h2>Pratos:</h2>
+      <dl>
+        <% dishes.each do |dish| %>
+
+          <dt class="max-w-60">
+            <%= link_to item_path(dish) do %>
+              <%= dish.name %>
+              <%= image_tag(dish.image, style: "width: 150px; height: 150px;") if dish.image.attached? %>
+            <% end %>
+          </dt>
+          
+          <dd>
+            <strong><%= dish.description %></strong>
+          </dd>
+
+          <% if dish.portions.any? %>
+            <% dish.portions.each do |portion| %>
+              <dd>
+                <%= portion.description %> - 
+                <%= number_to_currency(portion.price) %>
+              </dd>
+            <% end %>
+          <% end %>
+          <hr>
+        <% end %>
+      </dl>
+    </div>
+
+  <% end %>
+
+  <% if beverages.any? %>
+    <div class="w-1/2 border-2  pl-10">
+      <h2>Bebidas:</h2>
+      <dl>
+        <% beverages.each do |beverage| %>
+
+          <dt class="max-w-60">
+            <%= link_to item_path(beverage) do %>
+              <%= beverage.name %>
+              <%= image_tag(beverage.image, style: "width: 150px; height: 150px;") if beverage.image.attached? %>
+            <% end %>
+          </dt>
+
+          <dd>
+            <strong><%= beverage.description %></strong>
+          </dd>
+
+          <% if beverage.portions.any? %>
+            <% beverage.portions.each do |portion| %>
+              <dd>
+                <%= portion.description %> - 
+                <%= number_to_currency(portion.price) %>
+              </dd>
+            <% end %>
+          <% end %>
+          <hr>
+        <% end %>
+      </dl>
+    </div>
+  <% end %>
+</div>

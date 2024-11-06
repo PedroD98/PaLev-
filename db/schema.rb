@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_05_131316) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_05_163738) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -59,6 +59,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_05_131316) do
     t.integer "restaurant_id", null: false
     t.integer "status", default: 1
     t.index ["restaurant_id"], name: "index_items_on_restaurant_id"
+  end
+
+  create_table "menu_items", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "menu_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_menu_items_on_item_id"
+    t.index ["menu_id"], name: "index_menu_items_on_menu_id"
   end
 
   create_table "menus", force: :cascade do |t|
@@ -145,6 +154,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_05_131316) do
   add_foreign_key "dish_tags", "items"
   add_foreign_key "dish_tags", "tags"
   add_foreign_key "items", "restaurants"
+  add_foreign_key "menu_items", "items"
+  add_foreign_key "menu_items", "menus"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "operating_hours", "restaurants"
   add_foreign_key "portions", "items"

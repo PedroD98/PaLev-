@@ -1,11 +1,34 @@
 <div>
-  <h1>Detalhes do cardápio: <%= @menu.name %> </h1>
+  <h1>
+    Cardápio:
+    <span><%= @menu.name %></span>
+  </h1>
 </div>
 
 <div>
-  <h3>Esse cardápio não possui nenhum item cadastrado.</h3>
+  <% if @menu.items.any? %>
+    <%= render 'items_list'%>
+
+  <% else %>
+    <div class="mt-5 mb-5">
+      <h3>Esse cardápio não possui nenhum item cadastrado.</h3>
+    </div>
+  <% end %>
 </div>
 
-<div>
+<% if @dishes.any? || @beverages.any? %>
+  <div>
+    <br />
+    <%= link_to 'Adicionar item', edit_restaurant_menu_path(@restaurant, @menu)%> 
+  </div>
+
+<% else %>
+  <div>
+    <p><strong>Não há items para adicionar ao cardápio.</strong></p>
+    <span class="mr-2"><%= link_to 'Clique aqui', items_path %></span>para cadastrar mais itens.
+  </div>
+<% end %>
+
+<div class="mt-5">
   <%= link_to 'Lista de cardápios', restaurant_menus_path(@restaurant) %>
 </div>
