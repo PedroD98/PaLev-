@@ -3,7 +3,6 @@ require 'rails_helper'
 describe 'Usuário cria a conta' do
   it 'com sucesso' do
     visit root_path
-    click_on 'Gerenciar Restaurante'
     click_on 'Cadastre-se'
     fill_in 'Nome', with: 'Pedro'
     fill_in 'Sobrenome', with: 'Dias'
@@ -22,7 +21,6 @@ describe 'Usuário cria a conta' do
 
   it 'e preenche todos os campos' do
     visit root_path
-    click_on 'Gerenciar Restaurante'
     click_on 'Cadastre-se'
     fill_in 'Nome', with: ''
     fill_in 'Sobrenome', with: 'Dias'
@@ -38,7 +36,6 @@ describe 'Usuário cria a conta' do
 
   it 'e digita um CPF inválido' do
     visit root_path
-    click_on 'Gerenciar Restaurante'
     click_on 'Cadastre-se'
     fill_in 'Nome', with: 'Pedro'
     fill_in 'Sobrenome', with: 'Dias'
@@ -54,7 +51,6 @@ describe 'Usuário cria a conta' do
   
   it 'e é redirecionado para o cadastro do restaurante' do
     visit root_path
-    click_on 'Gerenciar Restaurante'
     click_on 'Cadastre-se'
     fill_in 'Nome', with: 'Pedro'
     fill_in 'Sobrenome', with: 'Dias'

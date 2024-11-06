@@ -7,6 +7,7 @@ class MenusController < ApplicationController
   before_action :set_dishes_and_beverages, only: [:edit, :update, :show]
 
   def index
+    
     @menus = @restaurant.menus
   end
 
@@ -51,7 +52,8 @@ class MenusController < ApplicationController
   end
 
   def set_restaurant_and_items
-    @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = current_user.restaurant unless params[:restaurant_id].present?
+    @restaurant = Restaurant.find(params[:restaurant_id]) if params[:restaurant_id].present?
     @items = @restaurant.items
   end
 

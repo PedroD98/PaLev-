@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     if current_user && !current_user.registered_restaurant
       new_restaurant_path
     else
-      restaurant_path(current_user.restaurant)
+      root_path
     end
   end
 

@@ -7,10 +7,9 @@ describe 'Usuário visita tela inicial' do
     expect(page).to have_content 'PaLevá'
   end
 
-  it 'e vê o botão Entrar' do
+  it 'e é redirecionado para a tela de login' do
     visit root_path
 
-    expect(page).to have_content 'PaLevá'
-    expect(page).to have_link 'Gerenciar Restaurante'
+    expect(current_path).to eq root_path
   end
 end

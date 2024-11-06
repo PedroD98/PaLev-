@@ -7,7 +7,6 @@ describe 'Usuário acessa lista de items' do
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
                                     registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                     phone_number: '2128270790', address: 'Av Mario, 30', user: user)
-    user.update(registered_restaurant: true)
     Tag.create(restaurant: restaurant, name: 'Apimentado')
     Tag.create(restaurant: restaurant, name: 'Vegano')
 
@@ -27,7 +26,6 @@ describe 'Usuário acessa lista de items' do
     restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
                                     registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                     phone_number: '2128270790', address: 'Av Mario, 30', user: user)
-    user.update(registered_restaurant: true)
     tag1 = Tag.create(restaurant: restaurant, name: 'Apimentado')
     tag2 = Tag.create(restaurant: restaurant, name: 'Vegano')
     tag3 = Tag.create(restaurant: restaurant, name: 'Sem glúten')
