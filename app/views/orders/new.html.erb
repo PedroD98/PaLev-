@@ -1,0 +1,11 @@
+<div>
+  <h1>Novo Pedido:</h1>
+</div>
+
+<div id="customer_details_form">
+  <%= render 'customer_form', button_name: 'Criar pedido'%>
+</div>
+
+<div>
+  <%= link_to 'Cancelar', restaurant_orders_path(@restaurant)%>
+</div>

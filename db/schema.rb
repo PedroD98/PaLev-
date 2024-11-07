@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_05_163738) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_06_172956) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -89,6 +89,30 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_05_163738) do
     t.index ["restaurant_id"], name: "index_operating_hours_on_restaurant_id"
   end
 
+  create_table "order_portions", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "portion_id", null: false
+    t.integer "qty"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_portions_on_order_id"
+    t.index ["portion_id"], name: "index_order_portions_on_portion_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "restaurant_id", null: false
+    t.string "code"
+    t.integer "status", default: 0
+    t.string "customer_name"
+    t.string "customer_phone"
+    t.string "customer_email"
+    t.string "customer_social_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
+  end
+
   create_table "portions", force: :cascade do |t|
     t.string "description"
     t.decimal "price"
@@ -158,6 +182,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_05_163738) do
   add_foreign_key "menu_items", "menus"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "operating_hours", "restaurants"
+  add_foreign_key "order_portions", "orders"
+  add_foreign_key "order_portions", "portions"
+  add_foreign_key "orders", "restaurants"
   add_foreign_key "portions", "items"
   add_foreign_key "price_histories", "restaurants"
   add_foreign_key "restaurants", "users"

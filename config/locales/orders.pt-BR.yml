@@ -1,0 +1,18 @@
+pt-BR:
+  creating: Em criação
+  confirming: Aguardando confirmação da cozinha
+  preparing: Em preparação
+  done: Pronto
+  delivered: Entregue
+  canceled: Cancelado
+  activerecord:
+    models:
+      order:
+        one: Pedido
+        other: Pedidos
+    attributes:
+      order:
+        customer_name: Nome
+        customer_social_number: CPF
+        customer_email: E-mail
+        customer_phone: Telefone de contato

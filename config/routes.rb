@@ -25,7 +25,8 @@ Rails.application.routes.draw do
 
   resources :restaurants, only: [:new, :create, :edit, :update, :show] do
     resources :operating_hours, only: [:new, :create, :edit, :update, :show]
-    resources :menus, only: [:index,  :show, :new, :create, :edit, :update]
+    resources :menus, only: [:index, :new, :create, :edit, :update, :show]
+    resources :orders, only: [:index, :new, :create, :edit, :update, :show]
     get 'price_history', to: 'price_histories#index'
   end
 

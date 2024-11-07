@@ -5,6 +5,7 @@ class Restaurant < ApplicationRecord
   has_many :price_histories, dependent: :destroy
   has_many :tags, dependent: :destroy
   has_many :menus, dependent: :destroy
+  has_many :orders, dependent: :destroy
   accepts_nested_attributes_for :operating_hours
   enum :operation_status, {closed: 0, opened: 1}
   before_validation :generate_random_code

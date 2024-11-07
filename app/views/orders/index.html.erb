@@ -1,0 +1,14 @@
+<div>
+  <h1>Pedidos:</h1>
+</div>
+
+<% if @orders.any? %>
+<% else %>
+  <div>
+    <p>Seu restaurante não possui nenhum pedido registrado.</p>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to 'Novo pedido', new_restaurant_order_path(@restaurant)%>
+</div>

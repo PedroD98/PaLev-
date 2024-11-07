@@ -7,7 +7,6 @@ class MenusController < ApplicationController
   before_action :set_dishes_and_beverages, only: [:edit, :update, :show]
 
   def index
-    
     @menus = @restaurant.menus
   end
 
@@ -28,8 +27,7 @@ class MenusController < ApplicationController
     
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if handle_item_ids
@@ -42,8 +40,7 @@ class MenusController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   private
 

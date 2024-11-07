@@ -1,0 +1,40 @@
+<%= form_with model: @order, url: restaurant_orders_path(@restaurant) do |f| %>
+  <div>
+    <h2>Detalhes do cliente:</h2>
+  </div>
+
+  <% if @order.errors.any? %>
+    <div>
+      <h2>Pedido não pôde ser cadastrado:</h2>
+      <ul>
+        <% @order.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div id="customer_name_field">
+    <%= f.label :customer_name %>
+    <%= f.text_field :customer_name %>
+  </div>
+
+  <div id="customer_social_number_field">
+    <%= f.label :customer_social_number %>
+    <%= f.text_field :customer_social_number %>
+  </div>
+
+  <div id="customer_email_field">
+    <%= f.label :customer_email %>
+    <%= f.email_field :customer_email %>
+  </div>
+  
+  <div id="customer_phone_field">
+    <%= f.label :customer_phone %>
+    <%= f.number_field :customer_phone %>
+  </div>
+
+  <div class="mt-4">
+    <%= f.submit 'Enviar', class: 'bg-gray-100 px-4 py-2 ml-4 rounded hover:bg-gray-200' %>
+  </div>
+<% end %>

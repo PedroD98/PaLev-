@@ -32,10 +32,11 @@
         <br />
         <% if current_user.registered_restaurant %>
           <%= link_to 'Meu restaurante', current_user.restaurant %> |
+          <%= link_to 'Meu perfil', user_path(current_user) %> |
           <%= link_to 'Cardápios', restaurant_menus_path(current_user.restaurant) %> |
           <%= link_to 'Lista de itens', items_path %> |
           <%= link_to 'Gerenciar marcadores', tags_path %> |
-          <%= link_to 'Meu perfil', user_path(current_user) %>
+          <%= link_to 'Pedidos', restaurant_orders_path(current_user.restaurant) %>
           <%= form_with url: search_items_path, method: :get do |f| %>
             <%= f.label :query, 'Buscar no menu'%>
             <%= f.text_field :query%>
