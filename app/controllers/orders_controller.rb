@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
-  before_action :set_restaurant_and_validate_user
-  before_action :set_order, only: [:show]
+  before_action :set_restaurant
+  before_action :set_order_and_validate_user, only: [:show]
 
 
   def index
@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
     @order = @restaurant.orders.create(order_params)
 
     if @order.save
-      redirect_to restaurant_order_path(@restaurant, @order),
+      redirect_to @order,
       notice: 'Pedido criado com sucesso!'
     else
       flash.now[:alert] = 'Falha em criar pedido.'
@@ -25,26 +25,20 @@ class OrdersController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
-  end
-
   def show
   end
 
   private
 
-  def set_restaurant_and_validate_user
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    if @restaurant != current_user.restaurant
-      redirect_to root_path, alert: 'Você não pode acessar essa página.' 
-    end
+  def set_restaurant
+    @restaurant = current_user.restaurant
   end
 
-  def set_order
+  def set_order_and_validate_user
     @order = Order.find(params[:id])
+    if @order.restaurant != current_user.restaurant
+      redirect_to root_path, alert: 'Você não pode acessar essa página.' 
+    end
   end
 
   def order_params

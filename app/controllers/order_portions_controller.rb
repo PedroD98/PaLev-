@@ -15,7 +15,7 @@ class OrderPortionsController < ApplicationController
     @order_portion.portion = @portion
 
     if @order_portion.save && @order.creating?
-      redirect_to restaurant_order_path(@restaurant, @order),
+      redirect_to @order,
       notice: 'Item adicionado com sucesso!'
 
     else
@@ -25,14 +25,11 @@ class OrderPortionsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    
-
     if @order_portion.update(order_portion_params) && @order.creating?
-      redirect_to restaurant_order_path(@restaurant, @order),
+      redirect_to @order,
       notice: 'Item do pedido atualizado com sucesso!'
 
     else
@@ -45,10 +42,10 @@ class OrderPortionsController < ApplicationController
   private
 
   def set_restaurant_order_and_validate_status
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @order = Order.find(params[:order_id])
+    @restaurant = @order.restaurant
 
-    redirect_to restaurant_order_path(@restaurant, @order),
+    redirect_to @order,
     alert: 'Essa ação não está disponível para pedidos que não estão em fase de criação.' unless @order.creating?
   end
 

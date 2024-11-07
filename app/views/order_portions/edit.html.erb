@@ -4,9 +4,9 @@
 
 <div>
   <%= render 'order_portion_form',
-      url_info: restaurant_order_order_portion_path(@restaurant, @order, @order_portion, portion_id: @portion.id) %>
+      url_info: order_order_portion_path(@order, @order_portion, portion_id: @portion.id) %>
 </div>
 
 <div>
-  <%= link_to 'Cancelar edição', restaurant_order_path(@restaurant, @order)%>
+  <%= link_to 'Cancelar edição', @order %>
 </div>

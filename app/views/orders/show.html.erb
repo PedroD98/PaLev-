@@ -4,57 +4,64 @@
 </div>
 
 
-<div>
-  <% if @order.order_portions.any? %>
 
-    <% total = 0 %>
-    <% @order.order_portions.each do |order_portion| %>
+<% if @order.order_portions.any? %>
+  <div class="flex space-x-5 mb-5">
+    <div class="w-1/2">
+      <% total = 0 %>
+      <% @order.order_portions.each do |order_portion| %>
 
-      <% portion = order_portion.portion %>
-      <% subtotal = portion.price * order_portion.qty %>
-      <div class="flex items-center">
-        <div id="portion_image" class="mr-5">
-          <%= image_tag(portion.item.image, style: "width: 150px; height: 150px;") if portion.item.image.attached? %>
+        <% portion = order_portion.portion %>
+        <% subtotal = portion.price * order_portion.qty %>
+        <div class="flex items-center">
+          <div id="portion_image" class="mr-5">
+            <%= image_tag(portion.item.image, style: "width: 120px; height: 120px;") if portion.item.image.attached? %>
+          </div>
+
+          <div id="portion_details">
+            <dl>
+              <dt><%= portion.item.name %></dt>
+              <dd><%= order_portion.qty %> x <%= portion.description%> - <%= number_to_currency(subtotal) %> </dd>
+              <dd><%= order_portion.description if order_portion.description%></dd>
+              <dd><%= link_to 'Editar', edit_order_order_portion_path(@order, order_portion, portion_id: portion.id) if @order.creating? %> </dd>
+            </dl>
+          </div>
         </div>
+        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+        <% total = total + subtotal %>
+      <% end %>
 
-        <div id="portion_details">
-          <dl>
-            <dt><%= portion.item.name %></dt>
-            <dd><%= order_portion.qty %> x <%= portion.description%> - <%= number_to_currency(subtotal) %> </dd>
-            <dd><%= order_portion.description if order_portion.description%></dd>
-            <dd><%= link_to 'Editar', edit_restaurant_order_order_portion_path(@restaurant, @order, order_portion, portion_id: portion.id) if @order.creating? %> </dd>
-          </dl>
-        </div>
+      <div>
+        <%= link_to 'Adicionar item', restaurant_menus_path(@restaurant) %>
       </div>
-      <hr>
-      <% total = total + subtotal %>
-    <% end %>
-
-    <div>
-      <p><strong>Total do pedido: </strong><%= number_to_currency(total)%> </p>
     </div>
-    
-    <div>
-      <%= link_to 'Adicionar item', restaurant_menus_path(@restaurant) %>
+  
+    <div id="customer" class="w-1/2 mb-10">
+      <div class="max-w-[60%] border-2 pl-10">
+        <%= render 'customer_info' %>
+      </div>
+
+      <div id="total_price" class="flex max-w-[70%] border-2 pl-10 pb-6 mt-10 mb-10">
+        <span class="mt-5 ml-2">
+          <strong>Total do pedido: </strong>
+          <%= number_to_currency(total)%> 
+        </span>
+      </div>
     </div>
+  </div>
+<% else %>
 
-  <% else %>
+  <h3>O pedido está vazio.</h3>
+  <span>
+    <%= link_to 'Clique aqui', restaurant_menus_path(@restaurant)%>
+        para adicionar um item ao pedido.
+  </span>
 
-    <h3>O pedido está vazio.</h3>
-    <span>
-      <%= link_to 'Clique aqui', restaurant_menus_path(@restaurant)%>
-          para adicionar um item ao pedido.
-    </span>
+  <div>
+    <%= render 'customer_info' %>
+  </div>
+<% end %>
 
-  <% end %>
-</div>
-
-
-
-<div>
-  <%= render 'customer_info' %>
-</div>
-
-<div>
-  <%= link_to 'Lista de pedidos', restaurant_orders_path(@restaurant) %>
+<div class="mt-5">
+  <%= link_to 'Lista de pedidos', orders_path %>
 </div>

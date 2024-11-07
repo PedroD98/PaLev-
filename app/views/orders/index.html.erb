@@ -6,7 +6,7 @@
   <div>
     <% @orders.each do |order| %>
       <dl>
-        <dt><%= link_to "Pedido #{order.code}", restaurant_order_path(@restaurant, order)%></dt>
+        <dt><%= link_to "Pedido #{order.code}", order %></dt>
         <dd>Status: <%= "#{t(order.status)}"%></dd>
         <dd>Realizado em: <%= "#{order.created_at.strftime('%d/%m/%Y')}"%></dd>
       </dl>
@@ -20,5 +20,5 @@
 <% end %>
 
 <div>
-  <%= link_to 'Novo pedido', new_restaurant_order_path(@restaurant)%>
+  <%= link_to 'Novo pedido', new_order_path %>
 </div>

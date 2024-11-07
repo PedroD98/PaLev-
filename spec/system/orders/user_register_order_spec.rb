@@ -1,12 +1,24 @@
 require 'rails_helper'
 
-describe 'Usuário acessa página de pedidos' do
+describe 'Usuário registra um pedido' do
+  it 'e deve estar logado' do
+    user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
+    Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                       phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+
+    visit new_order_path
+
+    expect(current_path).to eq new_user_session_path
+  end
+
   it 'e formulário existe' do
     user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
                         email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
-    restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
-                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
-                                    phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                       phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
 
     login_as user
     visit root_path
@@ -15,7 +27,7 @@ describe 'Usuário acessa página de pedidos' do
     end
     click_on 'Novo pedido'
 
-    expect(current_path).to eq new_restaurant_order_path restaurant
+    expect(current_path).to eq new_order_path 
     expect(page).to have_content 'Novo Pedido:'
     expect(page).to have_content 'Detalhes do cliente:'
     expect(page).to have_field 'Nome'
@@ -34,7 +46,7 @@ describe 'Usuário acessa página de pedidos' do
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
 
     login_as user
-    visit new_restaurant_order_path restaurant
+    visit new_order_path
     fill_in 'Nome', with: 'Ana Maria'
     fill_in 'CPF', with: '756.382.144-96'
     fill_in 'E-mail', with: 'ana@gmail.com'
@@ -42,7 +54,7 @@ describe 'Usuário acessa página de pedidos' do
     click_on 'Enviar'
     order = restaurant.orders.last
 
-    expect(current_path).to eq restaurant_order_path(restaurant, order)
+    expect(current_path).to eq order_path order
     expect(I18n.t order.status).to eq 'Em criação'
     expect(page).to have_content "Detalhes do Pedido: #{order.code}"
   end

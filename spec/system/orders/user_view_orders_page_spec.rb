@@ -4,11 +4,11 @@ describe 'Usuário acessa página de pedidos' do
   it 'e deve estar logado' do
     user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
                         email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
-    restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
-                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
-                                    phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                       phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
 
-    visit restaurant_orders_path restaurant
+    visit orders_path
 
     expect(current_path).to eq new_user_session_path
   end
@@ -16,9 +16,9 @@ describe 'Usuário acessa página de pedidos' do
   it 'a partir do menu' do
     user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
                         email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
-    restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
-                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
-                                    phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                       phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
 
     login_as user
     visit root_path
@@ -26,7 +26,7 @@ describe 'Usuário acessa página de pedidos' do
       click_on 'Pedidos'
     end
 
-    expect(current_path).to eq restaurant_orders_path(restaurant)
+    expect(current_path).to eq orders_path
     expect(page).to have_content 'Pedidos:'
     expect(page).to have_content 'Seu restaurante não possui nenhum pedido registrado.'
     expect(page).to have_content 'Novo pedido'
@@ -44,8 +44,7 @@ describe 'Usuário acessa página de pedidos' do
                                 customer_email: 'maria@gmail.com', customer_phone: '2197456244')
 
     login_as user
-    visit restaurant_orders_path restaurant
-    save_page
+    visit orders_path
 
     expect(page).to have_link "Pedido #{order.code}"
     expect(page).to have_content "Status: Aguardando confirmação da cozinha"

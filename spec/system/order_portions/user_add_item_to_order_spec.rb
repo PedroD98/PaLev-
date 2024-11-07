@@ -15,9 +15,9 @@ describe 'Usuário adiciona um item ao pedido' do
     order.update(status: :confirming)
 
     login_as user
-    visit new_restaurant_order_order_portion_path(restaurant, order, portion_id: portion.id)
+    visit new_order_order_portion_path(order, portion_id: portion.id)
 
-    expect(current_path).to eq restaurant_order_path(restaurant, order)
+    expect(current_path).to eq order_path order
     expect(page).to have_content 'Essa ação não está disponível para pedidos que não estão em fase de criação.'
   end
   
@@ -65,7 +65,7 @@ describe 'Usuário adiciona um item ao pedido' do
     visit restaurant_menu_path(restaurant, menu)
     click_on 'Adicionar ao pedido'
 
-    expect(current_path).to eq new_restaurant_order_order_portion_path(restaurant, order)
+    expect(current_path).to eq new_order_order_portion_path order
     expect(page).to have_content "Adicionando item ao Pedido #{order.code}"
     expect(page).to have_content "#{portion.item.name} - #{portion.description}"
     expect(page).to have_field 'Quantidade'
@@ -93,7 +93,7 @@ describe 'Usuário adiciona um item ao pedido' do
     click_on 'Enviar'
 
     expect(page).not_to have_content "Adicionando item ao Pedido #{order.code}"
-    expect(current_path).to eq restaurant_order_path(restaurant, order)
+    expect(current_path).to eq order_path order
     expect(page).to have_content 'Feijão amigo'
     expect(page).to have_content '2 x Individual - R$ 59,80'
     expect(page).to have_content 'Total do pedido: R$ 59,80'
@@ -140,11 +140,35 @@ describe 'Usuário adiciona um item ao pedido' do
     OrderPortion.create!(order: order, portion: other_portion, qty: 1)
 
     login_as user 
-    visit restaurant_order_path(restaurant, order)
+    visit order_path order
 
     expect(page).to have_content "Detalhes do Pedido: #{order.code}"
     expect(page).to have_content '1 x Individual - R$ 29,90'
     expect(page).to have_content '2 x Coca lata - R$ 15,00'
     expect(page).to have_content 'Total do pedido: R$ 44,90'
+  end
+
+  it 'e tenta adicionar item a um pedido de outro usuário' do
+    other_user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
+                        email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
+    Restaurant.create!(legal_name: 'Rede McRonald LTDA', restaurant_name: 'McRonald',
+                       registration_number: '41.684.415/0001-09', email: 'mcronald@email.com',
+                       phone_number: '2128970790', address: 'Av Mario, 30', user: other_user)
+    user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
+    restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                    phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
+                        description: 'Caldo de feijão saboroso')
+    portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
+    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    OrderPortion.create!(order: order, portion: portion, qty: 2)
+
+    login_as other_user
+    visit new_order_order_portion_path(order, portion_id: portion.id)
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não pode acessar essa página.'
   end
 end

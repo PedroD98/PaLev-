@@ -25,7 +25,7 @@
                 <dd>
                   <%= portion.description %> - 
                   <%= number_to_currency(portion.price) %>
-                  <%= link_to 'Adicionar ao pedido', new_restaurant_order_order_portion_path(@restaurant, @order, portion_id: portion.id) if @order %>
+                  <%= link_to 'Adicionar ao pedido', new_order_order_portion_path(@order, portion_id: portion.id) if @order %>
                 </dd>
               <% end %>
             <% end %>
