@@ -3,6 +3,16 @@
 </div>
 
 <% if @orders.any? %>
+  <div>
+    <% @orders.each do |order| %>
+      <dl>
+        <dt><%= link_to "Pedido #{order.code}", restaurant_order_path(@restaurant, order)%></dt>
+        <dd>Status: <%= "#{t(order.status)}"%></dd>
+        <dd>Realizado em: <%= "#{order.created_at.strftime('%d/%m/%Y')}"%></dd>
+      </dl>
+      
+    <% end %>
+  </div>
 <% else %>
   <div>
     <p>Seu restaurante não possui nenhum pedido registrado.</p>

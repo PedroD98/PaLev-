@@ -1,0 +1,38 @@
+<% if @order_portion.errors.any? %>
+  <div>
+    <ul>
+      <% @order_portion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<div>
+  <div id="item_image">
+    <%= image_tag(@portion.item.image, style: "width: 150px; height: 150px;") if @portion.item.image.attached? %>
+  </div>
+
+  <div id="portion_details">
+    <h3><%= @portion.item.name %> - <%= @portion.description %></h3>
+  </div>
+</div>
+
+<%= form_with model: @order_portion, url: url_info do |f| %>
+
+  <div id="qty_field" class="mb-2">
+    <%= f.label :qty %>
+    <%= f.number_field :qty %>
+  </div>
+
+  <div id="description_field" class="mb-2">
+    <%= f.label :description %>
+    <%= f.text_area :description, placeholder: 'Ex: sem cebola, sem molho...' %>
+  </div>
+
+  <div class="mt-5 mb-5">
+    <%= f.submit 'Enviar', class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %>
+  </div>
+
+<% end %>

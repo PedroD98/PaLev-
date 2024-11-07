@@ -1,0 +1,7 @@
+<div id="customer_info">
+  <h3>Informações do cliente:</h3>
+  <p id="customer_name"><strong>Nome: </strong><%= @order.customer_name.blank? ? 'Não informado' : "#{@order.customer_name}"%></p>
+  <p id="customer_social_number"><strong>CPF: </strong><%= @order.customer_social_number.blank? ? 'Não informado' : "#{@order.customer_social_number}"%></p>
+  <p id="customer_email"><strong>E-mail: </strong><%= @order.customer_email.blank? ? 'Não informado' : "#{@order.customer_email}"%></p>
+  <p id="customer_phone"><strong>Telefone de contato: </strong><%= @order.customer_phone.blank? ? 'Não informado' : "#{@order.customer_phone}"%></p>
+</div>

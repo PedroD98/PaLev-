@@ -6,8 +6,22 @@
 </div>
 
 <div>
+  <%= link_to 'Ir para o pedido', restaurant_order_path(@restaurant, @order) if @order%>
+</div>
+
+<div>
   <% if @menu.items.any? %>
-    <%= render 'items_list'%>
+    <div id="dishes_list" class="flex space-x-4">
+
+      <div class="w-1/2 border-2 pl-10">
+        <%= render 'items_list', item_type: 'Dish', title: 'Pratos:'%>
+      </div>
+      
+      <div id="beverages_list" class="w-1/2 border-2 pl-10">
+        <%= render 'items_list', item_type: 'Beverage', title: 'Bebidas:'%>
+      </div>
+
+    </div>
 
   <% else %>
     <div class="mt-5 mb-5">

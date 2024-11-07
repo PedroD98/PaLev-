@@ -1,6 +1,8 @@
 class Portion < ApplicationRecord
   belongs_to :item
   has_many :price_histories
+  has_many :order_portions
+  has_many :orders, through: :order_portions
   validates :description, :price, presence: true
   validates :description, uniqueness: { scope: :item }
   before_validation :validate_price

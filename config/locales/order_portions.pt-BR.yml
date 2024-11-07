@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      order_portion: 
+        one: Porção do pedido
+        other: Porções do pedido
+    attributes:
+      order_portion:
+        qty: Quantidade
+        description: Observações

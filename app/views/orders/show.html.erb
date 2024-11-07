@@ -1,3 +1,60 @@
 <div>
   <h1>Detalhes do Pedido: <%= @order.code %></h1>
+  <h3>Status: <%= t(@order.status) %></h3>
+</div>
+
+
+<div>
+  <% if @order.order_portions.any? %>
+
+    <% total = 0 %>
+    <% @order.order_portions.each do |order_portion| %>
+
+      <% portion = order_portion.portion %>
+      <% subtotal = portion.price * order_portion.qty %>
+      <div class="flex items-center">
+        <div id="portion_image" class="mr-5">
+          <%= image_tag(portion.item.image, style: "width: 150px; height: 150px;") if portion.item.image.attached? %>
+        </div>
+
+        <div id="portion_details">
+          <dl>
+            <dt><%= portion.item.name %></dt>
+            <dd><%= order_portion.qty %> x <%= portion.description%> - <%= number_to_currency(subtotal) %> </dd>
+            <dd><%= order_portion.description if order_portion.description%></dd>
+            <dd><%= link_to 'Editar', edit_restaurant_order_order_portion_path(@restaurant, @order, order_portion, portion_id: portion.id) if @order.creating? %> </dd>
+          </dl>
+        </div>
+      </div>
+      <hr>
+      <% total = total + subtotal %>
+    <% end %>
+
+    <div>
+      <p><strong>Total do pedido: </strong><%= number_to_currency(total)%> </p>
+    </div>
+    
+    <div>
+      <%= link_to 'Adicionar item', restaurant_menus_path(@restaurant) %>
+    </div>
+
+  <% else %>
+
+    <h3>O pedido está vazio.</h3>
+    <span>
+      <%= link_to 'Clique aqui', restaurant_menus_path(@restaurant)%>
+          para adicionar um item ao pedido.
+    </span>
+
+  <% end %>
+</div>
+
+
+
+<div>
+  <%= render 'customer_info' %>
+</div>
+
+<div>
+  <%= link_to 'Lista de pedidos', restaurant_orders_path(@restaurant) %>
 </div>

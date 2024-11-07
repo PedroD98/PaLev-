@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :restaurant
+  has_many :order_portions, dependent: :destroy
+  has_many :portions, through: :order_portions
   enum :status, { creating: 0, confirming: 2, preparing: 4,
                   done: 6, delivered: 8, canceled: 10 }
   

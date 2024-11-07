@@ -1,0 +1,12 @@
+<div>
+  <h1>Editando item do Pedido <%= @order.code %> </h1>
+</div>
+
+<div>
+  <%= render 'order_portion_form',
+      url_info: restaurant_order_order_portion_path(@restaurant, @order, @order_portion, portion_id: @portion.id) %>
+</div>
+
+<div>
+  <%= link_to 'Cancelar edição', restaurant_order_path(@restaurant, @order)%>
+</div>

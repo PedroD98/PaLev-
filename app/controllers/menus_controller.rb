@@ -3,8 +3,9 @@ class MenusController < ApplicationController
   before_action :user_has_registered_restaurant?
   before_action :set_restaurant_and_items
   before_action :validate_user
-  before_action :set_menu, only: [:edit, :update, :show]
+  before_action :set_menu_and_order, only: [:edit, :update, :show]
   before_action :set_dishes_and_beverages, only: [:edit, :update, :show]
+  before_action :set_order, only: [:index, :show]
 
   def index
     @menus = @restaurant.menus
@@ -44,7 +45,7 @@ class MenusController < ApplicationController
 
   private
 
-  def set_menu
+  def set_menu_and_order
     @menu = Menu.find(params[:id])
   end
 
@@ -57,6 +58,10 @@ class MenusController < ApplicationController
   def set_dishes_and_beverages
     @dishes = @restaurant.items.where(type: 'Dish').where.not(id: @menu.items.pluck(:id))
     @beverages = @restaurant.items.where(type: 'Beverage').where.not(id: @menu.items.pluck(:id))
+  end
+
+  def set_order
+    @order = @restaurant.orders.find_by(status: :creating)
   end
 
   def validate_user

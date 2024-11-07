@@ -1,31 +1,31 @@
-<% dishes = @menu.items.where(type: 'Dish') %>
-<% beverages = @menu.items.where(type: 'Beverage') %>
+<% items = @menu.items.where(type: item_type) %>
 
 
-<div class="flex space-x-4">
-  <% if dishes.any? %>
-    <div class="w-1/2 border-2 pl-10">
-      <h2>Pratos:</h2>
+<div>
+  <% if items.any? %>
+    <div>
+      <h2><%= title %></h2>
       <dl>
-        <% dishes.each do |dish| %>
-          <% if dish.activated? %>
+        <% items.each do |item| %>
+          <% if item.activated? %>
           
             <dt class="max-w-60">
-              <%= link_to item_path(dish) do %>
-                <%= dish.name %>
-                <%= image_tag(dish.image, style: "width: 150px; height: 150px;") if dish.image.attached? %>
+              <%= link_to item_path(item) do %>
+                <%= item.name %>
+                <%= image_tag(item.image, style: "width: 150px; height: 150px;") if item.image.attached? %>
               <% end %>
             </dt>
             
             <dd>
-              <strong><%= dish.description %></strong>
+              <strong><%= item.description %></strong>
             </dd>
 
-            <% if dish.portions.any? %>
-              <% dish.portions.each do |portion| %>
+            <% if item.portions.any? %>
+              <% item.portions.each do |portion| %>
                 <dd>
                   <%= portion.description %> - 
                   <%= number_to_currency(portion.price) %>
+                  <%= link_to 'Adicionar ao pedido', new_restaurant_order_order_portion_path(@restaurant, @order, portion_id: portion.id) if @order %>
                 </dd>
               <% end %>
             <% end %>
@@ -35,38 +35,5 @@
       </dl>
     </div>
 
-  <% end %>
-
-  <% if beverages.any? %>
-    <div class="w-1/2 border-2  pl-10">
-      <h2>Bebidas:</h2>
-      <dl>
-        <% beverages.each do |beverage| %>
-          <% if beverage.activated? %>
-          
-            <dt class="max-w-60">
-              <%= link_to item_path(beverage) do %>
-                <%= beverage.name %>
-                <%= image_tag(beverage.image, style: "width: 150px; height: 150px;") if beverage.image.attached? %>
-              <% end %>
-            </dt>
-
-            <dd>
-              <strong><%= beverage.description %></strong>
-            </dd>
-
-            <% if beverage.portions.any? %>
-              <% beverage.portions.each do |portion| %>
-                <dd>
-                  <%= portion.description %> - 
-                  <%= number_to_currency(portion.price) %>
-                </dd>
-              <% end %>
-            <% end %>
-            <hr>
-          <% end %>
-        <% end %>
-      </dl>
-    </div>
   <% end %>
 </div>
