@@ -46,9 +46,9 @@
 
   <div>
     <% if @item.activated? %>
-      <p><%= button_to 'Desativar', deactivated_item_path(@item.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
+      <p><%= button_to 'Desativar', deactivated_item_path(@item.id), class: 'btn-custom' %> </p>
     <% else %>
-      <p><%= button_to 'Ativar', activated_item_path(@item.id), class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200' %> </p>
+      <p><%= button_to 'Ativar', activated_item_path(@item.id), class: 'btn-custom' %> </p>
     <% end %>
   </div>
 

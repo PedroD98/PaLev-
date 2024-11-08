@@ -1,19 +1,25 @@
 <div>
   <h1>Detalhes do Pedido: <%= @order.code %></h1>
-  <h3>Status: <%= t(@order.status) %></h3>
+  <span class="mb-5">
+    <strong>Status: <%= t(@order.status) %></strong>
+    <%= render 'order_buttons'%>
+  </span>
 </div>
 
 
 
 <% if @order.order_portions.any? %>
-  <div class="flex space-x-5 mb-5">
-    <div class="w-1/2">
+  <div class="flex space-x-5 mb-5 mt-5">
+    <div class="w-1/2 border-2">
+      <h3 class="pl-5">Itens do Pedido:</h3>
       <% total = 0 %>
       <% @order.order_portions.each do |order_portion| %>
 
         <% portion = order_portion.portion %>
         <% subtotal = portion.price * order_portion.qty %>
-        <div class="flex items-center">
+
+        <hr class="h-px my-8 border-0 dark:bg-gray-700">
+        <div class="flex items-center pl-5">
           <div id="portion_image" class="mr-5">
             <%= image_tag(portion.item.image, style: "width: 120px; height: 120px;") if portion.item.image.attached? %>
           </div>
@@ -27,12 +33,11 @@
             </dl>
           </div>
         </div>
-        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
         <% total = total + subtotal %>
       <% end %>
 
-      <div>
-        <%= link_to 'Adicionar item', restaurant_menus_path(@restaurant) %>
+      <div class="pl-10 mt-10">
+        <%= link_to 'Adicionar item', restaurant_menus_path(@restaurant) if @order.creating? %>
       </div>
     </div>
   

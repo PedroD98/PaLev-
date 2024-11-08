@@ -11,3 +11,9 @@
 }
 
 */
+
+@layer components {
+  .btn-custom {
+    @apply bg-gray-100 px-4 py-2 rounded hover:bg-gray-200;
+  }
+}

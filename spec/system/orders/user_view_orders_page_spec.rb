@@ -38,10 +38,8 @@ describe 'Usuário acessa página de pedidos' do
     restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                     registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
-    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_social_number: '756.382.144-96',
-                          customer_email: 'ana@gmail.com', customer_phone: '21222704555', status: :confirming)
-    other_order = Order.create!(restaurant: restaurant, customer_name: 'Maria', customer_social_number: '621.271.587-41',
-                                customer_email: 'maria@gmail.com', customer_phone: '2197456244')
+    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com', status: :confirming)
+    other_order = Order.create!(restaurant: restaurant, customer_email: 'maria@gmail.com')
 
     login_as user
     visit orders_path

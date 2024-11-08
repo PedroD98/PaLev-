@@ -58,4 +58,19 @@ describe 'Usuário registra um pedido' do
     expect(I18n.t order.status).to eq 'Em criação'
     expect(page).to have_content "Detalhes do Pedido: #{order.code}"
   end
+
+  it 'e só pode existir um pedido em criação' do
+    user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
+    restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                    phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    Order.create!(restaurant: restaurant, customer_email: 'maria@gmail.com')
+
+    login_as user
+    visit new_order_path
+
+    expect(current_path).to eq orders_path
+    expect(page).to have_content 'É permitido ter apenas um pedido com status: Em criação.'
+  end
 end

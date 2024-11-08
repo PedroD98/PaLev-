@@ -46,5 +46,10 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:index, :new, :create, :show] do
     resources :order_portions, only: [:new, :create, :edit, :update]
+    post 'confirming', on: :member
+    post 'preparing', on: :member
+    post 'done', on: :member
+    post 'delivered', on: :member
+    post 'canceled', on: :member
   end
 end

@@ -40,7 +40,7 @@
           <%= form_with url: search_items_path, method: :get do |f| %>
             <%= f.label :query, 'Buscar no menu'%>
             <%= f.text_field :query%>
-            <%= f.submit 'Buscar', class: 'bg-gray-100 px-4 py-2 rounded hover:bg-gray-200'%>
+            <%= f.submit 'Buscar', class: 'btn-custom'%>
           <% end %>
         <% end %>
       <% end %>
