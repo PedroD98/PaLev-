@@ -5,7 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :restaurant
-
+  has_one :position
+  has_many :pre_registers
+  
   validates :name, :surname, :social_number, presence: true
   validates :social_number, uniqueness: true
   validate  :validate_social_number

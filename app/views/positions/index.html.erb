@@ -1,0 +1,38 @@
+<div>
+  <h1>Cargos cadastrados:</h1>
+</div>
+
+<% if @positions.empty? %>
+  <div>
+    <h3>Não há cargos cadastrados.</h3>
+    <span class="mr-1"><%= link_to 'Registre um cargo', new_restaurant_position_path(@restaurant) %></span>
+          para criar lista.
+    
+  </div>
+
+<% else %>
+  <div class="mt-5 mb-5">
+    <%= link_to 'Novo cargo', new_restaurant_position_path(@restaurant) %>
+  </div>
+
+  <div id="position_table">
+    <table>
+      <thead>
+        <tr>
+          <th>Cargo</th>
+          <th>Data de cadastro</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @positions.each do |position| %>
+          <tr>
+            <td><%= position.description %></td>
+            <td><%= position.created_at.strftime('%d/%m/%Y') %></td>
+          </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+  </div>
+<% end %>

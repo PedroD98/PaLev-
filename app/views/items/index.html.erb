@@ -33,15 +33,6 @@
   </div>
 <% end %>
 
-<% if @filtered_tags && @filtered_tags.any? %>
-  <div>
-    <p>
-      <strong>Filtrados aplicados: </strong>
-      <%= @filtered_tags.join(', ') %>
-    </p>
-  </div>
-<% end %>
-
 <% if @items.empty? %>
   <div>
     <h3>Seu restaurante ainda não possui nenhum item.</h3>

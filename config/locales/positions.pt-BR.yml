@@ -1,0 +1,7 @@
+pt-BR:
+  activerecord:
+    models:
+      position: Cargo
+    attributes:
+      position:
+        description: Descrição do cargo

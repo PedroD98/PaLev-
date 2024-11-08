@@ -38,7 +38,7 @@ describe 'Usuário acessa histórico de preços' do
     expect(page).to have_link 'Tabela do item'
     expect(page).to have_link 'Tabela da porção'
     expect(page).to have_link 'Voltar para restaurante'
-    expect(page).to have_link 'Ir para o menu'
+    expect(page).to have_link 'Lista de itens'
   end
 
   it 'a partir do item' do
@@ -72,7 +72,7 @@ describe 'Usuário acessa histórico de preços' do
     expect(page).to have_content 'R$ 36,50'
     expect(page).to have_link 'Tabela da porção'
     expect(page).to have_link 'Voltar para Croquete'
-    expect(page).to have_link 'Ir para o menu'
+    expect(page).to have_link 'Lista de itens'
     expect(page).to have_link 'Histórico completo do restaurante'
     expect(page).not_to have_link 'Tabela do item'
   end
@@ -107,7 +107,7 @@ describe 'Usuário acessa histórico de preços' do
     expect(page).to have_content 'R$ 79,99'
     expect(page).to have_link 'Tabela do item'
     expect(page).to have_link 'Voltar para Croquete'
-    expect(page).to have_link 'Ir para o menu'
+    expect(page).to have_link 'Lista de itens'
     expect(page).to have_link 'Histórico completo do restaurante'
     expect(page).not_to have_link 'Tabela da porção'
   end

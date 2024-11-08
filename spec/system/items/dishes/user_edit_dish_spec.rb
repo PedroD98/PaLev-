@@ -48,7 +48,7 @@ describe 'Usuário edita um prato' do
     expect(page).to have_content 'Croquete'
     expect(page).to have_content 'Croquete de carne'
     expect(page).to have_content 'Calorias: 330 kcal'
-    expect(page).to have_link 'Voltar para o menu'
+    expect(page).to have_link 'Lista de itens'
   end
 
   it 'e preenche todos os campos' do
@@ -95,7 +95,7 @@ describe 'Usuário edita um prato' do
     expect(page).to have_content 'Coxinha'
     expect(page).to have_content 'Coxinha de frango'
     expect(page).to have_content 'Calorias: 274 kcal'
-    expect(page).to have_link 'Voltar para o menu'
+    expect(page).to have_link 'Lista de itens'
   end
 
 end

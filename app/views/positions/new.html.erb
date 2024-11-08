@@ -1,0 +1,30 @@
+<div>
+  <h1>Novo cargo:</h1>
+</div>
+
+<% if @position.errors.any? %>
+    <div class="mb-5">
+      <h2>Cargo não pôde ser cadastrado:</h2>
+      <ul>
+        <% @position.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<%= form_with model: @position, url: restaurant_positions_path(@restaurant) do |f| %>
+  <div id="description_field" class="mb-5 mt-5">
+    <%= f.label :description %>
+    <%= f.text_field :description, placeholder: 'Ex: Vendedor, Gerente...' %>
+  </div>
+
+  <div>
+    <%= f.submit 'Criar cargo', class: 'btn-custom' %>
+  </div>
+<% end %>
+
+<div>
+  <br />
+  <%= link_to 'Cancelar', restaurant_positions_path(@restaurant)%>
+</div>

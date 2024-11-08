@@ -17,6 +17,10 @@
   <% end %>
 </div>
 
+<div class="mb-5 mt-5">
+  <%= link_to 'Ir para o pedido', @order if @order%>
+</div>
+
 <div>
   <br />
   <%= link_to 'Novo cardápio', new_restaurant_menu_path(@restaurant) %>

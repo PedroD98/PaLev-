@@ -49,7 +49,7 @@ describe 'Usuário edita uma bebida' do
     expect(page).to have_content 'Cerveja'
     expect(page).to have_content 'Cerveja gelada'
     expect(page).to have_content 'Calorias: 470 kcal'
-    expect(page).to have_link 'Voltar para o menu'
+    expect(page).to have_link 'Lista de itens'
   end
 
   it 'e preenche todos os campos' do
@@ -97,6 +97,6 @@ describe 'Usuário edita uma bebida' do
     expect(page).to have_content 'Coquinha gelada'
     expect(page).to have_content 'Calorias: 139 kcal'
     expect(page).to have_content 'Contém álcool: Não'
-    expect(page).to have_link 'Voltar para o menu'
+    expect(page).to have_link 'Lista de itens'
   end
 end

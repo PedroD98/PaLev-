@@ -2,8 +2,8 @@ class MenusController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
   before_action :set_restaurant_and_items
+  before_action :set_menu_and_items, only: [:edit, :update, :show]
   before_action :validate_user
-  before_action :set_menu_and_order, only: [:edit, :update, :show]
   before_action :set_dishes_and_beverages, only: [:edit, :update, :show]
   before_action :set_order, only: [:index, :show]
 
@@ -45,16 +45,15 @@ class MenusController < ApplicationController
 
   private
 
-  def set_menu_and_order
+  def set_menu_and_items
     @menu = Menu.find(params[:id])
-  end
-
-  def set_restaurant_and_items
-    @restaurant = current_user.restaurant unless params[:restaurant_id].present?
-    @restaurant = Restaurant.find(params[:restaurant_id]) if params[:restaurant_id].present?
     @items = @restaurant.items
   end
 
+  def set_restaurant_and_items
+    @restaurant = current_user.restaurant
+  end
+  
   def set_dishes_and_beverages
     @dishes = @restaurant.items.where(type: 'Dish').where.not(id: @menu.items.pluck(:id))
     @beverages = @restaurant.items.where(type: 'Beverage').where.not(id: @menu.items.pluck(:id))
@@ -65,8 +64,14 @@ class MenusController < ApplicationController
   end
 
   def validate_user
-    if @restaurant != current_user.restaurant
-      redirect_to restaurant_path(current_user.restaurant), alert: 'Você não pode acessar essa página.'
+    if params[:restaurant_id]  
+      if Restaurant.find(params[:restaurant_id]) != current_user.restaurant
+        redirect_to restaurant_path(current_user.restaurant), alert: 'Você não pode acessar essa página.'
+      end
+    end
+
+    if @menu && @menu.restaurant != current_user.restaurant
+      redirect_to root_path, alert: 'Você não pode acessar essa página.'
     end
   end
 

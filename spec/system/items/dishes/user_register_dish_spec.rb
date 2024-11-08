@@ -42,7 +42,7 @@ describe 'Usuário cadastra um prato' do
     expect(page).to have_content 'Coxinha'
     expect(page).to have_content 'Coxinha de frango com massa feita no dia.'
     expect(page).to have_content 'Calorias: 274 kcal'
-    expect(page).to have_link 'Voltar para o menu'
+    expect(page).to have_link 'Lista de itens'
   end
 
   it 'e preenche os campos obrigatórios' do
