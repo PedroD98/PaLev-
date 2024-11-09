@@ -7,13 +7,36 @@
     <h2>Nenhum pré-cadastro realizado.</h2>
     <span>
       Faça o pré-cadastro de um funcionário
-      <%= link_to 'clicando aqui.' %>
+      <%= link_to 'clicando aqui', new_pre_register_path %>
     </span>
   </div>
 <% else %>
+  <div class="mt-5 mb-5">
+    <%= link_to 'Novo pré-cadastro', new_pre_register_path %>
+  </div>
 
-  <% @pre_registers.each do |pr| %>
+  <div id="pre_registers_table">
+    <table>
+      <thead>
+        <tr>
+          <th>E-mail</th>
+          <th>CPF</th>
+          <th>Cargo</th>
+          <th>Status da conta</th>
+        </tr>
+      </thead>
 
-  <% end %>
+      <tbody>
+        <% @pre_registers.each do |pr| %>
+          <tr>
+            <td><%= pr.employee_email %></td>
+            <td><%= pr.employee_social_number %></td>
+            <td><%= pr.position.description %></td>
+            <td><%= t(pr.active?) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
 <% end %>

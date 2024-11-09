@@ -1,0 +1,42 @@
+<div>
+  <h1>Novo pré-cadastro:</h1>
+</div>
+
+<% if @pre_register.errors.any? %>
+  <div>
+    <h2>pré-cadastro não pôde ser cadastrado:</h2>
+    <ul>
+      <% @pre_register.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @pre_register do |f| %>
+
+  <div id="email_field" class="mb-2">
+    <%= f.label :employee_email %>
+    <%= f.email_field :employee_email %>
+  </div>
+
+  <div id="social_number_field" class="mb-2">
+    <%= f.label :employee_social_number %>
+    <%= f.text_field :employee_social_number %>
+  </div>
+
+  <div id="position_field" class="mb-2">
+    <%= f.label :position_id %>
+    <%= f.collection_select :position_id, @restaurant.positions, :id, :description,
+          { include_blank: 'Selecione um cargo' } %>
+  </div>
+
+  <div class="mt-5 mb-5">
+    <%= f.submit 'Enviar', class: 'btn-custom' %>
+  </div>
+
+<% end %>
+
+<div>
+  <%= link_to 'Cancelar', pre_registers_path %>
+</div>

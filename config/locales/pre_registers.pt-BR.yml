@@ -1,0 +1,12 @@
+pt-BR:
+  true: Já cadastrada
+  false: Não cadastrada
+  activerecord:
+    models:
+      pre_register: Pré-cadastro
+    attributes:
+      pre_register:
+        employee_social_number: CPF
+        employee_email: E-mail
+        position_id: Cargo
+        position: Cargo

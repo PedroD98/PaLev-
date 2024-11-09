@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
 
-  resources :pre_registers, only: [:index]
+  resources :pre_registers, only: [:index, :new, :create]
 
   resources :restaurants, only: [:new, :create, :edit, :update, :show] do
     resources :operating_hours, only: [:new, :create, :edit, :update, :show]
