@@ -108,10 +108,9 @@ describe 'Usuário edita uma bebida' do
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     beverage = Beverage.create!(restaurant_id: restaurant.id, name: 'Coca lata',
                                 description: 'Coquinha gelada', calories: 139)
-    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
-                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
-    employee.restaurant = restaurant
-
+    employee = Employee.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                                email: 'pedro@email.com', password: 'passwordpass', restaurant: restaurant,
+                                registered_restaurant: true)
 
     login_as employee
     visit edit_beverage_path(beverage)

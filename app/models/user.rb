@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :restaurant
+  has_one :owned_restaurant, class_name: 'Restaurant', foreign_key: 'owner_id', dependent: :destroy
   belongs_to :position, optional: true
   has_many :pre_registers
   
@@ -12,13 +12,16 @@ class User < ApplicationRecord
   validates :social_number, uniqueness: true
   validate  :validate_social_number
 
+  def restaurant
+    self.owned_restaurant
+  end
+
   def full_name
     "#{self.name} #{self.surname}"
   end
-  
-  private
-  
 
+  private
+ 
   def validate_social_number
     unless CPF.valid?(self.social_number)
       self.errors.add :social_number, 'inválido.'

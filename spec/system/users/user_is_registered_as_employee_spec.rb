@@ -20,15 +20,18 @@ describe 'Usuário cria conta' do
     fill_in 'Senha', with: 'passwordpass'
     fill_in 'Confirme sua senha', with: 'passwordpass'
     click_on 'Criar conta'
-    employee = User.last
+    employee = Employee.last
 
+    expect(Employee.all.count).to eq 1
+    expect(User.all.count).to eq 2
+    expect(restaurant.employees.count).to eq 1
     expect(current_path).to eq root_path
     expect(employee.is_owner).to eq false
     expect(employee.restaurant.restaurant_name).to eq 'Pizza King'
     expect(employee.position.description).to eq 'Cozinheiro'
   end
 
-  it 'e CPF não confiz com pré-cadastro' do
+  it 'e CPF não condiz com pré-cadastro' do
     user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
                         email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
     restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',

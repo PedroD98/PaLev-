@@ -53,9 +53,9 @@ describe 'Usuário acessa histórico de preços' do
     PriceHistory.create!(restaurant: restaurant, item_id: dish.id, portion_id: portion.id,
                          price: portion.price, insertion_date: I18n.l(Date.today),
                          description: 'Croquete - 10 unid.')
-    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
-                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
-    employee.restaurant = restaurant
+    employee = Employee.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                                email: 'pedro@email.com', password: 'passwordpass', restaurant: restaurant,
+                                registered_restaurant: true)
 
 
     login_as employee
@@ -113,9 +113,9 @@ describe 'Usuário acessa histórico de preços' do
     PriceHistory.create!(restaurant: restaurant, item_id: dish.id, portion_id: portion.id,
                          price: portion.price, insertion_date: I18n.l(Date.today),
                          description: 'Croquete - 10 unid.')
-    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
-                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
-    employee.restaurant = restaurant
+    employee = Employee.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                                email: 'pedro@email.com', password: 'passwordpass', restaurant: restaurant,
+                                registered_restaurant: true)
 
 
     login_as employee
@@ -172,9 +172,9 @@ describe 'Usuário acessa histórico de preços' do
     PriceHistory.create!(restaurant: restaurant, item_id: dish.id, portion_id: portion.id,
                          price: portion.price, insertion_date: I18n.l(Date.today),
                          description: 'Croquete - 10 unid.')
-    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
-                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
-    employee.restaurant = restaurant
+    employee = Employee.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                                email: 'pedro@email.com', password: 'passwordpass', restaurant: restaurant,
+                                registered_restaurant: true)
 
 
     login_as employee

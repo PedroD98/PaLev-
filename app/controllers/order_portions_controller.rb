@@ -1,7 +1,6 @@
 class OrderPortionsController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
-  before_action :user_is_employee?
   before_action :set_restaurant_order_and_validate_status
   before_action :is_restaurant_open?
   before_action :validate_user

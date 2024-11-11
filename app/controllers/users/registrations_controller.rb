@@ -11,14 +11,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
       
       
     if pre_register
-      super do |user|
-        user.is_owner = false
-        user.restaurant = pre_register.restaurant
-        user.update(registered_restaurant: true)
-        user.update(position: pre_register.position)
-        pre_register.update(active: true)
-      end
+      self.resource = Employee.new(sign_up_params)
+      resource.is_owner = false
+      resource.registered_restaurant = true
+      resource.position = pre_register.position
+      resource.restaurant = pre_register.restaurant
 
+      if resource.save
+        pre_register.update(active: true)
+        sign_up(resource_name, resource)
+        redirect_to root_path, notice: 'Conta criada com sucesso!'
+      else
+        clean_up_passwords resource
+        render 'new', status: :unprocessable_entity
+      end
+    
     elsif pre_registered_social_number
       flash.now[:alert] = 'Esse CPF faz parte de um  pré-cadastro. Verifique se o e-mail foi digitado corretamente'
       self.resource = User.new(sign_up_params)

@@ -3,7 +3,9 @@
 <% if current_user.restaurant.operating_hours.empty? %>
   <div>
     <h4>Seu horário de funcionamento ainda não foi cadastrado.</h4> 
-    <%= link_to 'Clique aqui', new_restaurant_operating_hour_path %> para fazer o cadastro.
+    <% if current_user.is_owner %>
+      <%= link_to 'Clique aqui', new_restaurant_operating_hour_path %> para fazer o cadastro.
+    <% end %>
   </div>
 
 <% else %>

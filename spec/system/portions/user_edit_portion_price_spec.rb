@@ -83,9 +83,9 @@ describe 'Usuário edita o preço de uma porção' do
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Croquete', 
                         description: 'Croquete de carne', calories: 274)
     portion = Portion.create!(description: '10 unid.', price: 58.90, item: dish)
-    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
-                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
-    employee.restaurant = restaurant
+    employee = Employee.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                                email: 'pedro@email.com', password: 'passwordpass', restaurant: restaurant,
+                                registered_restaurant: true)
 
 
     login_as employee

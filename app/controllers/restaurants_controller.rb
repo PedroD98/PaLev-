@@ -16,8 +16,8 @@ class RestaurantsController < ApplicationController
 
     if @restaurant.save
       position = Position.create!(restaurant: @restaurant, description: 'Dono')
-      current_user.update(position: position)
-      current_user.update(registered_restaurant: true)
+      current_user.update(position: position,
+                          registered_restaurant: true)
       redirect_to @restaurant, notice: 'Restaurante registrado com sucesso.'
     else
       flash.now[:alert] = 'Falha ao registrar restaurante.'
@@ -33,7 +33,7 @@ class RestaurantsController < ApplicationController
 
   def set_restaurant_validate_current_user
     @restaurant = Restaurant.find(params[:id])
-    if @restaurant.user != current_user
+    if @restaurant.user != current_user.restaurant.user
       redirect_to current_user.restaurant, alert: 'Você não tem acesso à esse restaurante.'
     end
   end

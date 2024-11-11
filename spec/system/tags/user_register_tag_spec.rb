@@ -69,9 +69,9 @@ describe 'Usuário registra marcadores' do
     restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                     registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
-    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
-                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
-    employee.restaurant = restaurant
+    employee = Employee.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                                email: 'pedro@email.com', password: 'passwordpass', restaurant: restaurant,
+                                registered_restaurant: true)
 
 
     login_as employee

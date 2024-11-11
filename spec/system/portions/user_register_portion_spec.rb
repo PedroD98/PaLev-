@@ -79,9 +79,9 @@ describe 'Usuário registra uma porção' do
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Croquete', 
                         description: 'Croquete de carne', calories: 274)
-    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
-                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
-    employee.restaurant = restaurant
+    employee = Employee.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                                email: 'pedro@email.com', password: 'passwordpass', restaurant: restaurant,
+                                registered_restaurant: true)
 
 
     login_as employee

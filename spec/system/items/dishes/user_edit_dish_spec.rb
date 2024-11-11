@@ -106,9 +106,9 @@ describe 'Usuário edita um prato' do
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Coxinha', 
                         description: 'Coxinha de frango', calories: 274)
-    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
-                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
-    employee.restaurant = restaurant
+    employee = Employee.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                                email: 'pedro@email.com', password: 'passwordpass', restaurant: restaurant,
+                                registered_restaurant: true)
 
 
     login_as employee

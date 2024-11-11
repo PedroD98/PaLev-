@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_09_190728) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_11_141217) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -164,11 +164,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_190728) do
     t.string "phone_number"
     t.string "code"
     t.integer "operation_status", default: 0
-    t.integer "user_id", null: false
+    t.integer "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
-    t.index ["user_id"], name: "index_restaurants_on_user_id"
+    t.index ["owner_id"], name: "index_restaurants_on_owner_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -193,9 +193,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_190728) do
     t.datetime "updated_at", null: false
     t.boolean "is_owner", default: true
     t.integer "position_id"
+    t.string "type"
+    t.integer "restaurant_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["position_id"], name: "index_users_on_position_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["restaurant_id"], name: "index_users_on_restaurant_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -216,7 +219,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_190728) do
   add_foreign_key "pre_registers", "restaurants"
   add_foreign_key "pre_registers", "users"
   add_foreign_key "price_histories", "restaurants"
-  add_foreign_key "restaurants", "users"
+  add_foreign_key "restaurants", "users", column: "owner_id"
   add_foreign_key "tags", "restaurants"
   add_foreign_key "users", "positions"
+  add_foreign_key "users", "restaurants"
 end
