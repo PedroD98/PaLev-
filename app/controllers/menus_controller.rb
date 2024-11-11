@@ -1,6 +1,7 @@
 class MenusController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
+  before_action :user_is_employee?, only: [:new, :create, :edit, :update]
   before_action :set_restaurant_and_items
   before_action :set_menu_and_items, only: [:edit, :update, :show]
   before_action :validate_user

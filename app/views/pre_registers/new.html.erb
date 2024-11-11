@@ -27,7 +27,7 @@
 
   <div id="position_field" class="mb-2">
     <%= f.label :position_id %>
-    <%= f.collection_select :position_id, @restaurant.positions, :id, :description,
+    <%= f.collection_select :position_id, @restaurant.positions.reject { |p| p.description == 'Dono'}, :id, :description,
           { include_blank: 'Selecione um cargo' } %>
   </div>
 

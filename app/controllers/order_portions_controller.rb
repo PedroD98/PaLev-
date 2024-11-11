@@ -1,7 +1,9 @@
 class OrderPortionsController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
+  before_action :user_is_employee?
   before_action :set_restaurant_order_and_validate_status
+  before_action :is_restaurant_open?
   before_action :validate_user
   before_action :set_portion
   before_action :set_order_portion, only: [:edit, :update]
@@ -60,6 +62,13 @@ class OrderPortionsController < ApplicationController
   def validate_user
     if @restaurant != current_user.restaurant
       redirect_to root_path, alert: 'Você não pode acessar essa página.'
+    end
+  end
+
+  def is_restaurant_open?
+    @restaurant.update_operation_status
+    if @restaurant.closed?
+      redirect_to orders_path, alert: 'O restaurante está fechado no momento.'
     end
   end
 

@@ -1,25 +1,28 @@
 <% unless @order.delivered? || @order.canceled? %>
   <div class="flex space-x-1 mb-4">
 
-    <div id="confirming_order">
-      <%= button_to 'Enviar para cozinha', confirming_order_path(@order),
-          class: 'btn-custom' if @order.creating? %>
-    </div>
+    <% if @order.order_portions.any?%>
 
-    <div id="preparing_order">
-      <%= button_to 'Iniciar preparo', preparing_order_path(@order),
-          class: 'btn-custom' if @order.confirming? %>
-    </div>
+      <div id="confirming_order">
+        <%= button_to 'Enviar para cozinha', confirming_order_path(@order),
+            class: 'btn-custom' if @order.creating? %>
+      </div>
 
-    <div id="done_order">
-      <%= button_to 'Pronto para entrega', done_order_path(@order),
-          class: 'btn-custom' if @order.preparing? %>
-    </div>
+      <div id="preparing_order">
+        <%= button_to 'Iniciar preparo', preparing_order_path(@order),
+            class: 'btn-custom' if @order.confirming? %>
+      </div>
 
-    <div id="delivered_order">
-      <%= button_to 'Entregue', delivered_order_path(@order),
-          class: 'btn-custom' if @order.done? %>
-    </div>
+      <div id="done_order">
+        <%= button_to 'Pronto para entrega', done_order_path(@order),
+            class: 'btn-custom' if @order.preparing? %>
+      </div>
+
+      <div id="delivered_order">
+        <%= button_to 'Entregue', delivered_order_path(@order),
+            class: 'btn-custom' if @order.done? %>
+      </div>
+    <% end %>
 
     <div id="canceled_order">
       <%= button_to 'Cancelar', canceled_order_path(@order),

@@ -27,22 +27,27 @@
       <% if user_signed_in? %>
         <span class="flex items-center" >
           Usuário: <%= current_user.name %>
+          <% if current_user.position != nil %>
+            - <%= current_user.position.description %>
+          <% end %>
           <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'bg-red-100 px-4 py-2 ml-4 rounded hover:bg-red-200' %>
         </span>
         <br />
         <% if current_user.registered_restaurant %>
           <%= link_to 'Meu restaurante', current_user.restaurant %> |
           <%= link_to 'Meu perfil', user_path(current_user) %> |
-          <%= link_to 'Pré-cadastros', pre_registers_path %> |
-          <%= link_to 'Cargos', restaurant_positions_path(current_user.restaurant) %> |
           <%= link_to 'Cardápios', restaurant_menus_path(current_user.restaurant) %> |
-          <%= link_to 'Lista de itens', items_path %> |
-          <%= link_to 'Gerenciar marcadores', tags_path %> |
           <%= link_to 'Pedidos', orders_path %>
-          <%= form_with url: search_items_path, method: :get do |f| %>
-            <%= f.label :query, 'Buscar no menu'%>
-            <%= f.text_field :query%>
-            <%= f.submit 'Buscar', class: 'btn-custom'%>
+          <% if current_user.is_owner %>
+            | <%= link_to 'Cargos', restaurant_positions_path(current_user.restaurant) %> |
+            <%= link_to 'Lista de itens', items_path %> |
+            <%= link_to 'Gerenciar marcadores', tags_path %> |
+            <%= link_to 'Pré-cadastros', pre_registers_path %>
+            <%= form_with url: search_items_path, method: :get do |f| %>
+              <%= f.label :query, 'Buscar no menu'%>
+              <%= f.text_field :query%>
+              <%= f.submit 'Buscar', class: 'btn-custom'%>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>

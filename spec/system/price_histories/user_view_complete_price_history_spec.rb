@@ -41,6 +41,30 @@ describe 'Usuário acessa histórico de preços' do
     expect(page).to have_link 'Lista de itens'
   end
 
+  it 'e precisa ser o dono do restaurante' do
+    user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
+    restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                    phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    dish = Dish.create!(restaurant_id: restaurant.id, name: 'Croquete', 
+                        description: 'Croquete de carne')
+    portion = Portion.create!(description: '10 unid.', price: 58.90, item: dish)
+    PriceHistory.create!(restaurant: restaurant, item_id: dish.id, portion_id: portion.id,
+                         price: portion.price, insertion_date: I18n.l(Date.today),
+                         description: 'Croquete - 10 unid.')
+    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
+    employee.restaurant = restaurant
+
+
+    login_as employee
+    visit restaurant_price_history_path restaurant
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não tem permissão para acessar essa página.'
+  end
+
   it 'a partir do item' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
@@ -77,6 +101,30 @@ describe 'Usuário acessa histórico de preços' do
     expect(page).not_to have_link 'Tabela do item'
   end
 
+  it 'e precisa ser o dono do restaurante' do
+    user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
+    restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                    phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    dish = Dish.create!(restaurant_id: restaurant.id, name: 'Croquete', 
+                        description: 'Croquete de carne')
+    portion = Portion.create!(description: '10 unid.', price: 58.90, item: dish)
+    PriceHistory.create!(restaurant: restaurant, item_id: dish.id, portion_id: portion.id,
+                         price: portion.price, insertion_date: I18n.l(Date.today),
+                         description: 'Croquete - 10 unid.')
+    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
+    employee.restaurant = restaurant
+
+
+    login_as employee
+    visit item_price_history_path dish
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não tem permissão para acessar essa página.'
+  end
+
   it 'a partir da porção' do
     user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                         email: 'pedro@email.com', password: 'passwordpass')
@@ -110,5 +158,29 @@ describe 'Usuário acessa histórico de preços' do
     expect(page).to have_link 'Lista de itens'
     expect(page).to have_link 'Histórico completo do restaurante'
     expect(page).not_to have_link 'Tabela da porção'
+  end
+
+  it 'e precisa ser o dono do restaurante' do
+    user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
+    restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                    phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    dish = Dish.create!(restaurant_id: restaurant.id, name: 'Croquete', 
+                        description: 'Croquete de carne')
+    portion = Portion.create!(description: '10 unid.', price: 58.90, item: dish)
+    PriceHistory.create!(restaurant: restaurant, item_id: dish.id, portion_id: portion.id,
+                         price: portion.price, insertion_date: I18n.l(Date.today),
+                         description: 'Croquete - 10 unid.')
+    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
+    employee.restaurant = restaurant
+
+
+    login_as employee
+    visit item_portion_price_history_path(dish, portion)
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não tem permissão para acessar essa página.'
   end
 end

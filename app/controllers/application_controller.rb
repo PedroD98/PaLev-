@@ -18,6 +18,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def user_is_employee?
+    if !current_user.is_owner
+      redirect_to root_path, alert: 'Você não tem permissão para acessar essa página.'
+    end
+  end
+
   protected
 
   def configure_permitted_parameters

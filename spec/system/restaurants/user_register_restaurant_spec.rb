@@ -37,8 +37,9 @@ describe 'Usuário cadastra um restaurante' do
     fill_in 'Telefone', with: '2122870749'
     fill_in 'E-mail', with: 'contato@RonaldMc.com'
     click_on 'Registrar Restaurante'
-
+    user.reload
     
+    expect(user.registered_restaurant).to eq true
     expect(page).to have_content 'Restaurante registrado com sucesso.'
     expect(page).to have_content 'RonaldMc'
     expect(page).to have_content 'Rede RonaldMc Alimentos'
@@ -106,5 +107,26 @@ describe 'Usuário cadastra um restaurante' do
     expect(current_path).to eq new_restaurant_path
     expect(page).to have_content 'Antes de seguir em frente, precisamos que você cadastre seu restaurante.'
     expect(page).to have_content 'Vamos cadastrar seu estabelecimento.'
+  end
+
+  it 'e é vinculado como dono do restaurante' do
+    user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
+                        email: 'pedro@email.com', password: 'passwordpass')
+
+    login_as user
+    visit new_restaurant_path
+    fill_in 'Razão Social', with: 'Rede RonaldMc Alimentos'
+    fill_in 'Nome Fantasia', with: 'RonaldMc'
+    fill_in 'CNPJ', with: '41.684.415/0001-09'
+    fill_in 'Endereço', with: 'Av Dr. Mário Guimarães, 40'
+    fill_in 'Telefone', with: '2122870749'
+    fill_in 'E-mail', with: 'contato@RonaldMc.com'
+    click_on 'Registrar Restaurante'
+    position = Position.last
+    user.reload
+
+    expect(position.description).to eq 'Dono'
+    expect(user.position.description).to eq 'Dono'
+    expect(user.is_owner).to eq true
   end
 end

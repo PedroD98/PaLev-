@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_08_235809) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_09_190728) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -191,7 +191,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_235809) do
     t.boolean "registered_restaurant", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_owner", default: true
+    t.integer "position_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["position_id"], name: "index_users_on_position_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -215,4 +218,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_235809) do
   add_foreign_key "price_histories", "restaurants"
   add_foreign_key "restaurants", "users"
   add_foreign_key "tags", "restaurants"
+  add_foreign_key "users", "positions"
 end

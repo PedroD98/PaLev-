@@ -1,8 +1,7 @@
 class RestaurantsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_restaurant, only: [:show]
   before_action :user_has_registered_restaurant?, only: [:show]
-  before_action :validate_current_user, only: [:show]
+  before_action :set_restaurant_validate_current_user, only: [:show]
   
   def new
     if current_user.registered_restaurant
@@ -16,6 +15,8 @@ class RestaurantsController < ApplicationController
     @restaurant.user = current_user
 
     if @restaurant.save
+      position = Position.create!(restaurant: @restaurant, description: 'Dono')
+      current_user.update(position: position)
       current_user.update(registered_restaurant: true)
       redirect_to @restaurant, notice: 'Restaurante registrado com sucesso.'
     else
@@ -30,11 +31,8 @@ class RestaurantsController < ApplicationController
 
   private
 
-  def set_restaurant
+  def set_restaurant_validate_current_user
     @restaurant = Restaurant.find(params[:id])
-  end
-
-  def validate_current_user
     if @restaurant.user != current_user
       redirect_to current_user.restaurant, alert: 'Você não tem acesso à esse restaurante.'
     end

@@ -79,6 +79,20 @@ describe '#valid' do
     expect(pre_register.errors.include? :employee_social_number).to eq true
   end
 
+  it 'falso quando cargo for Dono' do
+    user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
+    restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                    phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    position = Position.create!(restaurant: restaurant, description: 'Dono')
+    pre_register = PreRegister.new(restaurant: restaurant, user: user, position: position,
+                                   employee_social_number: '133.976.443-13', employee_email: 'pedro@gmail.com')
+
+    expect(pre_register).not_to be_valid
+    expect(pre_register.errors.include? :position).to eq true
+  end
+
   it 'status inicial é Não cadastrada' do
     user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
                       email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)

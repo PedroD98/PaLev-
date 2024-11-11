@@ -2,7 +2,11 @@
   <h1>Detalhes do Pedido: <%= @order.code %></h1>
   <span class="mb-5">
     <strong>Status: <%= t(@order.status) %></strong>
-    <%= render 'order_buttons'%>
+    <% if @restaurant.opened? %>
+      <%= render 'order_buttons' %>
+    <% else %>
+      Restaurante fechado.
+    <% end %>
   </span>
 </div>
 

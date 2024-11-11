@@ -7,6 +7,8 @@ describe 'Usuário edita item do pedido' do
     restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                     registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
+                          close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
@@ -33,6 +35,8 @@ describe 'Usuário edita item do pedido' do
     restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                     registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
+                          close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
@@ -59,6 +63,8 @@ describe 'Usuário edita item do pedido' do
     restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                     registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
+                          close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
@@ -87,6 +93,8 @@ describe 'Usuário edita item do pedido' do
     restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                     registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
+                          close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
@@ -106,6 +114,8 @@ describe 'Usuário edita item do pedido' do
     restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                     registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
+                          close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
@@ -118,5 +128,25 @@ describe 'Usuário edita item do pedido' do
 
     expect(current_path).to eq order_path order
     expect(page).to have_content 'Essa ação não está disponível para pedidos que não estão em fase de criação.'
+  end
+
+  it 'e restaurante deve estar aberto' do
+    user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
+    restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                    phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    OperatingHour.create!(day_of_week: Date.current.wday, closed: true, restaurant: restaurant)
+    dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
+                        description: 'Caldo de feijão saboroso')
+    portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
+    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order_portion = OrderPortion.create!(order: order, portion: portion, qty: 2)
+
+    login_as user
+    visit edit_order_order_portion_path(order, order_portion, portion_id: portion.id)
+
+    expect(current_path).to eq orders_path
+    expect(page).to have_content 'O restaurante está fechado no momento.'
   end
 end

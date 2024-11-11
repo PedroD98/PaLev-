@@ -1,6 +1,7 @@
 class BeveragesController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
+  before_action :user_is_employee?
   before_action :set_restaurant, only: [:create]
   before_action :set_beverage_and_validate_current_user, only: [:edit, :update, :destroy]
 

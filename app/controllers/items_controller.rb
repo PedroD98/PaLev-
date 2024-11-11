@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
+  before_action :user_is_employee?
   before_action :set_restaurant_items_and_tags, only: [:index, :search, :filter]
   before_action :set_item_and_validate_current_user, only: [:show, :deactivated, :activated]
   def index; end

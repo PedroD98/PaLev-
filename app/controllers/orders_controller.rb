@@ -2,9 +2,12 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
   before_action :set_restaurant
+  before_action :is_restaurant_open?, only: [:new, :create, :confirming,
+                                             :preparing, :done, :delivered]
   before_action :restaurant_has_order_in_creation?, only: [:new, :create]
   before_action :set_order_and_validate_user, only: [:show, :confirming, :preparing,
                                                      :done, :delivered, :canceled]
+  before_action :order_has_items?, only: [:confirming, :preparing, :done, :delivered]
 
 
   def index
@@ -58,6 +61,7 @@ class OrdersController < ApplicationController
 
   def set_restaurant
     @restaurant = current_user.restaurant
+    @restaurant.update_operation_status
   end
 
   def set_order_and_validate_user
@@ -67,6 +71,18 @@ class OrdersController < ApplicationController
     end
   end
 
+  def order_has_items?
+    if @order.order_portions.empty?
+      redirect_to @order, alert: 'Essa ação só pode ser realizada se o pedido não estiver vazio.'
+    end
+  end
+
+  def is_restaurant_open?
+    if @restaurant.closed?
+      redirect_to orders_path, alert: 'O restaurante está fechado no momento.'
+    end
+  end
+  
   def restaurant_has_order_in_creation?
     @order_in_creation = @restaurant.orders.find_by(status: :creating)
     redirect_to orders_path, 

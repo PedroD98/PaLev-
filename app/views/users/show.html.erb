@@ -2,6 +2,7 @@
 
 <div>
   <p><strong>Nome completo:</strong> <%= @user.full_name %></p>
+  <p><strong>Cargo:</strong> <%= @user.position.description %></p>
   <p><strong>E-mail:</strong> <%= @user.email %></p>
   <p><strong>CPF:</strong> <%= @user.social_number %></p>
   <p><strong>Restaurante:</strong> <%= link_to @user.restaurant.restaurant_name, @user.restaurant %></p>

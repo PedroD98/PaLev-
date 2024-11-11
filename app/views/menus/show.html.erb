@@ -11,13 +11,13 @@
 
 <div>
   <% if @menu.items.any? %>
-    <div id="dishes_list" class="flex space-x-4">
+    <div class="flex space-x-4">
 
-      <div class="w-1/2 border-2 pl-10">
+      <div id="dishes_list" class="w-1/2 border-2 pl-6">
         <%= render 'items_list', item_type: 'Dish', title: 'Pratos:'%>
       </div>
       
-      <div id="beverages_list" class="w-1/2 border-2 pl-10">
+      <div id="beverages_list" class="w-1/2 border-2 pl-6">
         <%= render 'items_list', item_type: 'Beverage', title: 'Bebidas:'%>
       </div>
 
@@ -30,19 +30,21 @@
   <% end %>
 </div>
 
-<% if @dishes.any? || @beverages.any? %>
-  <div>
-    <br />
-    <%= link_to 'Adicionar item', edit_restaurant_menu_path(@restaurant, @menu)%> 
-  </div>
+<% if current_user.is_owner %>
+  <% if @dishes.any? || @beverages.any? %>
+    <div>
+      <br />
+      <%= link_to 'Adicionar item', edit_restaurant_menu_path(@restaurant, @menu)%> 
+    </div>
 
-<% else %>
-  <div>
-    <p><strong>Não há items para adicionar ao cardápio.</strong></p>
-    <span class="mr-2"><%= link_to 'Clique aqui', items_path %></span>para cadastrar mais itens.
-  </div>
+  <% else %>
+    <div>
+      <p><strong>Não há items para adicionar ao cardápio.</strong></p>
+      <span class="mr-2"><%= link_to 'Clique aqui', items_path %></span>para cadastrar mais itens.
+    </div>
+  <% end %>
 <% end %>
 
-<div class="mt-5">
+<div class="mt-5 mb-5">
   <%= link_to 'Lista de cardápios', restaurant_menus_path(@restaurant) %>
 </div>

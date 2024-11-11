@@ -86,7 +86,7 @@ describe 'Usuário registra horário de funcionamento' do
                        phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
     OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
-                          close_time: Time.zone.parse('11:59 PM'), closed: false, restaurant: restaurant)
+                          close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
 
     login_as user
     visit root_path
@@ -103,12 +103,30 @@ describe 'Usuário registra horário de funcionamento' do
                        phone_number: '2128270790', address: 'Av Mario, 30', user: user)
     user.update(registered_restaurant: true)
     op = OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
-                               close_time: Time.zone.parse('11:59 PM'), closed: false, restaurant: restaurant)
+                               close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
 
     login_as user
     visit new_restaurant_operating_hour_path restaurant
 
     expect(current_path).to eq restaurant_operating_hour_path(restaurant, op)
     expect(page).to have_content 'Seu Horário de funcionamento já foi cadastrado'
+  end
+
+  it 'e precisa ser o dono do restaurante' do
+    user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
+    restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                    registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                    phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+    employee = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13', is_owner: false,
+                            email: 'pedro@email.com', password: 'passwordpass', registered_restaurant: true)
+    employee.restaurant = restaurant
+
+
+    login_as employee
+    visit new_restaurant_operating_hour_path restaurant
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não tem permissão para acessar essa página.'
   end
 end

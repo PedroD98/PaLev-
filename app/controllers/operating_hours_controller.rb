@@ -1,6 +1,7 @@
 class OperatingHoursController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
+  before_action :user_is_employee?, only: [:new, :create]
   before_action :set_restaurant
   before_action :validate_current_user, only: [:show]
 

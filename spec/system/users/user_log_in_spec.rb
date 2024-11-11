@@ -36,7 +36,7 @@ describe 'Usuário acessa sua conta' do
 
   it 'e é redirecionado para o cadastro do restaurante' do
     User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
-                  email: 'pedro@email.com', password: 'passwordpass')
+                 email: 'pedro@email.com', password: 'passwordpass')
 
     visit root_path
     within 'form' do  
@@ -47,8 +47,5 @@ describe 'Usuário acessa sua conta' do
 
     expect(page).to have_content 'Login efetuado com sucesso.'
     expect(current_path).to eq new_restaurant_path
-  end
-
-  it 'e é redirecionado para a tela do seu restaurante' do
   end
 end

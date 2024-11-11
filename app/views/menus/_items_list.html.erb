@@ -10,7 +10,12 @@
           <% if item.activated? %>
           
             <dt class="max-w-60">
-              <%= link_to item_path(item) do %>
+              <% if current_user.is_owner %>
+                <%= link_to item_path(item) do %>
+                  <%= item.name %>
+                  <%= image_tag(item.image, style: "width: 150px; height: 150px;") if item.image.attached? %>
+                <% end %>
+              <% else %>
                 <%= item.name %>
                 <%= image_tag(item.image, style: "width: 150px; height: 150px;") if item.image.attached? %>
               <% end %>

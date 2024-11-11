@@ -20,5 +20,9 @@
 <% end %>
 
 <div>
-  <%= link_to 'Novo pedido', new_order_path unless @orders.find_by(status: :creating) %>
+  <% if @restaurant.closed? %>
+    <p><strong>Não é possível criar um pedido agora, pois o restaurante está fechado.</strong></p>
+  <% else %>
+    <%= link_to 'Novo pedido', new_order_path unless @orders.find_by(status: :creating) || @restaurant.closed? %>
+  <% end %>
 </div>

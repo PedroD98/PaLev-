@@ -1,6 +1,7 @@
 class PositionsController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
+  before_action :user_is_employee?
   before_action :set_restaurant_and_validate_user
 
   def index
