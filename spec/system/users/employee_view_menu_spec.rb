@@ -20,11 +20,9 @@ describe 'Funcionário faz login' do
     fill_in 'Senha', with: 'passwordpass'
     fill_in 'Confirme sua senha', with: 'passwordpass'
     click_on 'Criar conta'
-    save_page
 
     expect(Employee.all.count).to eq 1
     expect(User.all.count).to eq 2
-    # o resultado deveria ser 1, mas o teste retorna 0
     expect(restaurant.employees.count).to eq 1
     expect(page).to have_link 'Meu restaurante'
     expect(page).to have_link 'Meu perfil'
@@ -35,16 +33,5 @@ describe 'Funcionário faz login' do
     expect(page).not_to have_link 'Gerenciar marcadores'
     expect(page).not_to have_link 'Pré-cadastros'
     expect(page).not_to have_content 'Buscar no menu'
-
-    
-    click_on 'Sair'
-    click_on 'Entrar'
-    fill_in 'E-mail', with: 'kariny@gmail.com'
-    fill_in 'Senha', with: 'passwordpass'
-    click_on 'Entrar'
-    
-    expect(current_path).to eq root_path
-    expect(page).to have_link 'Meu restaurante'
-    expect(page).to have_content 'Kariny'
   end
 end

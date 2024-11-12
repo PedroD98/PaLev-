@@ -45,7 +45,7 @@
       <dt><strong>Pratos:</strong></dt>
       <dd>
         <% @items.each do |item|%>
-          <% if item.type == 'Dish' %>
+          <% if item.is_a?(Dish) %>
             <%= link_to item.name, item_path(item) %>
             <br />
           <% end %>
@@ -54,7 +54,7 @@
       <dt><strong>Bebidas:</strong></dt>
       <dd>
         <% @items.each do |item|%>
-          <% if item.type == 'Beverage' %>
+          <% if item.is_a?(Beverage) %>
             <%= link_to item.name, item_path(item) %>
             <br />
           <% end %>

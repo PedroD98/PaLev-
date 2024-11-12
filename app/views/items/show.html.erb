@@ -21,7 +21,7 @@
       <% end %>
     </div>
     <div>
-      <% if @item.type == 'Beverage' %>
+      <% if @item.is_a?(Beverage) %>
         <p><strong>Contém álcool:</strong> <%= @item.alcoholic ? 'Sim' : 'Não' %></p>
       <% end %>
     </div>
@@ -41,7 +41,7 @@
 
 <div class="flex items-center space-x-4 py-2">
   <div>
-    <%= link_to 'Editar', @item.type == 'Dish' ? edit_dish_path : edit_beverage_path %>
+    <%= link_to 'Editar', @item.is_a?(Dish) ? edit_dish_path : edit_beverage_path %>
   </div>
 
   <div>

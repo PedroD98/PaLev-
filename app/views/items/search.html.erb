@@ -17,7 +17,7 @@
           <div>
               <p><%= link_to item.name, item %></p>
               <p><%= item.description %></p>
-              <p><%= link_to "Editar #{item.name}", item.type == 'Dish' ? edit_dish_path(item) : edit_beverage_path(item) %></p>
+              <p><%= link_to "Editar #{item.name}", item.is_a?(Dish) ? edit_dish_path(item) : edit_beverage_path(item) %></p>
             </dl>
           </div>
 

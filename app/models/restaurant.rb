@@ -1,6 +1,5 @@
 class Restaurant < ApplicationRecord
   belongs_to :user, class_name: 'User', foreign_key: 'owner_id'
-  has_many :employees, class_name: 'Employee', foreign_key: 'restaurant_id'
   has_many :pre_registers
   has_many :employees
   has_many :operating_hours, dependent: :destroy
