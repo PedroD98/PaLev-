@@ -12,7 +12,7 @@ describe 'Usuário edita item do pedido' do
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
     order_portion = OrderPortion.create!(order: order, portion: portion, qty: 2)
 
     login_as user
@@ -40,7 +40,7 @@ describe 'Usuário edita item do pedido' do
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
     order_portion = OrderPortion.create!(order: order, portion: portion, qty: 2)
 
     login_as user
@@ -68,7 +68,7 @@ describe 'Usuário edita item do pedido' do
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
     order_portion = OrderPortion.create!(order: order, portion: portion, qty: 2)
 
     login_as user
@@ -98,7 +98,7 @@ describe 'Usuário edita item do pedido' do
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
     order_portion = OrderPortion.create!(order: order, portion: portion, qty: 2)
 
     login_as other_user
@@ -119,7 +119,7 @@ describe 'Usuário edita item do pedido' do
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
     order_portion = OrderPortion.create!(order: order, portion: portion, qty: 2)
     order.update(status: :confirming)
 
@@ -140,7 +140,7 @@ describe 'Usuário edita item do pedido' do
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
     order_portion = OrderPortion.create!(order: order, portion: portion, qty: 2)
 
     login_as user

@@ -72,7 +72,7 @@ describe 'Usuário acessa detalhes de um pedido' do
     restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                     registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
 
     login_as other_user
     visit order_path order

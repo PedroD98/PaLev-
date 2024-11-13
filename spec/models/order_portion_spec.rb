@@ -10,7 +10,7 @@ describe 'valid#' do
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
     order_portion = OrderPortion.new(order: order, portion: portion, qty: '')
 
     expect(order_portion).not_to be_valid

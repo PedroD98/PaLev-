@@ -2,6 +2,19 @@ require 'rails_helper'
 
 describe '#valid' do
   context 'presence' do
+    it 'falso se nome estiver em branco' do
+      user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
+      restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                      registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                      phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+      order = Order.new(restaurant: restaurant, customer_name: '', customer_social_number: '',
+                        customer_email: 'ana@gmail.com', customer_phone: '21222704555')
+      
+      expect(order).not_to be_valid
+      expect(order.errors.include? :customer_name).to be true
+    end
+
     it 'falso quando telefone e e-mail estiverem em branco' do
       user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
                         email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
@@ -15,25 +28,25 @@ describe '#valid' do
       expect(order.errors.include? :base).to be true
     end
 
-    it 'verdadeiro quando apenas o telefone for preenchido' do
+    it 'verdadeiro quando apenas o telefone e nome forem preenchidos' do
       user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
                         email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
       restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                       phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
-      order = Order.new(restaurant: restaurant, customer_name: '', customer_social_number: '',
+      order = Order.new(restaurant: restaurant, customer_name: 'Ana', customer_social_number: '',
                         customer_email: '', customer_phone: '21222704555')
       
       expect(order).to be_valid
     end
 
-    it 'verdadeiro quando apenas o e-mail for preenchido' do
+    it 'verdadeiro quando apenas o e-mail e nome forem preenchidos' do
       user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
                         email: 'kariny@gmail.com', password: 'passwordpass', registered_restaurant: true)
       restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                       phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
-      order = Order.new(restaurant: restaurant, customer_name: '', customer_social_number: '',
+      order = Order.new(restaurant: restaurant, customer_name: 'Ana', customer_social_number: '',
                         customer_email: 'ana@gmail.com', customer_phone: '')
 
       expect(order).to be_valid

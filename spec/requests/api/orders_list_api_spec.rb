@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe 'Order API' do
-  context 'GET api/v1/orders' do
+  context 'GET api/v1/restaurants/:restaurant_code/orders' do
     it 'erro se código do restaurante for inválido ou não informado' do
-      get '/api/v1/orders', params: { restaurant_code: 'invalid_code' }
+      get '/api/v1/restaurants/ABC1234/orders'
 
       json_response = JSON.parse(response.body)
       expect(response.status).to eq 404
@@ -16,16 +16,16 @@ describe 'Order API' do
       restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                       phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
-      order_1 = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com', status: :done)
-      order_2 = Order.create!(restaurant: restaurant, customer_email: 'maria@gmail.com', status: :confirming)
+      order_1 = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com', status: :done)
+      order_2 = Order.create!(restaurant: restaurant, customer_name: 'Maria',  customer_email: 'maria@gmail.com', status: :confirming)
       other_user = User.create!(name: 'Pedro', surname: 'Dias', social_number: '133.976.443-13',
                                 email: 'pedro@email.com', password: 'passwordpass')
       other_restaurant = Restaurant.create!(legal_name: 'Rede RonaldMc Alimentos', restaurant_name: 'RonaldMc',
                                             registration_number: '41.684.415/0001-09', email: 'contato@RonaldMc.com',
                                             phone_number: '2128270790', address: 'Av Mario, 30', user: other_user)
-      Order.create!(restaurant: other_restaurant, customer_email: 'joão@yahoo.com', status: :canceled)
+      Order.create!(restaurant: other_restaurant, customer_name: 'João',  customer_email: 'joão@yahoo.com', status: :canceled)
 
-      get "/api/v1/orders", params: {restaurant_code: restaurant.code}
+      get "/api/v1/restaurants/#{restaurant.code}/orders"
 
       json_response = JSON.parse(response.body)
       expect(response.status).to eq 200
@@ -46,7 +46,7 @@ describe 'Order API' do
                                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                       phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
       
-      get '/api/v1/orders', params: {restaurant_code: restaurant.code}
+      get "/api/v1/restaurants/#{restaurant.code}/orders"
 
       json_response = JSON.parse(response.body)
       expect(response.status).to eq 200
@@ -60,13 +60,13 @@ describe 'Order API' do
       restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                       phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
-      Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com', status: :creating)
-      Order.create!(restaurant: restaurant, customer_email: 'maria@gmail.com', status: :confirming)
-      Order.create!(restaurant: restaurant, customer_email: 'pedro@bing.com', status: :preparing)
-      Order.create!(restaurant: restaurant, customer_email: 'arthur@outlook.com', status: :done)
-      Order.create!(restaurant: restaurant, customer_email: 'joão@yahoo.com', status: :canceled)
+      Order.create!(restaurant: restaurant, customer_name: 'Ana',  customer_email: 'ana@gmail.com', status: :creating)
+      Order.create!(restaurant: restaurant, customer_name: 'Maria',  customer_email: 'maria@gmail.com', status: :confirming)
+      Order.create!(restaurant: restaurant, customer_name: 'Pedro',  customer_email: 'pedro@bing.com', status: :preparing)
+      Order.create!(restaurant: restaurant, customer_name: 'Arthur',  customer_email: 'arthur@outlook.com', status: :done)
+      Order.create!(restaurant: restaurant, customer_name: 'João',  customer_email: 'joão@yahoo.com', status: :canceled)
 
-      get "/api/v1/orders", params: { restaurant_code: restaurant.code, status_filters: [:creating, :confirming, :preparing] }
+      get "/api/v1/restaurants/#{restaurant.code}/orders", params: { status_filters: [:creating, :confirming, :preparing] }
 
       json_response = JSON.parse(response.body)
       expect(response.status).to eq 200
@@ -83,13 +83,13 @@ describe 'Order API' do
       restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                       registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                       phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
-      Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com', status: :creating)
-      Order.create!(restaurant: restaurant, customer_email: 'maria@gmail.com', status: :confirming)
-      Order.create!(restaurant: restaurant, customer_email: 'pedro@bing.com', status: :confirming)
-      Order.create!(restaurant: restaurant, customer_email: 'arthur@outlook.com', status: :done)
-      Order.create!(restaurant: restaurant, customer_email: 'joão@yahoo.com', status: :canceled)
+      Order.create!(restaurant: restaurant, customer_name: 'Ana',  customer_email: 'ana@gmail.com', status: :creating)
+      Order.create!(restaurant: restaurant, customer_name: 'Maria',  customer_email: 'maria@gmail.com', status: :confirming)
+      Order.create!(restaurant: restaurant, customer_name: 'Pedro',  customer_email: 'pedro@bing.com', status: :preparing)
+      Order.create!(restaurant: restaurant, customer_name: 'Arthur',  customer_email: 'arthur@outlook.com', status: :done)
+      Order.create!(restaurant: restaurant, customer_name: 'João',  customer_email: 'joão@yahoo.com', status: :canceled)
 
-      get "/api/v1/orders", params: { restaurant_code: restaurant.code, status_filters: [:invalid_filter] }
+      get "/api/v1/restaurants/#{restaurant.code}/orders", params: { status_filters: [:confirming, :invalid_filter] }
 
       json_response = JSON.parse(response.body)
       expect(response.status).to eq 200
@@ -105,7 +105,7 @@ describe 'Order API' do
                                       phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
       allow(Order).to receive(:all).and_raise(ActiveRecord::QueryCanceled)
       
-      get '/api/v1/orders', params: { restaurant_code: restaurant.code }
+      get "/api/v1/restaurants/#{restaurant.code}/orders"
 
       expect(response).to have_http_status(500)
     end

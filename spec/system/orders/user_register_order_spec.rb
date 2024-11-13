@@ -69,7 +69,7 @@ describe 'Usuário registra um pedido' do
     restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
                                     registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
-    Order.create!(restaurant: restaurant, customer_email: 'maria@gmail.com')
+    Order.create!(restaurant: restaurant, customer_name: 'Maria', customer_email: 'maria@gmail.com')
     OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
                           close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
 

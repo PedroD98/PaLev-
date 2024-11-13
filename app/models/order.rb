@@ -7,8 +7,9 @@ class Order < ApplicationRecord
   
   before_validation :generate_random_code, on: :create
   before_validation :check_customer_social_number
-  validates :code, uniqueness: true
   before_validation :customer_info_validation
+  validates :code, uniqueness: true
+  validates :customer_name, presence: true
 
   validates :customer_phone, length: { in: 10..11 }, allow_blank: true,
             format: { with: /(?:(^\+\d{2})?)(?:([1-9]{2})|([0-9]{3})?)(\d{4,5})[-]?(\d{4})/ }

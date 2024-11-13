@@ -10,7 +10,7 @@ describe 'Usuário altera status do pedido' do
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
                           close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
@@ -35,7 +35,7 @@ describe 'Usuário altera status do pedido' do
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
                           close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
 
     login_as user
     visit order_path order
@@ -51,7 +51,7 @@ describe 'Usuário altera status do pedido' do
                                     registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     OperatingHour.create!(day_of_week: Date.current.wday, closed: true, restaurant: restaurant)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
 
     login_as user
     visit order_path order
@@ -68,7 +68,7 @@ describe 'Usuário altera status do pedido' do
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
                           close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
@@ -95,7 +95,7 @@ describe 'Usuário altera status do pedido' do
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
                           close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com', status: :confirming)
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com', status: :confirming)
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
@@ -122,7 +122,7 @@ describe 'Usuário altera status do pedido' do
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
                           close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com', status: :preparing)
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com', status: :preparing)
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
@@ -149,7 +149,7 @@ describe 'Usuário altera status do pedido' do
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
                           close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com', status: :done)
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com', status: :done)
     dish = Dish.create!(restaurant_id: restaurant.id, name: 'Feijão amigo', 
                         description: 'Caldo de feijão saboroso')
     portion = Portion.create!(item: dish, description: 'Individual', price: 29.90)
@@ -176,7 +176,7 @@ describe 'Usuário altera status do pedido' do
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     OperatingHour.create!(day_of_week: Date.current.wday, open_time: Time.zone.parse('06:00 AM'),
                           close_time: Time.zone.parse('11:59 PM'), restaurant: restaurant)
-    order = Order.create!(restaurant: restaurant, customer_email: 'ana@gmail.com')
+    order = Order.create!(restaurant: restaurant, customer_name: 'Ana', customer_email: 'ana@gmail.com')
 
     login_as user
     visit order_path order

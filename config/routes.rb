@@ -56,7 +56,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-        resources :orders, only: [:index, :show]
+        get 'restaurants/:restaurant_code/orders', to: 'orders#index'
+        get 'restaurants/:restaurant_code/orders/:order_code', to: 'orders#show'
     end
   end
 end
