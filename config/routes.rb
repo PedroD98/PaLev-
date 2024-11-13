@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: 'users/registrations'}
+  devise_for :users, controllers: { registrations: 'users/registrations' }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -8,8 +8,6 @@ Rails.application.routes.draw do
 
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-
-  # root to: "menus#index"
 
   devise_scope :user do
     unauthenticated :user do
@@ -54,5 +52,11 @@ Rails.application.routes.draw do
     post 'done', on: :member
     post 'delivered', on: :member
     post 'canceled', on: :member
+  end
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+        resources :orders, only: [:index, :show]
+    end
   end
 end
