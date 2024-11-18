@@ -40,6 +40,7 @@ gem 'mini_magick'
 gem "devise"
 gem "ostruct"
 gem "cpf_cnpj"
+gem 'rack-cors'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -5,7 +5,6 @@ class Api::V1::OrdersController < Api::V1::ApiController
   def index
     @orders = Order.all.where(restaurant_id: @restaurant.id)
     filter_orders if params[:status_filters]
-    render status: 200, json: @orders
   end
 
   def show

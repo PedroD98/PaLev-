@@ -30,13 +30,13 @@ describe 'Order API' do
       json_response = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(json_response.length).to eq 2
-      expect(json_response[0]['customer_email']).to eq 'ana@gmail.com'
-      expect(json_response[0]['code']).to eq "#{order_1.code}"
-      expect(json_response[0]['status']).to eq "#{order_1.status}"
-      expect(json_response[1]['customer_email']).to eq 'maria@gmail.com'
-      expect(json_response[1]['code']).to eq "#{order_2.code}"
-      expect(json_response[1]['status']).to eq "#{order_2.status}"
+      expect(json_response['orders'].length).to eq 2
+      expect(json_response['orders'][0]['customer_email']).to eq 'ana@gmail.com'
+      expect(json_response['orders'][0]['code']).to eq "#{order_1.code}"
+      expect(json_response['orders'][0]['status']).to eq "Pronto"
+      expect(json_response['orders'][1]['customer_email']).to eq 'maria@gmail.com'
+      expect(json_response['orders'][1]['code']).to eq "#{order_2.code}"
+      expect(json_response['orders'][1]['status']).to eq "Aguardando confirmação da cozinha"
     end
 
     it 'retorna [] se não há pedidos' do
@@ -51,7 +51,7 @@ describe 'Order API' do
       json_response = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(json_response).to eq []
+      expect(json_response['orders']).to eq []
     end
 
     it 'lista pedidos filtrados' do
@@ -71,10 +71,10 @@ describe 'Order API' do
       json_response = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(json_response.length).to eq 3
-      expect(json_response[0]['status']).to eq 'creating'
-      expect(json_response[1]['status']).to eq 'confirming'
-      expect(json_response[2]['status']).to eq 'preparing'
+      expect(json_response['orders'].length).to eq 3
+      expect(json_response['orders'][0]['status']).to eq 'Em criação'
+      expect(json_response['orders'][1]['status']).to eq 'Aguardando confirmação da cozinha'
+      expect(json_response['orders'][2]['status']).to eq 'Em preparação'
     end
 
     it 'lista todos os pedidos se filtro for inválido ou vazio' do
@@ -94,7 +94,7 @@ describe 'Order API' do
       json_response = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(json_response.length).to eq 5
+      expect(json_response['orders'].length).to eq 5
     end
 
     it 'e retorna internal error' do

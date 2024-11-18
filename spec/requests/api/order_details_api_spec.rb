@@ -43,9 +43,9 @@ describe 'Order API' do
       json_response = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(json_response['order']['customer_name']).to eq 'Pedro'
-      expect(json_response['order']['created_at']).to eq Date.today.strftime('%d/%m/%Y')
-      expect(json_response['order']['status']).to eq 'Aguardando confirmação da cozinha'
+      expect(json_response['customer']['customer_name']).to eq 'Pedro'
+      expect(json_response['order_info']['created_at']).to include Date.today.strftime('%d/%m/%Y')
+      expect(json_response['order_info']['status']).to eq 'Aguardando confirmação da cozinha'
       expect(json_response['items'][0]['portion']).to eq 'Sorvete de chocolate - 1 bola'
       expect(json_response['items'][0]['qty']).to eq 1
       expect(json_response['items'][0]['description']).to eq 'Calda de café'
