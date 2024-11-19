@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Order API' do
-  context 'PATCH apí/v1/restaurants/:restaurant_code/orders/:order_code/preparing' do
+  context 'PATCH api/v1/restaurants/:restaurant_code/orders/:order_code/preparing' do
     it 'falha se pedido não for encontrado' do
       user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
                         email: 'kariny@gmail.com', password: 'passwordpass')
@@ -75,7 +75,7 @@ describe 'Order API' do
     end
   end
 
-  context 'PATCH apí/v1/restaurants/:restaurant_code/orders/:order_code/done' do
+  context 'PATCH api/v1/restaurants/:restaurant_code/orders/:order_code/done' do
     it 'falha se pedido não for encontrado' do
       user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
                         email: 'kariny@gmail.com', password: 'passwordpass')
@@ -129,6 +129,84 @@ describe 'Order API' do
       json_response = JSON.parse(response.body)
       expect(json_response['errors'].length).to eq 1
       expect(json_response['errors'][0]).to eq 'Ação só pode ser feita em pedidos com status: Em preparação' 
+    end
+  end
+
+  context 'PATCH api/v1/restaurants/:restaurant_code/orders/:order_code/canceled' do
+    it 'falha se pedido não for encontrado' do
+      user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass')
+      restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                      registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                      phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+
+      patch "/api/v1/restaurants/#{restaurant.code}/orders/EX12345A/canceled"
+
+      expect(response.status).to eq 404
+      json_response = JSON.parse(response.body)
+      expect(json_response['error']).to eq 'Pedido não encontrado' 
+    end
+
+    it 'altera o status para Cancelado com sucesso' do
+      user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass')
+      restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                      registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                      phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+      order = Order.create!(restaurant: restaurant, customer_name: 'Pedro', customer_email: 'pedro@outlook.com', status: :preparing)
+      dish = Dish.create!(restaurant_id: restaurant.id, name: 'Frango frito', 
+                          description: 'Frango frito picante')
+      portion = Portion.create!(item: dish, description: '8 unid', price: 58.90)
+      OrderPortion.create!(order: order, portion: portion, qty: 1, description: 'Com molho extra')
+      
+      patch "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}/canceled"
+      order.reload
+
+      expect(order.status).to eq 'canceled'
+      json_response = JSON.parse(response.body)
+      expect(json_response['message']).to eq 'Pedido cancelado'
+    end
+
+    it 'status do pedido não deve ser Entregue' do
+      user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass')
+      restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                      registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                      phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+      order = Order.create!(restaurant: restaurant, customer_name: 'Pedro',  customer_email: 'pedro@outlook.com', status: :delivered)
+      dish = Dish.create!(restaurant_id: restaurant.id, name: 'Frango frito', 
+                          description: 'Frango frito picante')
+      portion = Portion.create!(item: dish, description: '8 unid', price: 58.90)
+      OrderPortion.create!(order: order, portion: portion, qty: 1, description: 'Com molho extra')
+      
+      patch "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}/canceled"
+      order.reload
+
+      expect(order.status).to eq 'delivered'
+      json_response = JSON.parse(response.body)
+      expect(json_response['errors'].length).to eq 1
+      expect(json_response['errors'][0]).to eq 'Ação não pode ser feita em pedidos com status: Entregue' 
+    end
+
+    it 'e motivo do cancelamento é registrado com sucesso' do
+      user = User.create!(name: 'Kariny', surname: 'Fonseca', social_number: '621.271.587-41',
+                        email: 'kariny@gmail.com', password: 'passwordpass')
+      restaurant = Restaurant.create!(legal_name: 'Rede Pizza King LTDA', restaurant_name: 'Pizza King',
+                                      registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
+                                      phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
+      order = Order.create!(restaurant: restaurant, customer_name: 'Pedro', customer_email: 'pedro@outlook.com', status: :preparing)
+      dish = Dish.create!(restaurant_id: restaurant.id, name: 'Frango frito', 
+                          description: 'Frango frito picante')
+      portion = Portion.create!(item: dish, description: '8 unid', price: 58.90)
+      OrderPortion.create!(order: order, portion: portion, qty: 1, description: 'Com molho extra')
+      
+      patch "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}/canceled", params: { cancel_reason: 'Cliente não veio buscar o pedido.'}
+      order.reload
+
+      expect(order.status).to eq 'canceled'
+      expect(order.cancel_reason).to eq 'Cliente não veio buscar o pedido.'
+      json_response = JSON.parse(response.body)
+      expect(json_response['message']).to eq 'Pedido cancelado'
     end
   end
 end

@@ -2,6 +2,7 @@ json.order_info do
   json.code @order.code
   json.created_at @order.created_at.strftime('%d/%m/%Y - %H:%M:%S')
   json.status I18n.t(@order.status)
+  json.cancel_reason @order.cancel_reason unless @order.cancel_reason.blank?
 end
 
 json.customer do 

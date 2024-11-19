@@ -60,6 +60,7 @@ Rails.application.routes.draw do
         get 'restaurants/:restaurant_code/orders/:order_code', to: 'orders#show'
         patch 'restaurants/:restaurant_code/orders/:order_code/preparing', to: 'orders#update_to_preparing'
         patch 'restaurants/:restaurant_code/orders/:order_code/done', to: 'orders#update_to_done'
+        patch 'restaurants/:restaurant_code/orders/:order_code/canceled', to: 'orders#update_to_canceled'
     end
   end
 end

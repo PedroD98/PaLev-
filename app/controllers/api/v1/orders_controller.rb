@@ -1,6 +1,7 @@
 class Api::V1::OrdersController < Api::V1::ApiController
   before_action :set_restaurant
-  before_action :set_order_and_items, only: [:show, :update_to_preparing, :update_to_done]
+  before_action :set_order_and_items, only: [:show, :update_to_preparing, :update_to_done,
+                                             :update_to_canceled]
 
   def index
     @orders = Order.all.where(restaurant_id: @restaurant.id)
@@ -24,6 +25,16 @@ class Api::V1::OrdersController < Api::V1::ApiController
     if validate_done_update
       @order.done!
       render status: 200, json: { message: 'Status do pedido atualizado com sucesso' }
+    else
+      render status: 400, json: { errors: @order.errors.full_messages }
+    end
+  end
+
+  def update_to_canceled
+    if validate_canceled_update
+      @order.canceled!
+      @order.update(cancel_reason: params[:cancel_reason]) if params[:cancel_reason]
+      render status: 200, json: { message: 'Pedido cancelado' }
     else
       render status: 400, json: { errors: @order.errors.full_messages }
     end
@@ -67,6 +78,13 @@ class Api::V1::OrdersController < Api::V1::ApiController
     return true  if @order.preparing?
 
     @order.errors.add :base, 'Ação só pode ser feita em pedidos com status: Em preparação'
+    false
+  end
+
+  def validate_canceled_update
+    return true  unless @order.delivered?
+
+    @order.errors.add :base, 'Ação não pode ser feita em pedidos com status: Entregue'
     false
   end
 end

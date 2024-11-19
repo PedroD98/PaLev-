@@ -8,6 +8,11 @@
       Restaurante fechado.
     <% end %>
   </span>
+  <div>
+    <% if @order.cancel_reason %>
+      <strong>Motivo do cancelamento: <%= @order.cancel_reason %></strong>
+    <% end %>
+  </div>
 </div>
 
 

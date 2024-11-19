@@ -54,6 +54,7 @@ class OrdersController < ApplicationController
 
   def canceled
     @order.canceled!
+    @order.update(cancel_reason: params[:cancel_reason]) if params[:cancel_reason]
     redirect_to @order, alert: 'Pedido cancelado.'
   end
 
@@ -91,6 +92,6 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:customer_name, :customer_phone, :customer_email,
-                                  :customer_social_number)
+                                  :customer_social_number, :cancel_reason)
   end
 end
