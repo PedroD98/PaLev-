@@ -39,16 +39,19 @@ class OrdersController < ApplicationController
 
   def preparing
     @order.preparing!
+    @order.update(preparing_timestamp: Time.current)
     redirect_to @order, notice: 'Pedido foi confirmado e está sendo preparado.'
   end
 
   def done
     @order.done!
+    @order.update(done_timestamp: Time.current)
     redirect_to @order, notice: 'Pedido pronto para a entrega.'
   end
 
   def delivered
     @order.delivered!
+    @order.update(delivered_timestamp: Time.current)
     redirect_to @order, notice: 'Pedido entregue com sucesso.'
   end
 

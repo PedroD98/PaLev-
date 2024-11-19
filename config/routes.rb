@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :search_orders, only: [:index] do
+    get 'search', on: :collection
+  end
   resources :users, only: [:show]
 
   resources :pre_registers, only: [:index, :new, :create]

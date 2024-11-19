@@ -1,0 +1,59 @@
+<div>
+  <h2>Detalhes do seu pedido: <%= @searched_order.code %></h2>
+</div>
+
+<div id="restaurant_details" class="mb-10">
+  <p><strong>Estabelecimento:</strong> <%= @searched_order.restaurant.restaurant_name %></p>
+  <p><strong>Endereço:</strong> <%= @searched_order.restaurant.address %></p>
+  <dl>
+    <dt>Contato</dt>
+    <dd> Telefone: <%= @searched_order.restaurant.phone_number %></dd>
+    <dd> E-mail: <%= @searched_order.restaurant.email%></dd>
+  </dl>
+</div>
+
+<div>
+  <h3>Histórico de horários</h3>
+</div>
+
+<div id="time_table" class="max-w-[50%] pl-5">
+  <table>
+    <thead>
+      <tr>
+        <th >STATUS</th>
+        <th>DATA - HORÁRIO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Criado</td>
+        <td><%= @searched_order.created_at.strftime('%d/%m/%Y - %H:%M:%S') %></td>
+      </tr>
+      <% unless @searched_order.preparing_timestamp == nil %>
+        <tr>
+          <td>Início do preparo</td>
+          <td><%= @searched_order.preparing_timestamp.strftime('%d/%m/%Y - %H:%M:%S') %></td>
+        </tr>
+      <% end %>
+
+      <% unless @searched_order.done_timestamp == nil %>
+        <tr>
+          <td>Concluído</td>
+          <td><%= @searched_order.done_timestamp.strftime('%d/%m/%Y - %H:%M:%S') %></td>
+        </tr>
+      <% end %>
+
+      <% unless @searched_order.delivered_timestamp == nil %>
+        <tr>
+          <td>Entregue</td>
+          <td><%= @searched_order.delivered_timestamp.strftime('%d/%m/%Y - %H:%M:%S') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div>
+  <%= link_to 'Buscar outro pedido', search_orders_path%>
+</div>

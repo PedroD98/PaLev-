@@ -15,6 +15,7 @@ class Api::V1::OrdersController < Api::V1::ApiController
   def update_to_preparing
     if validate_preparing_update
       @order.preparing!
+      @order.update(preparing_timestamp: Time.current)
       render status: 200, json: { message: 'Status do pedido atualizado com sucesso' }
     else
       render status: 400, json: { errors: @order.errors.full_messages }
@@ -24,6 +25,7 @@ class Api::V1::OrdersController < Api::V1::ApiController
   def update_to_done
     if validate_done_update
       @order.done!
+      @order.update(done_timestamp: Time.current)
       render status: 200, json: { message: 'Status do pedido atualizado com sucesso' }
     else
       render status: 400, json: { errors: @order.errors.full_messages }

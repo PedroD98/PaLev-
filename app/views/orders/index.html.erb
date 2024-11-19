@@ -2,6 +2,14 @@
   <h1>Pedidos:</h1>
 </div>
 
+<div>
+  <% if @restaurant.closed? %>
+    <p><strong>Não é possível criar um pedido agora, pois o restaurante está fechado.</strong></p>
+  <% else %>
+    <%= link_to 'Novo pedido', new_order_path unless @orders.find_by(status: :creating) || @restaurant.closed? %>
+  <% end %>
+</div>
+
 <% if @orders.any? %>
   <div>
     <% @orders.each do |order| %>
@@ -18,11 +26,3 @@
     <p>Seu restaurante não possui nenhum pedido registrado.</p>
   </div>
 <% end %>
-
-<div>
-  <% if @restaurant.closed? %>
-    <p><strong>Não é possível criar um pedido agora, pois o restaurante está fechado.</strong></p>
-  <% else %>
-    <%= link_to 'Novo pedido', new_order_path unless @orders.find_by(status: :creating) || @restaurant.closed? %>
-  <% end %>
-</div>

@@ -1,0 +1,7 @@
+<h2>Boas-vindas à busca de pedidos</h2>
+
+<%= form_with url: search_search_orders_path, method: :get do |f| %>
+  <%= f.label :query, 'Código' %>
+  <%= f.text_field :query, placeholder: 'Insira o código do seu pedido'%>
+  <%= f.submit 'Buscar', class: 'btn-custom'%>
+<% end %>
