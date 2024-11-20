@@ -15,14 +15,28 @@
     </div>
   <% end %>
 
-  <div id="menu_name_field">
+  <div id="menu_name_field" class="mb-5">
     <%= f.label :name %>
     <%= f.text_field :name %>
+  </div>
+  
+  <h3>Para cardápios sazonais:</h3>
+
+  <div id="starting_date_field" class="mb-5 mt-5">
+    <%= f.label :starting_date %>
+    <%= f.date_field :starting_date %>
+  </div>
+
+  <div id="ending_date_field">
+    <%= f.label :ending_date %>
+    <%= f.date_field :ending_date %>
   </div>
 
   <div id="menu_submit" class="mt-5 mb-5">
     <%=f.submit 'Enviar', class: 'btn-custom' %>
   </div>
-
-
 <% end %>
+
+<div>
+  <%= link_to 'Cancelar cadastro', restaurant_menus_path(@restaurant) %>
+</div>

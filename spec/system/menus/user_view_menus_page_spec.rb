@@ -38,14 +38,17 @@ describe 'Usuário acessa seus cardápios' do
                                     registration_number: '56.281.566/0001-93', email: 'contato@pizzaking.com',
                                     phone_number: '2127670444', address: 'Av Luigi, 30', user: user)
     Menu.create!(restaurant: restaurant, name: 'Executivo')
-    Menu.create!(restaurant: restaurant, name: 'Café da manhã')
+    Menu.create!(restaurant: restaurant, name: 'Café de inverno',
+                 starting_date: Date.today, ending_date: Date.tomorrow)
 
     login_as user
     visit restaurant_menus_path restaurant
 
     expect(page).to have_content 'Cardápios:'
+    expect(page).to have_content 'Regulares:'
     expect(page).to have_link 'Executivo'
-    expect(page).to have_link 'Café da manhã'
+    expect(page).to have_content 'Sazonais:'
+    expect(page).to have_link 'Café de inverno'
     expect(page).to have_link 'Novo cardápio'
   end
 end

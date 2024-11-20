@@ -9,7 +9,10 @@ class MenusController < ApplicationController
   before_action :set_order, only: [:index, :show]
 
   def index
-    @menus = @restaurant.menus
+    @regular_menus = @restaurant.menus.where(starting_date: nil, ending_date: nil)
+    @seasonal_menus = @restaurant.menus.where.not(starting_date: nil, ending_date: nil)
+     
+    @seasonal_menus = @seasonal_menus.select(&:valid_seasonal_menu?) if @order
   end
 
   def new
@@ -77,7 +80,7 @@ class MenusController < ApplicationController
   end
 
   def menu_params
-    params.require(:menu).permit(:name, item_ids: [])
+    params.require(:menu).permit(:name, :starting_date, :ending_date ,item_ids: [])
   end
 
   def handle_item_ids

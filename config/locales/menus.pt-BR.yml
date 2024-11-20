@@ -7,3 +7,5 @@ pt-BR:
     attributes:
       menu:
         name: Nome
+        starting_date: Data de início
+        ending_date: Data de encerramento

@@ -5,6 +5,15 @@
   </h1>
 </div>
 
+<% if @menu.starting_date && @menu.ending_date %>
+  <div>
+    <Strong>Data de início:</Strong> <%= @menu.starting_date.strftime('%d/%m/%Y') %>
+  </div>
+  <div>
+    <Strong>Data de encerramento:</Strong> <%= @menu.ending_date.strftime('%d/%m/%Y') %>
+  </div>
+<% end %>
+
 <div>
   <%= link_to 'Ir para o pedido', @order if @order%>
 </div>

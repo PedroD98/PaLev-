@@ -2,11 +2,46 @@
   <h1>Cardápios:</h1>
 </div>
 
+<div class="mb-5 mt-5">
+  <%= link_to 'Ir para o pedido', @order if @order%>
+</div>
+
+<% if current_user.is_owner %>
+  <div class="mb-8 mt-5">
+    <%= link_to 'Novo cardápio', new_restaurant_menu_path(@restaurant) %>
+  </div>
+<% end %>
+
 <div>
-  <% if @menus.any? %>
-    <% @menus.each do |menu| %>
-      <div class="mt-3 mb-3">
-        <%= link_to menu.name, restaurant_menu_path(@restaurant, menu)%>
+  <% if @regular_menus.any? || @seasonal_menus.any? %>
+    <% if @regular_menus.any? %>
+      <h3>Regulares:</h3>
+
+      <div id="regular_menus">
+        <% @regular_menus.each do |menu| %>
+          <div class="mt-3 mb-3">
+            <%= link_to menu.name, restaurant_menu_path(@restaurant, menu)%>
+          </div>
+        <% end %>
+      </div>
+      
+    <% end %>
+
+    <% if @seasonal_menus.any? %>
+      <h3>Sazonais:</h3>
+      
+      <div id="seasonal_menus">
+        <% @seasonal_menus.each do |seasonal_menu| %>
+          <div class="mt-3 mb-3">
+            <dl>
+              <dt>
+                <%= link_to seasonal_menu.name, restaurant_menu_path(@restaurant, seasonal_menu)%>
+              </dt>
+              <dd>Data de início: <%= seasonal_menu.starting_date.strftime('%d/%m/%Y')%></dd>
+              <dd>Data de encerramento: <%= seasonal_menu.ending_date.strftime('%d/%m/%Y')%></dd>
+            </dl>
+          </div>
+        <% end %>
       </div>
     <% end %>
 
@@ -17,12 +52,3 @@
   <% end %>
 </div>
 
-<div class="mb-5 mt-5">
-  <%= link_to 'Ir para o pedido', @order if @order%>
-</div>
-
-<% if current_user.is_owner %>
-  <div class="mt-5">
-    <%= link_to 'Novo cardápio', new_restaurant_menu_path(@restaurant) %>
-  </div>
-<% end %>
