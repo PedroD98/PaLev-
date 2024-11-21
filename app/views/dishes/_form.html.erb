@@ -17,17 +17,17 @@
     </div>
   <% end %>
 
-  <div id="name_field">
+  <div id="name_field" class="mt-2 mb-2">
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
 
-  <div id="description_field">
+  <div id="description_field" class="mt-2 mb-2">
     <%= f.label :description %>
     <%= f.text_field :description %>
   </div>
 
-  <div id="calories_field">
+  <div id="calories_field" class="mt-2 mb-2">
     <%= f.label :calories %>
     <%= f.number_field :calories %>
   </div>
@@ -61,7 +61,7 @@
     <%= f.file_field :image %>
   </div>
 
-  <div>
+  <div class="mt-2 mb-2">
     <%= f.submit 'Enviar', class: 'btn-custom' %>
   </div>
 <% end %>

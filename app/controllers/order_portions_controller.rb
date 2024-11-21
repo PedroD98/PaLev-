@@ -4,7 +4,7 @@ class OrderPortionsController < ApplicationController
   before_action :set_restaurant_order_and_validate_status
   before_action :is_restaurant_open?
   before_action :validate_user
-  before_action :set_portion
+  before_action :set_portion_and_discount
   before_action :set_order_portion, only: [:edit, :update]
 
   def new
@@ -14,6 +14,7 @@ class OrderPortionsController < ApplicationController
   def create
     @order_portion = @order.order_portions.create(order_portion_params)
     @order_portion.portion = @portion
+    apply_discount if @discount
 
     if @order_portion.save && @order.creating?
       redirect_to @order,
@@ -50,12 +51,16 @@ class OrderPortionsController < ApplicationController
     alert: 'Essa ação não está disponível para pedidos que não estão em fase de criação.' unless @order.creating?
   end
 
-  def set_portion
+  def set_portion_and_discount
     @portion = Portion.find(params[:portion_id])
+
+    valid_discounts = @portion.discounts.select(&:is_discount_valid?) if @portion.discounts.any?
+    @discount = valid_discounts.max_by(&:discount_amount) if valid_discounts
   end
   
   def set_order_portion
     @order_portion = OrderPortion.find(params[:id])
+    
   end
 
   def validate_user
@@ -69,6 +74,10 @@ class OrderPortionsController < ApplicationController
     if @restaurant.closed?
       redirect_to orders_path, alert: 'O restaurante está fechado no momento.'
     end
+  end
+
+  def apply_discount
+    @order_portion.update(discount: @discount)
   end
 
   def order_portion_params

@@ -1,0 +1,26 @@
+<div>
+  <h1>Adicionando porções ao desconto: <%= @discount.name %></h1>
+</div>
+
+<%= form_with model: @discount do |f| %>
+  <% @items.each do |item| %>
+    <div class="mt-3 mb-5">
+      <%= f.label :portion_ids, "#{item.name}" %>
+      <%= f.collection_check_boxes :portion_ids, item.portions, :id, :description do |b| %>
+        <div class="ml-5"> 
+          <%= b.check_box(class: 'mr-1') %>
+          <%= b.label %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="mt-8">
+    <%= f.submit 'Enviar', class: 'btn-custom' %>
+  </div>
+<% end %>
+
+
+<div class="mt-8">
+  <%= link_to 'Cancelar', @discount %>
+</div>

@@ -19,15 +19,24 @@
 
 <% if @order.order_portions.any? %>
   <div class="flex space-x-5 mb-5 mt-5">
+
     <div class="w-1/2 border-2">
       <h3 class="pl-5">Itens do Pedido:</h3>
-      <% total = 0 %>
+      
       <% @order.order_portions.each do |order_portion| %>
-
+        
         <% portion = order_portion.portion %>
         <% subtotal = portion.price * order_portion.qty %>
 
+        <% if order_portion.discount %> 
+          <% total_discount = 0 %>
+          <% total_discount = order_portion.discount_price * order_portion.qty %>
+          <% @order.total_discount_amount += total_discount %>
+        <% end %>
+        
+
         <hr class="h-px my-8 border-0 dark:bg-gray-700">
+
         <div class="flex items-center pl-5">
           <div id="portion_image" class="mr-5">
             <%= image_tag(portion.item.image, style: "width: 120px; height: 120px;") if portion.item.image.attached? %>
@@ -38,28 +47,50 @@
               <dt><%= portion.item.name %></dt>
               <dd><%= order_portion.qty %> x <%= portion.description%> - <%= number_to_currency(subtotal) %> </dd>
               <dd><%= order_portion.description if order_portion.description%></dd>
+
+              <% if order_portion.discount %>
+                <dd>Desconto: <%= order_portion.discount.name %> - <%= number_to_currency(total_discount)%></dd>
+                <dd>
+                  Valor com desconto: <%= number_to_currency(subtotal - total_discount)%>
+                </dd>
+              <% end %>
               <dd><%= link_to 'Editar', edit_order_order_portion_path(@order, order_portion, portion_id: portion.id) if @order.creating? %> </dd>
             </dl>
           </div>
         </div>
-        <% total = total + subtotal %>
+        <% @order.total_amount += subtotal %>
+        
       <% end %>
 
-      <div class="pl-10 mt-10">
+      <div class="pl-10 mt-10 mb-5">
         <%= link_to 'Adicionar item', restaurant_menus_path(@restaurant) if @order.creating? %>
       </div>
     </div>
   
     <div id="customer" class="w-1/2 mb-10">
+
       <div class="max-w-[60%] border-2 pl-10">
         <%= render 'customer_info' %>
       </div>
 
-      <div id="total_price" class="flex max-w-[70%] border-2 pl-10 pb-6 mt-10 mb-10">
-        <span class="mt-5 ml-2">
+      <div id="total_price" class="max-w-[70%] border-2 pl-10 pb-6 mt-10 mb-10">
+
+        <div class="mt-5 ml-2">
           <strong>Total do pedido: </strong>
-          <%= number_to_currency(total)%> 
-        </span>
+          <%= number_to_currency(@order.total_amount)%>
+        </div>
+
+          <% if @order.total_discount_amount > 0 %>
+            <div class="mt-5 ml-2">
+              <strong>Descontos:</strong>
+              <%= number_to_currency(@order.total_discount_amount) %>
+            </div>
+            
+            <div class="mt-5 ml-2">
+              <strong>Valor final:</strong>
+              <%= number_to_currency(@order.total_amount - @order.total_discount_amount) %>
+            </div>
+          <% end %>
       </div>
     </div>
   </div>

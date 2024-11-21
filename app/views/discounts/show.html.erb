@@ -1,0 +1,79 @@
+<div>
+  <h1>Desconto: <%= @discount.name %></h1>
+  <h3>Porcentagem do desconto: <%= @discount.discount_amount %>%</h3>
+</div>
+
+<div>
+  <dl>
+    <dt>Validade:</dt>
+    <dd>Início: <%= @discount.starting_date.strftime('%d/%m/%Y') %></dd>
+    <dd>Encerramento: <%= @discount.ending_date.strftime('%d/%m/%Y') %></dd>
+  </dl>
+</div>
+
+<div class="mt-3 mb-3">
+  <strong>Limite de uso: </strong><%= @discount.max_use %>
+</div>
+<div class="mt-3 mb-3">
+  <strong>Usos restantes: </strong><%= @discount.remaining_uses %>
+</div>
+
+<% if @items.any? %>
+  <div class="mt-5 mb-5">
+    <%= link_to 'Adicionar porções', edit_discount_path(@discount) %>
+  </div>
+
+<% else %>
+  <div>
+    <h2>Ainda não há itens cadastrados</h2>
+    <p><%= link_to 'Clique aqui', items_path %> para cadastrar um item</p>
+  </div>
+<% end %>
+
+
+<% if @discount.portions.any? %>
+
+  <h3>Porções incluídas:</h3>
+  <div>
+    <dl>
+      <% @discount.portions.group_by(&:item).each do |item, portions| %>
+        <dt><%= link_to "#{item.name}", item_path(item) %></dt>
+
+        <% portions.each do |portion| %>
+          <dd><%= portion.description %> - <%= number_to_currency(portion.price) %></dd>
+        <% end %>
+      <% end %>
+    </dl>
+  </div>
+ 
+<% end %>
+
+<% if @discount.orders.any? %>
+
+  <h3>Pedidos que usaram o desconto:</h3>
+  <table class="mt-5 mb-5 max-w-[75%]">
+    <thead>
+      <tr>
+        <th>Código da porção</th>
+        <th>Data</th>
+        <th>Valor</th>
+        <th>Valor após desconto</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @discount.orders.each do |order| %>
+          <tr>
+            <td><%= link_to order.code, order %></td>
+            <td><%= order.created_at.strftime('%d/%m/%Y') %></td>
+            <td><%= number_to_currency(order.total_amount) %></td>
+            <td><%= number_to_currency(order.total_discount_amount) %></td>
+          </tr>
+        <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+
+<div class="mt-8">
+  <%= link_to 'Voltar', discounts_path %>
+</div>

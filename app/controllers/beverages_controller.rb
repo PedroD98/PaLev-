@@ -3,7 +3,7 @@ class BeveragesController < ApplicationController
   before_action :user_has_registered_restaurant?
   before_action :user_is_employee?
   before_action :set_restaurant, only: [:create]
-  before_action :set_beverage_and_validate_current_user, only: [:edit, :update, :destroy]
+  before_action :set_beverage_and_validate_current_user, only: [:edit, :update]
 
   def new
     @beverage = Beverage.new
@@ -31,13 +31,6 @@ class BeveragesController < ApplicationController
       render 'edit'
     end
   end
-
-  def destroy
-    @beverage.portions.destroy_all
-    @beverage.destroy
-    redirect_to items_path, notice: 'Bebida removida com sucesso!'
-  end
-
 
   private
   

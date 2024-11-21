@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      discount: Desconto
+    attributes:
+      discount:
+        name: Nome
+        discount_amount: Porcentagem do desconto
+        starting_date: Data de início
+        ending_date: Data de encerramento
+        max_use: Limite de uso
+        remaining_uses: Usos restantes

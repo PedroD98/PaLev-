@@ -51,12 +51,6 @@
       <p><%= button_to 'Ativar', activated_item_path(@item.id), class: 'btn-custom' %> </p>
     <% end %>
   </div>
-
-  <div>
-    <%= button_to 'Excluir', @item, method: :delete,
-        class: 'bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700',
-        data: { turbo_confirm: 'Tem certeza de que deseja excluir este item?'} %>
-  </div>
 </div>
 
 <div id="item_price_history">
@@ -70,11 +64,25 @@
 
 <div id="portions">
   <% if @item.portions.any? %>
+
     <% @item.portions.each do |portion| %>
       <dl>
         <dt><%= portion.description %></dt>
         <dd><%= number_to_currency(portion.price) %></dd>
         <dd><%= link_to 'Editar preço', edit_item_portion_path(@item, portion)%></dd>
+
+        <% if portion.discounts.select(&:is_discount_valid?).any? %>
+          <dd><strong>Promoções</strong></dd>
+
+          <% portion.discounts.select(&:is_discount_valid?).each do |discount| %>
+
+            <dd class="ml-5">
+              <%= link_to discount.name, discount if current_user.is_owner %>
+              <%= discount.name if !current_user.is_owner %>
+               - <%= discount.discount_amount %>%
+            </dd>
+          <% end %>
+        <% end %>
         <dd><%= link_to 'Histórico de preços', item_portion_price_history_path(@item, portion) %></dd>
       </dl>
     <% end %>

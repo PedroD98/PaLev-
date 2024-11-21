@@ -1,0 +1,13 @@
+<h1>Histórico de descontos:</h1>
+
+<% @discounts.each do |discount| %>
+  <dl>
+    <dt><%= link_to "#{discount.name}", discount %></dt>
+    <dd><strong>Início: </strong><%= discount.starting_date.strftime('%d/%m/%Y') %></dd>
+    <dd><strong>Encerramento: </strong><%= discount.ending_date.strftime('%d/%m/%Y') %></dd>
+  </dl>
+<% end %>
+
+<div>
+  <%= link_to 'Voltar', discounts_path %>
+</div>

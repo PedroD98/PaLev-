@@ -40,6 +40,7 @@
           <%= link_to 'Pedidos', orders_path %>
           <% if current_user.is_owner %>
             | <%= link_to 'Cargos', restaurant_positions_path(current_user.restaurant) %> |
+            <%= link_to 'Gerenciar descontos', discounts_path %> |
             <%= link_to 'Lista de itens', items_path %> |
             <%= link_to 'Gerenciar marcadores', tags_path %> |
             <%= link_to 'Pré-cadastros', pre_registers_path %>

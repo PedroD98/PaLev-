@@ -12,10 +12,13 @@
 
 <% if @tags.any? %>
   <%= form_with url: filter_items_path, method: :get do |f| %>
-    <div id="tags_field" class="flex flex-wrap mt-5 border">
-      <%= f.label :tag_filter_ids, 'Filtrar por:', class: 'mr-2' %>
+
+    <div id="tags_field" class="flex flex-wrap mt-5 border max-w-[70%]">
+
+      <%= f.label :tag_filter_ids, 'Filtrar por:', class: 'mr-2 p-2' %>
       <%= f.collection_check_boxes :tag_filter_ids, @tags, :id, :name do |b| %>
-        <div class="mr-2 ml-4"> 
+      
+        <div class="mr-3 ml-2 pt-2"> 
           <%= b.check_box(class: 'mr-1') %>
           <%= b.label(class: 'inline') %>
         </div>

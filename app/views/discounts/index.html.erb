@@ -1,0 +1,29 @@
+<div>
+  <h1>Descontos:</h1>
+</div>
+
+<div class="mb-5">
+  <%= link_to 'Ver histórico de descontos', list_discounts_path if @restaurant.discounts.any? %>
+</div>
+
+<% if @discounts.empty? %>
+  <div>
+    <h2>Nenhum desconto ativo no momento.</h2>
+    <%= link_to 'Clique aqui', new_discount_path %> para cadastrar um novo desconto
+  </div>
+  
+<% else %>
+  <div class="mt-5 mb-5">
+    <%= link_to 'Novo desconto', new_discount_path %>
+  </div>
+  <h3>Descontos válidos:</h3>
+  <% @discounts.each do |discount| %>
+    <div class="ml-5">
+      <dl>
+        <dt><%= link_to "#{discount.name}", discount %></dt>
+        <dd><strong>Início: </strong><%= discount.starting_date.strftime('%d/%m/%Y') %></dd>
+        <dd><strong>Encerramento: </strong><%= discount.ending_date.strftime('%d/%m/%Y') %></dd>
+      </dl>
+    </div>
+  <% end %>
+<% end %>

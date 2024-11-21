@@ -34,6 +34,8 @@ class OrdersController < ApplicationController
 
   def confirming
     @order.confirming!
+    @order.create_discount_orders
+    @order.calculate_order_totals
     redirect_to @order, notice: 'Pedido enviado para a cozinha.'
   end
 
@@ -92,6 +94,19 @@ class OrdersController < ApplicationController
     redirect_to orders_path, 
       alert: 'É permitido ter apenas um pedido com status: Em criação.' if @order_in_creation
   end
+
+  # def create_discount_order
+  #   @order.order_portions.each do |order_portion|
+
+  #     if order_portion.discount
+  #       discount_order = DiscountOrder.find_by(order: @order , discount_id: order_portion.discount)
+
+  #       unless discount_order
+  #         @order.discount_orders.create(discount: order_portion.discount)
+  #       end
+  #     end
+  #   end
+  # end
 
   def order_params
     params.require(:order).permit(:customer_name, :customer_phone, :customer_email,

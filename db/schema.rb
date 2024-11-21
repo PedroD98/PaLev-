@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_19_202504) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_21_191251) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,37 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_19_202504) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "discount_orders", force: :cascade do |t|
+    t.integer "discount_id", null: false
+    t.integer "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discount_id"], name: "index_discount_orders_on_discount_id"
+    t.index ["order_id"], name: "index_discount_orders_on_order_id"
+  end
+
+  create_table "discount_portions", force: :cascade do |t|
+    t.integer "discount_id", null: false
+    t.integer "portion_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discount_id"], name: "index_discount_portions_on_discount_id"
+    t.index ["portion_id"], name: "index_discount_portions_on_portion_id"
+  end
+
+  create_table "discounts", force: :cascade do |t|
+    t.integer "restaurant_id", null: false
+    t.string "name"
+    t.integer "discount_amount"
+    t.datetime "starting_date"
+    t.datetime "ending_date"
+    t.integer "max_use"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "remaining_uses"
+    t.index ["restaurant_id"], name: "index_discounts_on_restaurant_id"
   end
 
   create_table "dish_tags", force: :cascade do |t|
@@ -98,6 +129,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_19_202504) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "discount_id"
+    t.decimal "discount_price"
+    t.index ["discount_id"], name: "index_order_portions_on_discount_id"
     t.index ["order_id"], name: "index_order_portions_on_order_id"
     t.index ["portion_id"], name: "index_order_portions_on_portion_id"
   end
@@ -116,6 +150,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_19_202504) do
     t.datetime "preparing_timestamp"
     t.datetime "done_timestamp"
     t.datetime "delivered_timestamp"
+    t.decimal "total_amount", default: "0.0"
+    t.decimal "total_discount_amount", default: "0.0"
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 
@@ -209,6 +245,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_19_202504) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "discount_orders", "discounts"
+  add_foreign_key "discount_orders", "orders"
+  add_foreign_key "discount_portions", "discounts"
+  add_foreign_key "discount_portions", "portions"
+  add_foreign_key "discounts", "restaurants"
   add_foreign_key "dish_tags", "items"
   add_foreign_key "dish_tags", "tags"
   add_foreign_key "items", "restaurants"
@@ -216,6 +257,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_19_202504) do
   add_foreign_key "menu_items", "menus"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "operating_hours", "restaurants"
+  add_foreign_key "order_portions", "discounts"
   add_foreign_key "order_portions", "orders"
   add_foreign_key "order_portions", "portions"
   add_foreign_key "orders", "restaurants"

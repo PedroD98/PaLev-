@@ -19,8 +19,10 @@ class PreRegister < ApplicationRecord
   end
 
   def position_is_owner?
-    if self.position.description == 'Dono'
-      self.errors.add :position, 'não pode ser Dono.'
+    if self.position
+      if self.position.description == 'Dono'
+        self.errors.add :position, 'não pode ser Dono.'
+      end  
     end
   end
 end

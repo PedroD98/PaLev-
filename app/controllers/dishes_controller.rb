@@ -2,8 +2,8 @@ class DishesController < ApplicationController
   before_action :authenticate_user!
   before_action :user_has_registered_restaurant?
   before_action :user_is_employee?
-  before_action :set_restaurant, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_dish_and_validate_current_user, only: [:edit, :update, :destroy]
+  before_action :set_restaurant, only: [:new, :create, :edit, :update]
+  before_action :set_dish_and_validate_current_user, only: [:edit, :update]
   before_action :handle_tag_ids, only: [:create, :update]
 
   def new
@@ -34,13 +34,7 @@ class DishesController < ApplicationController
       render 'edit', status: :unprocessable_entity
     end
   end
-
-  def destroy
-    @dish.portions.destroy_all
-    @dish.destroy
-    redirect_to items_path, notice: 'Prato removido com sucesso!'
-  end
-
+  
   private
 
   def set_dish_and_validate_current_user

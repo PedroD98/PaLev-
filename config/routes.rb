@@ -39,13 +39,13 @@ Rails.application.routes.draw do
     post 'activated', on: :member
     post 'deactivated', on: :member
     get 'price_history', to: 'price_histories#show'
-    resources :portions, only: [:show, :new, :create, :edit, :update, :destroy] do
+    resources :portions, only: [:show, :new, :create, :edit, :update] do
       get 'price_history', to: 'price_histories#details'
     end
   end
 
-  resources :dishes, only: [:new, :create, :edit, :update, :destroy]
-  resources :beverages, only: [:new, :create, :edit, :update, :destroy]
+  resources :dishes, only: [:new, :create, :edit, :update]
+  resources :beverages, only: [:new, :create, :edit, :update]
   resources :tags
 
   resources :orders, only: [:index, :new, :create, :show] do
@@ -55,6 +55,10 @@ Rails.application.routes.draw do
     post 'done', on: :member
     post 'delivered', on: :member
     post 'canceled', on: :member
+  end
+
+  resources :discounts do 
+    get 'list', on: :collection
   end
 
   namespace :api, defaults: { format: :json } do

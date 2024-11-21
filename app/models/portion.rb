@@ -3,6 +3,8 @@ class Portion < ApplicationRecord
   has_many :price_histories
   has_many :order_portions
   has_many :orders, through: :order_portions
+  has_many :discount_portions, dependent: :destroy
+  has_many :discounts, through: :discount_portions
   validates :description, :price, presence: true
   validates :description, uniqueness: { scope: :item }
   before_validation :validate_price

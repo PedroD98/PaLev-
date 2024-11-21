@@ -1,0 +1,48 @@
+<h1>Novo desconto:</h1>
+
+<% if @discount.errors.any? %>
+  <div>
+    <h2>Desconto não pôde ser criado:</h2>
+    <ul>
+      <% @discount.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @discount do |f| %>
+  <div id="name_field">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: 'Ex: Semana do suco' %>
+  </div>
+
+  <div id="discount_amount_field" class="mb-2 mt-2">
+    <%= f.label :discount_amount %>
+    <%= f.number_field :discount_amount, placeholder: 'Ex: 15, 50, 25, ...' %>
+  </div>
+
+  <div id="starting_date_field" class="mb-2 mt-2">
+    <%= f.label :starting_date %>
+    <%= f.date_field :starting_date %>
+  </div>
+
+  <div id="ending_date_field" class="mb-2 mt-2">
+    <%= f.label :ending_date %>
+    <%= f.date_field :ending_date %>
+  </div>
+
+  <div id="max_use_field" class="mb-2 mt-2">
+    <%= f.label :max_use %>
+    <%= f.number_field :max_use %>
+  </div>
+
+  <div class="mt-5 mb-5">
+    <%= f.submit 'Criar desconto', class: 'btn-custom'%>
+  </div>
+
+<% end %>
+
+<div>
+  <%= link_to 'Cancelar cadastro', discounts_path %>
+</div>

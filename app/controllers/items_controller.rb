@@ -4,6 +4,8 @@ class ItemsController < ApplicationController
   before_action :user_is_employee?
   before_action :set_restaurant_items_and_tags, only: [:index, :search, :filter]
   before_action :set_item_and_validate_current_user, only: [:show, :deactivated, :activated]
+  before_action :set_discounts
+
   def index; end
 
   def show; end
@@ -50,5 +52,9 @@ class ItemsController < ApplicationController
     unless @item.restaurant == current_user.restaurant
       redirect_to items_path, alert: 'Você não pode acessar esse item'
     end
+  end
+
+  def set_discounts
+    @discounts = current_user.restaurant.discounts.select(&:is_discount_valid?)
   end
 end
