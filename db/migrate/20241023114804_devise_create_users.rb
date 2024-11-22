@@ -35,7 +35,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.2]
       t.string :name
       t.string :surname
       t.string :social_number
-      t.boolean :registrated_restaurant, default: false
+      t.boolean :registered_restaurant, default: false
 
       t.timestamps null: false
     end

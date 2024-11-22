@@ -8,7 +8,7 @@ class PriceHistoriesController < ApplicationController
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
     validate_user
-    @price_histories = @restaurant.price_histories
+    @price_histories = @restaurant.price_histories.sort_by(&:description)
   end
 
   def show

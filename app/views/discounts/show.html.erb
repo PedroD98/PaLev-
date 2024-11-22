@@ -11,12 +11,14 @@
   </dl>
 </div>
 
-<div class="mt-3 mb-3">
-  <strong>Limite de uso: </strong><%= @discount.max_use %>
-</div>
-<div class="mt-3 mb-3">
-  <strong>Usos restantes: </strong><%= @discount.remaining_uses %>
-</div>
+<% if @discount.max_use %>
+  <div class="mt-3 mb-3">
+    <strong>Limite de uso: </strong><%= @discount.max_use %>
+  </div>
+  <div class="mt-3 mb-3">
+    <strong>Usos restantes: </strong><%= @discount.remaining_uses %>
+  </div>
+<% end %>
 
 <% if @items.any? %>
   <div class="mt-5 mb-5">
