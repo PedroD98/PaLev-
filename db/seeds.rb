@@ -47,8 +47,13 @@ sweet = Tag.create!(restaurant: restaurant, name: 'Alto teor de açúcar')
 quibe = Dish.create!(restaurant: restaurant, name: 'Quibe', calories: 100, 
                      description: 'Quibe fresco feito na casa', tags: [spicy])
 
+quibe.image.attach(io: File.open('db/seed_images/quibe_image.jpg'),
+                   filename: 'quibe_image.jpg',
+                   content_type: 'image/jpeg')
+
 quibe_1 = Portion.create!(item: quibe, description: '1 unid.', price: 7)
 quibe_3 = Portion.create!(item: quibe, description: '3 unid.', price: 18.50)
+
 
 PriceHistory.create!(restaurant: restaurant, item_id: quibe.id, portion_id: quibe_1.id,
                      price: quibe_1.price, insertion_date: I18n.l(Date.today),
@@ -60,6 +65,10 @@ PriceHistory.create!(restaurant: restaurant, item_id: quibe.id, portion_id: quib
 vegan_burguer =  Dish.create!(restaurant: restaurant, name: 'Hambúrguer de Soja', calories: 230,
                               description: 'Hambúrguer feito com soja de produtores locais', tags: [vegan])
 
+vegan_burguer.image.attach(io: File.open('db/seed_images/vegan_burguer_image.jpg'),
+                           filename: 'vegan_burguer_image.jpg',
+                           content_type: 'image/jpeg')
+
 burguer_portion = Portion.create!(item: vegan_burguer, description: 'Individual', price: 14.90)
 
 PriceHistory.create!(restaurant: restaurant, item_id: vegan_burguer.id, portion_id: burguer_portion.id,
@@ -68,6 +77,10 @@ PriceHistory.create!(restaurant: restaurant, item_id: vegan_burguer.id, portion_
 
 coxinha = Dish.create!(restaurant: restaurant, name: 'Coxinha', calories: 342,
                        description: 'Coxinha de frango')
+
+coxinha.image.attach(io: File.open('db/seed_images/coxinha_image.jpg'),
+                     filename: 'coxinha_image.jpg',
+                     content_type: 'image/jpeg')
 
 coxinha_1 = Portion.create!(item: coxinha, description: '1 unid.', price: 5)
 coxinha_3 = Portion.create!(item: coxinha, description: '3 unid.', price: 14.80)
@@ -87,6 +100,10 @@ PriceHistory.create!(restaurant: restaurant, item_id: coxinha.id, portion_id: co
 cake =  Dish.create!(restaurant: restaurant, name: 'Bolo de cenoura', calories: 400,
                      description: 'Bolo de vó', tags: [sweet])
 
+cake.image.attach(io: File.open('db/seed_images/cake_image.jpg'),
+                  filename: 'cake_image.jpg',
+                  content_type: 'image/jpeg')
+
 cake_individual = Portion.create!(item: cake, description: 'Fatia individual', price: 8.90)
 cake_family = Portion.create!(item: cake, description: 'Bolo inteiro', price: 90)
 
@@ -99,6 +116,11 @@ PriceHistory.create!(restaurant: restaurant, item_id: cake.id, portion_id: cake_
 
 ice_cream = Dish.create!(restaurant: restaurant, name: 'Sorvete', calories: 328,
                          description: 'Sorvete artesanal de chocolate', tags: [sweet])
+
+ice_cream.image.attach(io: File.open('db/seed_images/ice_cream_image.jpg'),
+                       filename: 'ice_cream_image.jpg',
+                       content_type: 'image/jpeg')
+
 
 ice_cream_1 = Portion.create!(item: ice_cream, description: '1 bola', price: 7.90)
 ice_cream_2 = Portion.create!(item: ice_cream, description: '2 bolas', price: 15)
@@ -117,6 +139,10 @@ PriceHistory.create!(restaurant: restaurant, item_id: ice_cream.id, portion_id: 
 coca = Beverage.create!(restaurant: restaurant, name: 'Coca Cola',
                         description: 'Coquinha gelada', calories: 430)
 
+coca.image.attach(io: File.open('db/seed_images/coca_image.jpg'),
+                  filename: 'coca_image.jpg',
+                  content_type: 'image/jpeg')
+
 can = Portion.create!(item: coca, description: 'Coca lata', price: 7.30)
 bottle = Portion.create!(item: coca, description: 'Garrafa 1,5L', price: 18.90)
 
@@ -129,6 +155,10 @@ PriceHistory.create!(restaurant: restaurant, item_id: coca.id, portion_id: bottl
 
 caipirinha = Beverage.create!(restaurant: restaurant, name: 'Caipirinha de Limão',
                               description: 'Brasilidade em forma líquida', calories: 390)
+
+caipirinha.image.attach(io: File.open('db/seed_images/caipirinha_image.jpg'),
+                        filename: 'caipirinha_image.jpg',
+                        content_type: 'image/jpeg')
 
 caipi_small = Portion.create!(item: caipirinha, description: 'Copo 400ml', price: 12.90)
 caipi_large = Portion.create!(item: caipirinha, description: 'Copo 700ml', price: 18.50)
@@ -143,6 +173,10 @@ PriceHistory.create!(restaurant: restaurant, item_id: caipirinha.id, portion_id:
 beer = Beverage.create!(restaurant: restaurant, name: 'Cerveja', alcoholic: true,
                         description: 'Cerveja gelada', calories: 470)
 
+beer.image.attach(io: File.open('db/seed_images/beer_image.jpg'),
+                  filename: 'beer_image.jpg',
+                  content_type: 'image/jpeg')
+
 beer_1 = Portion.create!(item: beer, description: '1 unid.', price: 12.90)
 beer_10 = Portion.create!(item: beer, description: 'Balde com 10 unid.', price: 110.80)
 
@@ -155,6 +189,11 @@ PriceHistory.create!(restaurant: restaurant, item_id: beer.id, portion_id: beer_
 
 orange_juice = Beverage.create!(restaurant: restaurant, name: 'Suco de Laranja',
                                 description: 'Suco natural da fruta')
+
+orange_juice.image.attach(io: File.open('db/seed_images/orange_juice_image.jpg'),
+                          filename: 'orange_juice_image.jpg',
+                          content_type: 'image/jpeg')
+
 
 juice_small = Portion.create!(item: orange_juice, description: 'Copo 400ml', price: 5.50)
 juice_large = Portion.create!(item: orange_juice, description: 'Copo 700ml', price: 9.30)
