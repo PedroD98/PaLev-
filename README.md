@@ -2,8 +2,7 @@
 
 ## Descrição
 - Boas-vindas ao PaLevá, um projeto feito em Ruby on Rails.
-- O projeto permite que o usuário crie e gerencie seu restaurante;
-Este é um sistema de gestão de restaurante desenvolvido em Ruby on Rails. O projeto permite que os usuários cadastrem restaurantes, itens (pratos e bebidas), e gerenciem pedidos. A aplicação também conta com funcionalidades de autenticação, controle de acesso e gerenciamento de dados de horários de funcionamento.
+- O projeto permite que o usuário crie e gerencie seu restaurante e use suas diversas funcionalidades.
 
 ## Funcionalidades
 - <p> <strong>Cadastro de usuários e autenticação</strong>: Utiliza o Devise para autenticação e registro de usuários.</p>
